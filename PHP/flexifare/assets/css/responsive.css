@@ -1,0 +1,117 @@
+@media(min-width:320px) and (max-width:460px){
+.header-text {text-align: center;padding-top: 100px;    padding-bottom: 86px;}
+.header-text h2{    font-size: 38px;}
+.header-button{padding-bottom: 154px;}
+.flexifare-area {margin-top: 21px;    text-align: center;}
+.flexifare-area p	{    margin-bottom: 47px;}
+.tourism-section-left{margin-top: 110px;}
+.tourism-section{ margin-top: 50px;    margin-bottom:22px;}	
+.get-discount-right{padding: 77px 20px 12px 20px;}
+.logo-bottom{padding-top: 77px;}
+.header-border-line {display: none;}
+.navbar-collapse {padding-right: 15px;padding-left: 15px;overflow-x: visible;-webkit-overflow-scrolling: touch;
+    border-top: 1px solid transparent;-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);box-shadow: inset 0 1px 0 rgba(255,255,255,.1);position: absolute;z-index: 1;background-color: rgba(7, 40, 56, 0.97);width: 100%;}	
+
+.navbar-toggle{margin-top: 39px;}
+
+}
+
+
+@media(min-width:461px) and (max-width:660px){
+.header-text {text-align: center;padding-top: 100px;    padding-bottom: 86px;}
+.header-text h2{    font-size: 38px;}
+.header-button{padding-bottom: 154px;}
+.flexifare-area {margin-top: 21px;    text-align: center;}
+.flexifare-area p	{    margin-bottom: 47px;}
+.tourism-section-left{margin-top: 110px;}
+.tourism-section{ margin-top: 50px;    margin-bottom:22px;}	
+.get-discount-right{padding: 77px 20px 12px 20px;}
+.logo-bottom{padding-top: 77px;}
+.header-border-line {display: none;}
+.navbar-collapse {padding-right: 15px;padding-left: 15px;overflow-x: visible;-webkit-overflow-scrolling: touch;
+    border-top: 1px solid transparent;-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);box-shadow: inset 0 1px 0 rgba(255,255,255,.1);position: absolute;z-index: 1;background-color: rgba(7, 40, 56, 0.97);width: 100%;}		
+	
+	.navbar-toggle{margin-top: 39px;}
+}
+
+
+
+@media(min-width:661px) and (max-width:767px){
+.header-text {text-align: center;padding-top: 100px;    padding-bottom: 86px;}
+.header-text h2{    font-size: 38px;}
+.header-button{padding-bottom: 154px;}
+.flexifare-area {margin-top: 21px;    text-align: center;}
+.flexifare-area p	{    margin-bottom: 47px;}
+.tourism-section-left{margin-top: 110px;}
+.tourism-section{ margin-top: 50px;    margin-bottom:22px;}	
+.get-discount-right{padding: 77px 20px 12px 20px;}
+.logo-bottom{padding-top: 77px;}
+.header-border-line {display: none;}
+.navbar-collapse {padding-right: 15px;padding-left: 15px;overflow-x: visible;-webkit-overflow-scrolling: touch;
+    border-top: 1px solid transparent;-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);box-shadow: inset 0 1px 0 rgba(255,255,255,.1);position: absolute;z-index: 1;background-color: rgba(7, 40, 56, 0.97);width: 100%;}		
+	
+	.navbar-toggle{margin-top: 39px;}
+	
+	
+}
+
+
+
+
+@media(min-width:768px) and (max-width:991px){
+	.get-discount-right{padding: 18px 20px;}
+	.get-discount-right h4{font-size: 27px;   margin: 0px;margin-bottom: 5px;}
+	.get-discount-section-2 .get-discount-right {padding: 18px 20px;}
+	.get-discount-section-2 .get-discount-right h4{font-size: 27px;   margin: 0px;margin-bottom: 5px;}
+	.header-border-line {display: none;}
+	.navbar-collapse {padding-right: 15px;padding-left: 15px;overflow-x: visible;-webkit-overflow-scrolling: touch;
+    border-top: 1px solid transparent;-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);box-shadow: inset 0 1px 0 rgba(255,255,255,.1);position: absolute;z-index: 1;background-color: rgba(7, 40, 56, 0.97);width: 100%;}	
+	.navbar-toggle{margin-top: 39px;}
+}
+
+
+
+
+
+
+
+@media(min-width:992px) and (max-width:1199px){
+	
+	.get-discount-right{padding: 18px 20px;}
+	.get-discount-right h4{font-size: 27px;   margin: 0px;margin-bottom: 5px;}
+	.get-discount-section-2 .get-discount-right {padding: 18px 20px;}
+	.get-discount-section-2 .get-discount-right h4{font-size: 27px; margin: 0px;margin-bottom: 5px;}
+	
+	
+}
+
+
+
+/* TOGGEL BREAKPOINT */
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+    display: block !important;
+    margin-top: 25px;
+}
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

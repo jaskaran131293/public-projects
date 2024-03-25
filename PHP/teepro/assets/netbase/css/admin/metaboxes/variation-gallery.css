@@ -1,0 +1,56 @@
+.rtwpvg-image-container ul.rtwpvg-images {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rtwpvg-image-container ul.rtwpvg-images li.image {
+  list-style: none;
+  position: relative;
+  cursor: move;
+  float: left;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 3px;
+  background: #f7f7f7;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.rtwpvg-image-container ul.rtwpvg-images li.image img {
+  width: 80px;
+  display: block;
+  height: auto;
+  border: 1px solid #d5d5d5;
+}
+
+.rtwpvg-image-container ul.rtwpvg-images li.image a.rtwpvg-remove-image {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.rtwpvg-image-container ul.rtwpvg-images li.image a.rtwpvg-remove-image .dashicons-dismiss {
+  font-family: dashicons;
+  display: inline-block;
+  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+  speak: none;
+  text-decoration: inherit;
+  text-transform: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  vertical-align: top;
+  text-align: center;
+  -webkit-transition: color .1s ease-in;
+  -o-transition: color .1s ease-in;
+  transition: color .1s ease-in;
+}

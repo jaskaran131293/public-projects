@@ -1,0 +1,75 @@
+ul.product_360_images {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+ul.product_360_images li.image {
+  width: 33.33%;
+  -webkit-flex-basis: 33.33%;
+  -ms-flex-preferred-size: 33.33%;
+  flex-basis: 33.33%;
+  float: left;
+  cursor: move;
+  padding: 0 5px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ul.product_360_images li.image img.attachment-thumbnail {
+  height: auto;
+  width: 100%;
+  z-index: 1;
+}
+
+ul.product_360_images li.image ul.actions li {
+  position: absolute;
+  z-index: 2;
+  top: -8px;
+  right: 2px;
+}
+
+ul.product_360_images li.image ul.actions li a.delete {
+  display: none;
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  cursor: pointer;
+}
+
+ul.product_360_images li.image ul.actions li a.delete i {
+  font-size: 12px;
+  color: #fff;
+  border: 2px solid #ffff;
+  background: #999;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  padding: 2px 3px;
+}
+
+ul.product_360_images li.image ul.actions li a.delete:hover i {
+  background-color: #a00;
+}
+
+ul.product_360_images li.image ul.actions li:hover a.delete {
+  display: block;
+}
+
+ul.product_360_images li.image:hover ul.actions li a.delete {
+  display: block;
+}
+
+p.add_product_360_images {
+  display: inline-block;
+}
