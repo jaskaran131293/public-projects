@@ -1,0 +1,400 @@
+<style>
+
+#_picker_cover_wrap_box svg>path:first-child {	
+        fill: rgb(255 255 255 / 0%)!important;
+	}
+ 
+  
+  #_picker_cover_wrap_box svg>path+path
+  {	
+    stroke: #c000ff!important;
+	stroke-width: 1px!important;
+	stroke-dasharray: 3!important;
+	fill: #267ceb8c!important;
+  }
+  
+  
+    .class_copy_codeblock
+    {
+      width: 100%;
+      position: fixed;
+      bottom: 0%;
+      z-index: 999999999999999999999999999999999999;
+      display:none;
+      
+    }
+    
+    
+    
+    .class_copy_codeblock_border{
+      border-radius : 4px;
+      background : #202123;
+		color : #a3dffd;
+		display:flex;
+		margin : 0 10px 0 10px; 
+    }
+    
+   
+    
+    .code_copy_btn {
+    background: #fff!important;
+    border: 1px dashed transparent!important;
+    color: #000!important;
+    border-radius: 5px!important;
+    margin: 5px 12px!important;
+    width: 200px!important;
+    height: 40px!important;
+    font-weight: 600!important;
+    font-size: 20px!important;
+}
+    
+    .codeblock_copy_btn
+    {
+      display: flex!important;
+	  align-items: center!important;
+      
+    }
+    
+    .codeblock_content
+    {
+      display: flex;
+      flex: 80;
+      padding: 15px 50px 10px 20px;
+      min-height: 85px;
+  }
+    
+    
+    
+      
+      
+      
+    
+    
+    
+    
+   
+   .elem_picker_savebar {
+      display:flex;
+      justify-content: space-between;
+         background : #202123;
+     height:56px;
+     padding : 0 20px;
+     top:0%;
+     
+    }
+    
+    .elem_picker_buttons {
+      display:flex;
+      align-items: center;
+    }
+    
+    .elem_reset
+    {
+      background: #202123;
+      color: #fafbfb;
+      border: 1px solid #82878b;
+      margin-right:5px;
+    }
+    
+    .elem_reset:hover
+    {
+     background : #54575b; 
+    }
+    
+    .elem_save{
+     background : #008060;
+     color: #ffffff;
+     border: 1px solid #008060;
+    }
+    
+    .elem_save:hover
+    {
+     background : #009671; 
+    }
+    
+  .elem_picker_buttons  button 
+  {
+      align-items: center;
+      justify-content: center;
+      padding: 7px 16px;
+      font-size: 14px;
+      height: 36px;
+      line-height: 1;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 4px;
+  }
+    
+   .elem_picker_savebar
+    {
+      position: fixed;
+      width: 100%;
+      z-index: 9999999999999999;
+    }
+    
+    .elem_picker_msg_wrapper h2{
+      color : #e3e5e7;
+      font-size:19px;
+      margin: unset!important;
+      
+    }
+  
+  .elem_picker_msg_wrapper{
+      display: flex;
+      align-items: center;
+  } 
+    
+  
+    
+  </style>
+  
+  
+  
+  <script>
+      
+    if (window.location.href.indexOf('elem_pickerhd8ewhy9832r832hr4ur432uhyr30289er') !== -1) { 
+    
+  console.log("WELCOME TO ELEMENT PICKER");
+  function getSelector(el,jQuery){
+        var $el = jQuery(el);
+    
+        var id = $el.attr("id");
+        if (id) { //"should" only be one of these if theres an ID
+            return "#"+ id;
+        }
+    
+        var selector = $el.parents()
+                    .map(function() { return this.tagName; })
+                    .get().reverse().join(" ");
+    
+        if (selector) {
+            selector += " "+ $el[0].nodeName;
+        }
+    
+        var classNames = $el.attr("class");
+        if (classNames) {
+            selector += "." + jQuery.trim(classNames).replace(/\s/gi, ".");
+        }
+    
+        var name = $el.attr('name');
+        if (name) {
+            selector += "[name='" + name + "']";
+        }
+        if (!name){
+            var index = $el.index();
+            if (index) {
+                index = index + 1;
+                selector += ":nth-child(" + index + ")";
+            }
+        }
+        return selector;
+      }
+  
+  
+  
+    var loadScript = function (url, callback) {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  if (script.readyState) {
+  script.onreadystatechange = function () {
+  if (script.readyState == 'loaded' || script.readyState == 'complete') {
+  script.onreadystatechange = null;
+  callback();
+  }
+  };
+  } else {
+  script.onload = function () {
+  callback();
+  };
+  }
+  script.src = url;
+  document.getElementsByTagName('head') [0].appendChild(script);
+  };
+  
+  if ((typeof jQuery === 'undefined') || (parseFloat(jQuery.fn.jquery) < 1.7)) {
+  loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', function () {
+  jQuery191 = jQuery.noConflict(true);
+  RAQ_element_picker(jQuery191);
+    console.log("If");
+  });
+  } else {
+  RAQ_element_picker(jQuery);
+    console.log("Else");
+  }
+    
+    const loadCssStyleScript = (random) => {
+    var cssId = 'myCss';  // you could encode the css path itself to generate id..
+      if (!document.getElementById(cssId))
+      {
+          var head  = document.getElementsByTagName('head')[0];
+          var link  = document.createElement('link');
+          link.id   = cssId;
+          link.rel  = 'stylesheet';
+          link.type = 'text/css';
+          link.href = 'https://www.setubridgeapps.com/Element-Picker/dist/picker.min.css?'+random;
+          link.media = 'all';
+          head.appendChild(link);
+      }
+  }
+    
+    function RAQ_element_picker($)
+    {
+      
+      
+      
+  
+  
+                          $(document).on("click","#reset_eLem_picker",function()
+                                     {
+                          for ( elem of selectedClass_Data)
+                              {
+                              $(elem).show(200);
+                              }
+                        selectedClass_Data=[];
+      
+                        $('.class_copy_codeblock').hide(600);
+                        
+                      });
+  
+                      $(document).on("click",".code_copy_btn",function()
+                                     {
+  
+              
+                        
+                        $(this).text('Copied!');
+                        setTimeout(() => { $(this).text('Copy'); }, 1400);
+                        var copied_data = $('.codeblock_content span').text();
+  
+  
+                      
+      var tempInput = document.createElement("input");
+      tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+      tempInput.value = copied_data.trim();
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+                            
+                        
+                      });
+       
+     
+  
+          loadScript('https://www.setubridgeapps.com/Element-Picker/dist/picker.min.js', function () {
+          loadCssStyleScript("raq399");
+            
+            window.selectedClass_Data = [];
+  
+              window.elem_picker = new Picker({
+              elm: document.getElementsByTagName("body")[0],  
+              mode: 'cover',
+              events: [{
+                  key: 'contextmenu',
+                  fn(event) {
+                      console.log('Diy contextmenu Event', event.target, event);
+                      event.preventDefault();
+                  },
+              }],
+              onInit() {
+                 
+              },
+              onClick(event) {
+                  
+               
+                
+                  var selected_tag = $(event.target).prop("tagName");
+                	selected_tag=selected_tag.toLowerCase();
+                  if(selected_tag!="img" && selected_tag!="head" && selected_tag!="body" && selected_tag!="html") {  
+                  var elem_selector = getSelector(event.target,$);
+                  selectedClass_Data.push(elem_selector);
+                  $(elem_selector).hide();
+  
+                  $('.class_copy_codeblock').show(600);
+                }
+                
+                
+  
+  
+                      
+                
+                $('.codeblock_content span').text(selectedClass_Data.toString());
+                  
+              },
+              onHover(event) {
+                  
+              },
+          });
+                
+            
+            
+          });
+    
+    
+  
+    
+   var elem_picker_controller = `<div class="elem_picker_savebar">
+  <div class="elem_picker_msg_wrapper">
+    <h2>Hide Selected Elements</h2>  
+  </div>
+  
+  <div class="elem_picker_buttons">
+    <button class="elem_reset" id="reset_eLem_picker">Reset</button>
+    <button class="elem_save" id="start_stop_eLem_picker" data-curr-event="stop">STOP PICKING</button> 
+  </div>
+    
+    
+  </div>`;
+    
+    $('body').after(elem_picker_controller);
+    $('.elem_picker_savebar').show();
+  
+  
+  var codecopyBlock = `<div class="class_copy_codeblock">
+  <div class="class_copy_codeblock_border">
+     
+  <div class="codeblock_content">
+    <span></span>
+  
+  </div>
+
+<div class="codeblock_copy_btn">
+  <button class="code_copy_btn">Copy Class</button>
+  </div>
+  </div>  
+  </div>`;
+                    
+  $('body').after(codecopyBlock);
+  
+  
+  $(document).on("click","#start_stop_eLem_picker",function()
+                 {
+  
+  var curr_control_event = $("#start_stop_eLem_picker").attr("data-curr-event");
+  if(curr_control_event=="start")
+  {
+  elem_picker.on();
+  $(this).attr("data-curr-event","stop");
+  $(this).text("STOP PICKING");
+  
+  }
+  else
+  {
+    elem_picker.off();
+  $(this).attr("data-curr-event","start");
+  $(this).text("START PICKING");
+  $('.class_copy_codeblock').hide(600);
+  }
+  
+  });
+    
+    
+    
+    
+    
+      
+    
+      
+    }
+    }
+    
+  </script>

@@ -1,0 +1,30 @@
+{% assign cmg_subcategory_exist = false %}
+
+{% for cmg_subcategory_val in collection.metafields.global.subcategory.value -%}
+  {% if collection.handle != cmg_subcategory_val.handle %}
+    {%- if forloop.length > 0 -%}
+        {% assign cmg_subcategory_exist = true %}
+    {%- endif -%}
+  {%- endif -%}
+{% endfor %}
+
+{% if cmg_subcategory_exist == true %}
+<div class="container pt-6">
+  <div class="row subcategory-new">
+    {% for cmg_subcategory_val in collection.metafields.global.subcategory.value -%}
+      {% if collection.handle != cmg_subcategory_val.handle %}
+        {%- if forloop.length > 0 -%}
+          <div class="col-lg-3 text-center subcategory-new-grid">
+            <a href="{{ cmg_subcategory_val.url }}">
+              <img src="{{ cmg_subcategory_val.featured_image | img_url: 'large' }}">
+              <p>{{ cmg_subcategory_val.title }}</p>
+            </a>
+          </div>
+          
+        {%- endif -%}
+      {%- endif -%}
+    {% endfor %}
+  </div>
+</div>
+
+{% endif %}

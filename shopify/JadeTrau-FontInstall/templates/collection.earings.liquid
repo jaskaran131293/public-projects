@@ -1,0 +1,15 @@
+{% include 'shogun-products', content: collection %}
+{{collection.metafields.shogun.above}}
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %}
+
+{% if collection.handle == 'earrings' %}
+{% include 'collection-template-earings' %}
+{% else %}
+{% include 'collection-template' %}
+{% endif %}
+
+{%section "home-newsletter" %}
+
+{{collection.metafields.shogun.below}}

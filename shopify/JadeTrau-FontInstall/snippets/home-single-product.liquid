@@ -1,0 +1,335 @@
+{%- if block.settings.reponsive_mt != blank -%}
+{%- assign margin_top_responsive = block.settings.reponsive_mt | split: ',' -%}
+{% capture margin_top %}mt-{{ margin_top_responsive[0] }} mt-sm-{{ margin_top_responsive[1] }} mt-md-{{ margin_top_responsive[2] }} mt-lg-{{ margin_top_responsive[3] }} {% endcapture %}
+
+{%- endif -%}
+{%- if block.settings.reponsive_bt != blank -%}
+{%- assign margin_bottom_responsive = block.settings.margin_bottom_responsive | split: ',' -%}
+{% capture margin_bottom %}mb-{{ margin_bottom_responsive[0] }} mb-sm-{{ margin_bottom_responsive[1] }} mb-md-{{ margin_bottom_responsive[2] }} mb-lg-{{ margin_bottom_responsive[3] }} {% endcapture %}
+{%- elsif section.settings.margin_bottom != blank -%}
+{% capture margin_bottom %}margin-bottom-{{ block.settings.margin_bottom }}{% endcapture %}
+{%- endif -%}
+{%- assign product = all_products[block.settings.product_main_collection_] -%}
+{% if product == empty %}
+{%- assign section_onboarding = true -%}
+{% endif %}
+<div class="product-single grid ">
+
+  {% assign limit_setting = 1 %}
+  <div class="">
+
+    {% assign lable_sale = false %}
+    {% if product.compare_at_price_min > product.price_min %}
+    {% assign lable_sale = true %}
+    {% endif %}
+    {% comment %}
+    Check if the product is sold out and set a variable to be used below.
+    {% endcomment %}
+    {% assign lable_out = true %}
+    {% if product.available  %}
+    {% assign lable_out = false %}
+    {% endif %}
+    {% assign id = product.id %}
+    {% assign title = product.title %}
+    {% assign description = product.description %}
+    {% assign type = product.type %}
+    {% assign vendor = product.vendor %}
+    {% assign metafields = product.metafields %}
+    {% if select_current_variant_by_id %}
+    {% for variant in product.variants %}
+    {% if variant.id == select_current_variant_by_id %}
+    {% assign current_variant = variant %}
+    {% break %}
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {% endif -%}
+    {% assign current_variant_id = current_variant.id %}
+    {% assign current_variant_metafields = current_variant.metafields %}
+    {% assign url = current_variant.url %}
+    {% assign quantity = current_variant.inventory_quantity %}
+    {% assign sku = current_variant.sku %}
+    {% assign barcode = current_variant.barcode %}
+    {% assign price = current_variant.price %}
+    {% assign compare_at_price = current_variant.compare_at_price %}
+    {% assign available = current_variant.available -%}
+    {% assign show_button_add_to_cart = show_button_add_to_cart | default: block.settings.product_add_tocart %}
+    {% if product.selected_variant.id == product.selected_or_first_available_variant.id and current_variant.image != blank %}
+    {% assign image = current_variant.image %}
+    {% assign hover_image = null %}
+    {% else -%}
+    {% assign image = product.images[0] %}
+    {% assign hover_image = product.images[1] %}
+    {% endif -%}
+    {% assign select_current_variant_by_id = null %}
+    {% assign image_size = image_size | default: '600x' %}
+    {% assign show_options = show_options | default: block.settings.product_collection_show_options %}
+    {% assign show_custom_options = show_custom_options | default: block.settings.product_collection_show_options %}
+    {% assign show_custom_options = show_custom_options | default: block.settings.product_collection_show_options %}
+    {% assign img_hover_url = hover_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+    <div class="grid-item product-item {% if settings.enable_quickview %} quickview-popup{% endif %} {% if block.settings.enable_product_compare %}product-compares{% endif %} {% if block.settings.enable_wishlist %}check-wishlist {% endif %}" {% include 'product-get-attributes' %} true >
+      <div class="product-inner row">
+
+
+        <div class="product-image  js-product-images-navigation col-sm-6">
+
+          {% if block.settings.product_collection_lable_sale %}
+          {% if lable_sale or lable_out %}
+          <div class="product-label">
+            {% if lable_sale %}
+            {% if block.settings.sale_label_style =='percentage_label'%}
+            -{{ product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max |round: 0 }}%
+            {% elsif block.settings.sale_label_style == 'text_label' %}
+            Sale
+            {% endif %}
+            {% endif %}
+            {% if lable_out %}
+            <span>{{ 'product.out_of_stock' | t }}</span>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% endif %}
+          {% if block.settings.product_collection_lable_new %}
+          {% include 'cleversoft-label' %}
+          {% endif %}
+          <a href="{{ product.url | within: collection }}" class="grid-image cursor-default" data-js-product-image>
+
+            {% if section_onboarding %}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% else %}
+            {% if number_colum_layout == 'slide' %}
+            <img class="lazyOwl feature-images" alt="" data-src="{{ product.featured_image.src | product_img_url: 'master' }}">
+            {% else %}
+            <img class="lazyOwl feature-images" src="{{ product.featured_image.src | product_img_url: 'master' }}" >
+            {% endif %}
+            {% if block.settings.product_image_hover %}
+            <span class="product-image-hover" data-idproduct="{{ product.id }}">
+              {% for image in product.images %}
+              {% if forloop.first != true %}
+              <img alt="{{ product.title }}" src="{{ image.src | product_img_url: 'master' }}">
+              {% break %}
+              {% endif %}
+              {% endfor %}
+            </span>
+            {% endif %}
+
+            {% endif %}
+          </a>
+          {%if block.settings.product_collection_countdown %}
+          {% include 'cleversoft-countdown' %}
+          {% endif %}
+        </div>
+        <div class="product-content col-sm-6">
+          {% if section_onboarding %}
+          {%- assign compare_at_price = 1999 -%}
+          {%- assign price = 1999 -%}
+          {%- assign price_varies = false -%}
+          {%- assign available = true -%}
+          <div class="h4 grid-view-item__title"><a href="#" class="grid-view-item__link">{{ 'homepage.onboarding.product_title' | t }}</a></div>
+          <div class="grid-view-item__meta">
+            <span class="product-price__price">{{ compare_at_price | money }}</span>
+          </div>
+          <button type="submit" name="add" disabled="disabled" class="btn product-form__cart-submit" data-add-to-cart>
+            <span data-add-to-cart-text>
+              {{ 'products.product.add_to_cart.sold_out' | t }}
+            </span>
+          </button>
+          <div class="content-des">  {{ 'homepage.onboarding.product_description' | t }}</div>
+          {% if block.settings.show_share_buttons %}
+          <div class="product_socials_wrapper">
+            <div class="share-links">
+              <div class="share-title">Share: </div>
+              <div class="product_socials_wrapper_inner">
+                {% capture share_url %}{{ shop.url }}{{ product.url }}{% endcapture %}
+
+                <a href="//twitter.com/share?url={{ share_url }}&text={{ product.title }}" target="_blank" class="twitter" title="Twitter"><i class='cs-font clever-icon-twitter'></i></a>
+
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" class="facebook" title="Facebook"><i class='cs-font clever-icon-facebook'></i></a>
+                <a href="//plus.google.com/share?url={{ share_url }}" target="_blank" class="google-plus" title="Google plus"><i class='cs-font clever-icon-googleplus'></i></a>
+                <a href="//pinterest.com/pin/create/button/?url={{ share_url }}&description={{ product.title }}&media={{ featured_image.src | img_url: 'original' }}" target="_blank" class="pinterest" title="vimeo"><i class="cs-font clever-icon-pinterest"></i></a>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% else %}
+          {% form "product", product, id: null, class: "form-add-cart", data-js-product-form: '' %}
+          <h3>
+            <a class="product-title" href="{{ product.url | within: collection }}">
+
+              {{ product.title }}
+
+
+            </a>
+          </h3>
+          {% if block.settings.display_product_reviews %} 
+          <div class="product-reviews">
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          </div>
+          {% endif %}
+
+          {% if block.settings.show_vendor %}
+          <div class="prodcuct-vendor">Vendor: <span>{{ product.vendor }}</span></div>
+          {% endif %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          {% if block.settings.show_sku %}
+          <div class="product-sku">SKU: <span class="variant-sku">{{ current_variant.sku }}</span></div>
+          {% endif %}
+          {% if block.settings.product_collection_price %}
+          <div class="price-box">
+            {%- if show_sale_separator != null -%}
+            {%- assign show_sale_separator_status = show_sale_separator -%}
+            {%- else -%}
+            {%- assign show_sale_separator_status = settings.price_show_sale_separator -%}
+            {%- endif -%}
+            {%- if compare_at_price > price -%}
+            <span class="price-sale " data-js-product-price{% if show_sale_separator_status %} data-js-show-sale-separator{% endif %}><span class="old-price">{{ compare_at_price | money }}</span>
+              {% if show_sale_separator_status %}{{ 'products.product.price_sale_separator' | t }}{% endif %}<span class="special-price">{{ price | money }}</span></span>
+            {%- else -%}
+            <span class="regular-product" data-js-product-price{% if show_sale_separator_status %} data-js-show-sale-separator{% endif %}><span>{{ price | money }}</span></span>
+            {%- endif -%}
+          </div>
+          {% endif %}
+          {% assign content = product.description | remove: "[disable-icon-new]" %}
+          <div class="short-descriptions">{{ content | strip_html | truncatewords: 50 }}</div>
+
+          {%- if show_options and show_custom_options -%}
+          <div class="product-collection__options ">
+            {% include 'product-get-options' with hide_options_without_availability: hide_options_without_availability %}
+          </div>
+          {%- endif -%}
+          {%- if show_button_add_to_cart or show_options -%}
+          <div class="product-collection__variants{% if show_options == false or show_custom_options %} d-none{% endif %}">
+            {% include 'product-get-variants' %}
+          </div>
+          {%- endif -%}
+          {%- if show_button_add_to_cart -%}
+          <div class="add-to-cartS">
+            <button type="submit" class="btn btn--status js-product-button-add-to-cart" name="add" data-js-product-button-add-to-cart{% unless current_variant.available %} disabled="disabled" data-button-status="sold-out"{% endunless %}>
+              <span class="text-button-cart">{{ 'products.product.add_to_cart.title' | t }}</span>
+              <span class="text-button-added" data-button-content="added">{{ 'products.product.add_to_cart.added' | t }}</span>
+              <span class="sold-out" data-button-content="sold-out">{{ 'products.product.add_to_cart.sold_out' | t }}</span>
+            </button>
+          </div>
+          {%- endif -%}
+          <div class="custom-button">
+            {% if block.settings.enable_wishlist %}
+            {% if customer %}
+            {% assign value = product.id %}
+            {% capture productID %}{{ product.id }}{% endcapture %}
+            {% for tag in customer.tags %}
+            {% capture tagID %}{{ tag }}{% endcapture %}
+            {% if tagID contains productID %}
+            {% capture value %}x{{ tagID }}{% endcapture %}
+            {% endif %}
+            {% if value.size == 0 %}{% assign value = productID %}{% endif %}
+            {% endfor %}
+
+            {% unless value.size == 0 %}
+            {% capture check %}{{ value.size | minus:productID.size | money_without_currency | times:100 | divided_by:2 }}{% endcapture %}
+            {% assign check = check | split:'.' %}
+            {% if check[1] contains "5" %}{% assign display = false %}{% else %}{% assign display = true %}{% endif %}
+            {% endunless %}
+
+            {% if display %}
+            {% form 'customer' %}
+            <input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+            <input type="hidden" name="contact[tags]" value="{{ value }}" />
+            <button class="wishlist harman_btn3" data-toggle="tooltip" data-placement="top"><i class="cs-font clever-icon-heart-4"></i> Add to wishlist</button>
+            {% endform %}
+            {% else %}
+            <a class="wishlist harman_btn3" href="/pages/wishlist" data-toggle="tooltip" data-placement="top"><i class="cs-font clever-icon-heart-2"></i> Go to wishlist</a>
+            {% endif %}
+            {% else %}
+            <a class="wishlist harman_btn3" href="/account/login" data-toggle="tooltip" data-placement="top"><i class="cs-font clever-icon-heart-4"></i> Add to wishlist</a>
+            {% endif %}
+            {% endif %}
+            {% if block.settings.enable_product_compare %}
+            <div class="compare-detail">
+              <a class="add-to-compare add-product-compare" data-handle-product="{{product.handle}}" href="javascript:void(0);" title="Compare">
+                <i class="cs-font clever-icon-law-1"></i>Add to Compare</a>
+            </div>
+            {% endif %}
+          </div>
+
+          {% endform %}
+          {% endif %}
+
+          {% if block.settings.show_visitors %}
+          <div class="product-visitors">
+            <div class="visitors auto-visitors" >
+              {%- assign visitors_random_diff = settings.product_visitors_max | minus: settings.product_visitors_min -%}
+              {%- assign visitors_random = "now" | date: "%N" | modulo: visitors_random_diff | plus: settings.product_visitors_min -%}
+              {% capture visitors_counter_html %}<span class="visitors-text" data-js-counter>{{ visitors_random }}</span>{% endcapture %}
+              <i class="cs-font clever-icon-team"></i> {{ 'products.product.visitors_html' | t: counter: visitors_counter_html }}
+            </div>
+          </div>
+          {% endif %}
+          {% if block.settings.display_spend_shipping %}
+          <div class="spend-shiping cart-congrats">
+            <i class="cs-font clever-icon-truck"></i> Spend  <span class="moneys">${{settings.calculte_free_shipping_number }}</span> to get Free Shipping
+          </div>
+          {% endif %}
+          {% if block.settings.product_bagde_image %}
+          <div class="badge-image">
+            {% if  settings.bagde_image != blank %}
+            <img src="{{ settings.bagde_image | img_url: 'x2048' }}" alt />
+            {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%endif %}
+          </div>
+          {% endif %}
+          {% if product.available %}
+          <link itemprop="availability" href="http://schema.org/InStock">
+          {% else %}
+          <link itemprop="availability" href="http://schema.org/OutOfStock">
+          {% endif %} 
+
+          <div class="product_meta">
+            {% if block.settings.show_categories %}
+            <p>Categories:
+              {% for collection in product.collections %}
+              <a href="{{ collection.url }}"> {{ collection.title }}<span>,</span> </a>
+              {% endfor %}
+            </p>
+            {% endif %}
+            {% if block.settings.show_type %}
+            <p>Product Type: <a href="#">{{product.type }}</a></p>
+            {% endif %}
+            {% if block.settings.show_barcode %}
+            {% assign current_variant = product.selected_or_first_available_variant %}
+            <p>Barcode: <a href="#">{{current_variant.barcode }}</a></p>
+            {% endif %}
+            {% if block.settings.show_tag %}
+            <p>Tags:
+              {% for tag in product.tags %}
+              {% capture url %}/collections/all/{{ tag | handle }}{% endcapture %}
+              {{ tag | link_to: url }}<span>,</span>
+              {% endfor %}
+            </p>
+            {% endif %}
+          </div>
+          {% if block.settings.show_share_buttons %}
+          <div class="product_socials_wrapper">
+            <div class="share-links">
+              <span class="share-title" style="float: left; margin-right:15px;">Share: </span>
+              <div class="product_socials_wrapper_inner">
+                {% capture share_url %}{{ shop.url }}{{ product.url }}{% endcapture %}
+                <a href="//twitter.com/share?url={{ share_url }}&text={{ product.title }}" target="_blank" class="twitter" title="Twitter"><i class='cs-font clever-icon-twitter'></i></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" class="facebook" title="Facebook"><i class='cs-font clever-icon-facebook'></i></a>
+                <a href="//plus.google.com/share?url={{ share_url }}" target="_blank" class="google-plus" title="Google plus"><i class='cs-font clever-icon-googleplus'></i></a>
+                <a href="//pinterest.com/pin/create/button/?url={{ share_url }}&description={{ product.title }}&media={{ featured_image.src | img_url: 'original' }}" target="_blank" class="pinterest" title="vimeo"><i class="cs-font clever-icon-pinterest"></i></a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+      <style>
+        .text-button-added, .sold-out{display:none;}
+      </style>
+    </div>
+  </div>
+</div>

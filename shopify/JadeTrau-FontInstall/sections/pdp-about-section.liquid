@@ -1,0 +1,126 @@
+<div class="container {{ section.id }}">
+  <div class="row bg-f5f5 align-center mb-80">
+    <div class="col-md-6 p-90">
+      <div class="tabs">
+        
+        <div id="tab-1" class="tab-content active">
+          <h3>About</h3>
+          <p>{{ product.description | split: "<h5>" | first }}</p>
+        </div>
+        <div id="tab-2" class="tab-content">
+          <h3>Details</h3>
+          <p>{{ product.description | split: "</h5>" | last }}</p>
+        </div>
+        <div id="tab-3" class="tab-content">
+          <h3>Shipping</h3>
+          <p>{{ section.settings.pdp_title_about }}</p>
+        </div>
+        <ul class="tabs-nav">
+          <li class="tab-nav active" data-tab="tab-1">About</li>
+          <li class="tab-nav" data-tab="tab-2">Details</li>
+          <li class="tab-nav" data-tab="tab-3">Shipping</li>
+        </ul>
+      </div>  
+    </div>
+    <div class="col-md-6 pl-0 pr-0 product-img">
+      {% assign imagalt = false %}
+      {% for image in product.images %}
+        {% if image.alt == 'ALT' or image.alt == 'alt' %}
+          {% assign imagalt = true %}
+          <img src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt }}">
+        {% endif %}
+      {% endfor %}
+
+      {% if imagalt == false %}
+        <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.featured_image.alt }}">
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "PDP About Us",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "pdp_title_about",
+        "label": "Title About"
+      } 
+	]
+  }
+{% endschema %}
+
+<style>
+#shopify-section-pdp-about-section ul.tabs-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-bottom: 1px solid;
+  margin-top: 60px;
+  margin-bottom: 0;
+}
+li.tab-nav {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #79777C;
+    cursor: pointer;
+}
+li.tab-nav.active {
+    font-weight: 600;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+.product-img img{
+  width: 100%;
+  height: 100%;
+}
+
+.pdp-about-section h3{
+  font-family: 'Poppins' !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  line-height: 24px !important; 
+  text-align: center;
+  letter-spacing: 0.1em; 
+  color: #3F3E40;
+}
+ .pdp-about-section  #tab-3 {
+    overflow-y: scroll;
+    max-height: 310px;
+}
+</style>
+
+<script>
+  
+  var tabsNav = document.querySelectorAll('.tab-nav');
+  var tabsContent = document.querySelectorAll('.tab-content');
+
+  tabsNav.forEach(function(tabNav) {
+    tabNav.addEventListener('click', function() {
+      var tabId = this.getAttribute('data-tab');
+      var tabContent = document.querySelector('#' + tabId);
+
+      tabsNav.forEach(function(nav) {
+        nav.classList.remove('active');
+      });
+      tabsContent.forEach(function(content) {
+        content.classList.remove('active');
+      });
+
+      this.classList.add('active');
+      tabContent.classList.add('active');
+    });
+  }); 
+</script> 

@@ -1,0 +1,176 @@
+{% assign number_of_related_products = number_of_related_products | plus:1 %}
+  
+
+{% if product.metafields.shopify--discovery--product_recommendation.related_products != blank %} 
+  <div class="related-products metafieldProductRecommended"> 
+      <div class="container">
+        <div class="related-heading">
+          {% if related_products_title != '' %}
+          <h4>YOU MAY ALSO LIKE...</h4>
+          {% endif %}
+        </div>
+        <div class="products-grid owl-carousel xs-hidden"> 
+    
+          {% assign current_product = product %}
+          {% assign current_product_found = false %} 
+            {% for product in product.metafields.shopify--discovery--product_recommendation.related_products.value limit: number_of_related_products %}
+              {% if product.handle == current_product.handle %}
+                {% assign current_product_found = true %}
+              {% else %}
+                {% unless current_product_found == false and forloop.last %}
+                {% include 'product-item-new' %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %} 
+        </div>
+
+ 
+        <div class="products-grid d-none xs-show">
+          {% assign current_product = product %}
+          {% assign current_product_found = false %}
+          {% for product in product.metafields.shopify--discovery--product_recommendation.related_products.value limit: number_of_related_products %}
+          
+          {% if product.handle == current_product.handle %}
+          {% assign current_product_found = true %}
+          {% else %}
+          {% unless current_product_found == false and forloop.last %}
+          {% include 'product-item-new' %}
+          {% endunless %}
+          {% endif %}
+          {% endfor %}
+        </div> 
+      </div>
+  </div>
+
+{% else %}
+ 
+  {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+    {% assign found_a_collection = false %}
+    {% for c in product.collections %}
+      {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+   
+  {% if collection and collection.products_count > 1 %}
+   
+  <div class="related-products">
+  
+    <div class="container">
+      <div class="related-heading">
+        {% if related_products_title != '' %}
+        <h4>YOU MAY ALSO LIKE...{% comment %}{{ related_products_title }}{% endcomment %}</h4>
+        {% endif %}
+      </div>
+      <div class="products-grid owl-carousel xs-hidden"> 
+  
+        {% assign current_product = product %}
+        {% assign current_product_found = false %} 
+          {% for product in collection.products limit: number_of_related_products %}
+            {% if product.handle == current_product.handle %}
+              {% assign current_product_found = true %}
+            {% else %}
+              {% unless current_product_found == false and forloop.last %}
+              {% include 'product-item-new' %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %} 
+      </div>
+  
+      <div class="products-grid d-none xs-show">
+        {% assign current_product = product %}
+        {% assign current_product_found = false %}
+        {% for product in collection.products limit: number_of_related_products %}
+        {% if product.handle == current_product.handle %}
+        {% assign current_product_found = true %}
+        {% else %}
+        {% unless current_product_found == false and forloop.last %}
+        {% include 'product-item-new' %}
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+      </div>
+      
+    </div>
+  </div>
+{% endif %}
+{% endif %}
+
+
+
+
+<script>
+  $(document).ready(function() {
+ console.log("loaded document");
+    $(".related-products .products-grid.owl-carousel").owlCarousel({
+      loop:true,
+      margin:1,
+      responsiveClass:true,
+      navText: ['<i class="cs-font clever-icon-prev"></i>','<i class="cs-font clever-icon-next"></i>'],
+      responsive:{
+        0:{
+          items:1,
+          nav:true
+        },
+        600:{
+          items:2,
+          nav:true
+        },
+        800:{
+          items:3,
+          nav:true
+        },
+        1000:{
+          items:3,
+          nav:true 
+        }
+      }
+    })
+  
+
+  })
+</script> 
+<style>
+.template-product  .related-w .related-products {
+    background: #efefef !important;
+}
+.related-products {
+  text-align: center;
+}
+.related-heading {
+  border-bottom: none;
+  margin-bottom: 70px;
+  padding-top: 120px;
+  text-align: center;
+}
+.related-heading h2 {
+font-family: 'Goldenbook';
+font-style: normal;
+font-weight: 400;
+font-size: 50px;
+line-height: 62px;
+letter-spacing: -0.833333px;
+color: #3F3E40;
+}
+  .related-heading h4 { 
+    color: #3F3E40 !important;
+    justify-content: center;
+}
+  .related-w .product-content h3 a{
+  		font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 31px;
+color: #3F3E40;
+  }
+  .related-w .product-content .price-box span span{
+  	font-style: normal;
+font-weight: 400;
+font-size: 15px !important;
+line-height: 31px;
+color: #3F3E40;
+  }
+</style>
+ 

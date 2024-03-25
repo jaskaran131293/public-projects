@@ -1,0 +1,701 @@
+<div class="page_contact">
+  <div class="container">
+    <div class="page_contact_upper">
+      <div class="page_contact_inner">
+        <div class="page_contact_inner_left">
+          <h2>{{ page.title }}</h2>          
+          {{ page.content }}          
+          {% if section.settings.telephone_no != blank %}
+          <h4>PH <a href="tel:{{ section.settings.telephone_no }}" title="" >{{ section.settings.telephone_no }}</a></h4>
+          {% endif %}
+         {% if section.settings.email_id != blank %}
+          <h4>E &nbsp; <a href="mailto:{{ section.settings.email_id }}" title="" >{{ section.settings.email_id }}</a></h4>
+          {% endif %}
+          <br/>
+          {% if section.settings.timing != blank %}
+          <h4>{{ section.settings.timing }} </h4>
+          {% endif %}
+
+
+          <div class="contact_form_upper">
+               <h2 id="prd_title" style="display:none;">{{ product.title }}</h2>
+            {%- assign formId = 'ContactForm' -%}
+            {% form 'contact', class:contact_us_form ,id: formId %}
+            <div class="grid grid--half-gutters">
+              <div class="grid__item medium-up--one-half">
+                <input class="full_name"   type="text" id="{{ formId }}-name" placeholder="Full Name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+              </div>
+              <div class="grid__item medium-up--one-half">
+                <input type="text" class="contact_phone" id="{{ formId }}-phone" placeholder="Phone Number" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+              </div>
+            </div>
+
+            <div class="">
+              <input required
+                     type="email" class="email" placeholder="Email"
+                     id="{{ formId }}-email"
+                     name="contact[email]"
+                     autocorrect="off"
+                     autocapitalize="off"
+                     value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                     aria-required="true"
+                     {%- if form.errors contains 'email' -%}
+                     class="input--error"
+                     aria-invalid="true"
+                     aria-describedby="{{ formId }}-email-error"
+                     {%- endif -%}
+                     >
+              {%- if form.errors contains 'email' -%}
+              <span id="{{ formId}}-email-error" class="input-error-message">
+                <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                {% include 'icon-error' %}
+                <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+              </span>
+              {%- endif -%}
+            </div>
+
+            <div class="">
+              <textarea rows="10" class="message" placeholder="Message" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            </div>  
+
+            <div class="grid">
+              <div class="grid__item">
+                <input type="submit" id="contact_us_form" class="btn" value="Submit">
+                <p  style="display:none;" id="get_response"></p>
+              </div> 
+              <div class="grid__item">
+                <div class="connect_with">
+                  <h6>Connect with</h6>
+                  <div class="page_contact_social_div">
+                    <ul>
+                      {% for block in section.blocks %}
+                      {% if block.settings.social_link != blank %}
+                      <li>
+                        <a href="{{ block.settings.social_link }}" title="" target="_blank">
+                          <span class="social_box">
+                            <img src="{{ block.settings.social_img | img_url:'master'}}" alt="" title="">
+                          </span>
+                        </a>
+                      </li>
+                      {% endif %}
+                      {% endfor  %}
+                    </ul>
+                  </div>
+                </div> 
+              </div> 
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page_contact_inner">
+        <div class="page_contact_inner_right">
+          {% if section.settings.inquiries_title != blank %}
+          <h2>{{ section.settings.inquiries_title }}</h2>  
+          {% endif %}
+          {% if section.settings.inquiries_desc != blank %}
+          <p class="inquiries_p">{{ section.settings.inquiries_desc }}</p>
+          {% endif %}           
+           {% if section.settings.telephone_no != blank %}
+          <h4>PH <a href="tel:{{ section.settings.telephone_no }}" title="" >{{ section.settings.telephone_no }}</a></h4>
+          {% endif %}
+          
+          {% if section.settings.inquiries_mail != blank %}
+          <p class="emilid">{{ section.settings.inquiries_mail }}</p>
+          {% endif %}
+          
+        
+
+          <div class="contact_form_upper contact_inquiries_upper">
+              <h3 id="prd_title" style="display:none;">{{ product.title }}</h3>
+            {% form 'contact' %}
+
+            <div class="grid grid--half-gutters">
+              <div class="grid__item medium-up--one-half">
+                <input  type="text" id="{{ formId }}-name" placeholder="Full name" class="full_name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+              </div>
+                <div class="grid__item medium-up--one-half">
+                <input type="text" id="{{ formId }}-phone" placeholder="Phone Number"class="phone"  name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+              </div>            
+            </div>
+            <div class="">
+              <input class="email_order" required
+                     type="email" placeholder="Email"
+                     id="{{ formId }}-email"
+                     name="contact[email]"
+                     autocorrect="off"
+                     autocapitalize="off"
+                     value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                     aria-required="true"
+                     {%- if form.errors contains 'email' -%}
+                     class="input--error"
+                     aria-invalid="true"
+                     aria-describedby="{{ formId }}-email-error"
+                     {%- endif -%}
+                     >
+              {%- if form.errors contains 'email' -%}
+              <span id="{{ formId}}-email-error" class="input-error-message">
+                <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                {% include 'icon-error' %}
+                <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+              </span>
+              {%- endif -%}
+            </div>
+             <div class="">
+            
+                <input type="text" id="{{ formId }}-order" placeholder="Order Number" name="contact[Order]" class="order_number" value="">
+             
+            </div>
+               <div class="">
+              <textarea rows="10" class="message" placeholder="Message" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            </div>  
+
+            <div class="">
+              <input type="submit" id="enquiry_form" class="btn" value="Submit">
+              <p id="get_response_data"></p>
+            </div> 
+            {% endform %}
+          </div>
+
+          {% if section.settings.press_title != blank %}
+          <h2>{{ section.settings.press_title }}</h2>  
+          {% endif %}
+          {% if section.settings.press_desc != blank %}
+          <p class="inquiries_p">{{ section.settings.press_desc }}</p>
+          {% endif %}
+
+          {% if section.settings.press_mail != blank %}
+          <p class="emilid">{{ section.settings.press_mail }}</p>
+          {% endif %}
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+   .req_errors{
+	border:2px solid red !important;  
+  }
+   .reb_errors{
+	border:2px solid red !important;  
+  }
+  .drophint_mail_sent{
+   color:green !important;
+   font-weight:bold;
+    
+  }
+   .drophint_mail_error , .eml_err{
+   color:red !important;
+   font-weight:bold;
+    
+  }
+  .page_contact{padding:60px 0;}
+  .page_contact_upper{display:flex;flex-wrap:wrap;margin:0 -15px;}
+  .page_contact_inner{width:50%;padding:0 15px;}
+  .page_contact_inner:first-child{position:relative;}
+  .page_contact_inner:first-child:before{position:absolute;content:'';right:0;width:1px;height:100%;border-right: 1px solid rgba(206, 206, 206, 0.2);}
+
+  .page_contact_inner_left{max-width:500px;}
+  .page_contact_inner h2{font-size: 18px;margin:0 0 20px;line-height: 34.58px;font-weight: 500 !important;color: #3f3e40;font-family: 'sofia-pro' !important;}
+  .page_contact_inner p{font-size: 22px;margin:0 0 30px;line-height: 26px;max-width:500px;font-weight: normal;color: #3f3e40;font-family: 'Goldenbook'!important;}
+
+  .page_contact_inner h4{font-size: 22px !important;line-height: 26px;color: #3f3e40;font-family: 'Goldenbook'!important;    text-transform: unset !important;}
+  .page_contact_inner h4 a {color: #3f3e40;}
+  .contact_form_upper{margin:50px 0 0;border-top: 1px solid rgba(206, 206, 206, 0.2);padding:50px 0 0;max-width:500px;}
+
+  .contact_form_upper .grid{display:flex;flex-wrap:wrap;margin:0 -8px;}
+  .contact_form_upper .grid__item{width:50%;padding:0 8px;}
+  .contact_form_upper input{width:100%;background:#efefef !important;border:none;margin:0 0 20px;color:#3f3e40!important; border:1px solid #3f3e40;line-height: 20px !important;}
+  .contact_form_upper input::placeholder{font-size: 16px!important;color: #3f3e40!important;line-height: 20px !important;font-family: 'sofia-pro' !important;font-weight: normal !important;}
+
+  .contact_form_upper textarea{resize:none;width:100%;height:106px;background:#efefef !important;border:1px solid #3f3e40;margin:0 0 20px;color:#3f3e40!important;}
+  .contact_form_upper textarea::placeholder{font-size: 16px!important;color: 3f3e40 !important;line-height: 20px;font-family: 'sofia-pro' !important;font-weight: normal !important;}
+
+  .contact_form_upper input.btn{background: #efefef !important; font-size:18px;color: #3f3e40!important ;width: 120px;height: 40px;    line-height: 40px !important;text-transform:unset!important;border:1px solid #3f3e40;}
+
+  .connect_with{display:flex;align-items:center;    justify-content: flex-end;}
+
+  .connect_with h6{font-size: 16px;margin:0;line-height: normal;color: #3f3e40;font-family: 'sofia-pro' !important;font-weight: normal !important;letter-spacing: 0;
+    text-transform: unset !important;}
+  .connect_with .page_contact_social_div ul{display:flex;align-items:center;margin:0;}
+  .connect_with .page_contact_social_div ul li{list-style-type:none;margin-left:15px;}
+
+  .page_contact_inner_right{max-width:500px;margin:0 0 0 auto;}
+
+  .page_contact_inner_right p.inquiries_p{margin: 0 0 50px;}
+  .page_contact_inner_right p a{color:#3f3e40;!important;text-decoration:underline;}
+  .contact_inquiries_upper{margin:30px 0 50px;padding:0;border-top:none;}
+
+  .contact_newsletter.contact_form_upper input {width:319px;height:40px;margin:0;}
+  .contact_newsletter.contact_form_upper input.btn{background: #B3ADA7!important;font-size:18px;color: #3F3E40 !important;width: 130px;height: 40px;    line-height: 40px !important;margin-left:20px;text-transform:unset!important;} 
+
+  @media only screen and (min-width:200px) and (max-width:767px){
+    .page_contact{padding:80px 0 0;}
+    .page_contact_inner{width:100%;padding:0 15px;}
+    .page_contact_inner:first-child{margin:0 0 30px;}
+    .page_contact_inner:first-child:before{display:none;}
+    .page_contact_inner p {
+      font-size: 16px;
+      margin: 0 0 30px;
+      line-height: 24px;}
+    .page_contact_inner h4 {
+      font-size: 15px !important;
+      line-height: 22px;}
+    .contact_form_upper .grid__item{width:100%;padding:0 8px;}
+    .connect_with {
+      justify-content: flex-start;
+    }
+    .page_contact_inner_left {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .page_contact_inner_right {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  @media only screen and (min-width:768px) and (max-width:991px){
+    .page_contact_inner p {
+      font-size: 18px;
+      line-height: 26px;}
+    .page_contact_inner h4 {
+      font-size: 18px !important;}
+    .connect_with .page_contact_social_div ul li {
+      list-style-type: none;
+      margin-left: 5px;
+    }
+    .connect_with h6 {
+      font-size: 11px;}
+    .contact_newsletter.contact_form_upper input {
+      width: 179px;
+      height: 40px;
+      margin: 0;
+    }
+  }
+
+  @media only screen and (min-width:992px) and (max-width:1199px){
+    .page_contact_inner h4 {
+      font-size: 20px !important;}
+    .page_contact_inner p {
+      font-size: 20px;}
+    .page_contact_inner_left {
+      max-width: 400px;
+    }
+    .page_contact_inner_right {
+      max-width: 400px;
+    }
+    .connect_with h6 {
+      font-size: 12px;}
+    .contact_newsletter.contact_form_upper input {
+      width: 250px;}
+  }
+  .page_contact_inner p {
+    font-size: 17px;
+}
+.page_contact_inner h4 {
+    font-size: 14px !important;
+    font-weight:300 !important;
+ }
+.contact_form_upper {
+    margin: 40px 0 0;
+    padding: 40px 0 0;
+}
+.contact_form_upper input {
+    margin: 0 0 12px;
+}
+
+.contact_form_upper input.btn {
+    font-size: 16px;
+    letter-spacing: 0px;
+    font-weight: 400;
+}
+  .page_contact_inner_right p.inquiries_p {
+    margin: 0 0 30px;
+    font-family: 'Sofia Pro'!important;
+    font-weight:500 !important;
+}
+  .page_contact_inner_right .contact_inquiries_upper {
+    margin-top: 0;
+    padding-top: 5px;
+}
+.page_contact_inner h2 {
+    font-size: 28px;
+    font-family: 'Goldenbook'!important;
+}
+  .page_contact_inner p {
+    font-size: 14px;
+    font-family: Sofia Pro !important;
+}
+.page_contact_inner_right .contact_inquiries_upper .btn {
+    margin-bottom: 45px;
+}
+  .page_contact_inner h4
+  {
+     font-family: Sofia Pro !important;
+  }
+  .page_contact_inner h4 {
+    font-size: 14px !important;
+    font-weight:300 !important;
+}
+
+.contact_form_upper input {
+    font-size: 14px;
+}
+  .contact_form_upper input::placeholder {
+    font-size: 14px !important;
+}
+
+.contact_form_upper textarea::placeholder {
+    font-size: 14px !important;
+}
+
+.connect_with .page_contact_social_div ul li a img {
+    width: 19px;
+    border-radius: 20px;
+}
+
+.connect_with .page_contact_social_div ul {
+    position: relative;
+    top: 2px;
+}
+ p.emilid {
+    font-size: 14px;
+    font-weight: 300;
+}
+  
+  @media only screen and (min-width: 200px) and (max-width: 767px){
+.page_contact_inner h2 {
+    margin-top: 20px;
+}
+}
+  .connect_with .page_contact_social_div ul li a img {
+    width: 20px;
+    border-radius: 0;
+/*     filter: brightness(0) invert(1); */
+}
+    
+</style>
+
+
+{% schema %}
+  {
+    "name": "Contact Us",
+    "settings": [
+      {
+        "type": "text",
+        "id": "telephone_no",
+        "label": "Telephone Number"
+      },
+       {
+        "type": "text",
+        "id": "email_id",
+        "label": "Email"
+      },
+      {
+        "type": "text",
+        "id": "timing",
+        "label": "Timing"
+      },
+      {
+        "type": "text",
+        "id": "inquiries_title",
+        "label": "Inquiries Title"
+      },
+      {
+        "type": "textarea",
+        "id": "inquiries_desc",
+        "label": "Inquiries Description"
+      },
+      {
+        "type": "textarea",
+        "id": "inquiries_mail",
+        "label": "Inquiries Mail"
+      },
+      {
+        "type": "text",
+        "id": "press_title",
+        "label": "Press Title"
+      },
+      {
+        "type": "textarea",
+        "id": "press_desc",
+        "label": "Press Description"
+      },
+      {
+        "type": "textarea",
+        "id": "press_mail",
+        "label": "Press Mail"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_desc",
+        "label": "Newsletter Description"
+      }
+],
+    "blocks": [
+      {
+        "type": "repeat",
+        "name": "social_link",
+        "settings": [
+          {
+            "type": "url",
+            "id": "social_link",
+            "label": "Social Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "social_img",
+            "label": "Socail Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+<script>
+  function validateEmail($email) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test( $email );
+  } 
+  jQuery(document).ready(function(){ 
+     
+			 
+    jQuery("#contact_us_form").click(function(e){
+     e.preventDefault();   
+       var required = jQuery('input,email,textarea').filter('[required]:visible');
+        var prd_title = jQuery("#prd_title").text();
+         required.each(function(){
+            var currentval = jQuery(this).val();
+           	if(jQuery(this).attr("type") == 'email' && jQuery(this).parents("form").attr("id") == 'ContactForm') {
+               if(currentval == '')
+              {  
+                jQuery(this).addClass('reb_errors'); 
+              }
+              else if( !validateEmail(currentval)) { 
+							jQuery(this).addClass('reb_errors');  
+							 jQuery("#response").addClass("drophint_mail_error"); 
+  						jQuery("#response").removeClass("drophint_mail_sent");
+                //   jQuery("#response").addClass("eml_err");
+                   //  jQuery("#response").html("Please enter valid email address"); 
+					 
+			   }
+               else 
+               {
+					jQuery(this).removeClass('reb_errors');
+					 jQuery(".eml_err").hide();
+               }
+            }
+            	if(jQuery(this).attr("type") == 'textarea') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('reb_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('reb_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'text') {
+                if(currentval == '')
+                {  
+                    jQuery(this).addClass('reb_errors');  
+                }
+                else
+                {
+                 jQuery(this).removeClass('reb_errors'); 
+                   jQuery(".eml_err").hide();
+                }
+              }
+              }); 
+     //   var prd_title = jQuery("#prd_title").text();
+         
+      
+              var page_url      = window.location.href;   
+              var full_name = jQuery(".full_name").val();
+              var phone = jQuery(".phone").val();
+              var email = jQuery(".email").val();
+             
+              var message = jQuery("#ContactForm-message").val();  
+              
+              var URL="https://form.jadetrau.com/wp-json/contact-form-7/v1/contact-forms/13/feedback";
+              var data = {};
+              data['text-242'] = full_name;
+              data['tel-258'] = phone;
+              data['email-325'] = email; 
+              data['textarea-492'] = message;  
+              data['pageURL'] = page_url; 
+              data['prd_title'] = prd_title; 
+
+                jQuery.ajax({
+                  url: URL ,
+                  data: data,
+                  type: 'POST',
+                  success: function (resp) { 
+                    if(resp.status == 'validation_failed') {
+                       
+                         // jQuery("#response").addClass("eml_err"); 
+                        jQuery("#get_response").removeClass("drophint_mail_sent");
+                       jQuery("#get_response").addClass("drophint_mail_error");
+                    //   jQuery("#get_response").html("Please fill all fields");
+                      
+                     //  if( !validateEmail(email)) { jQuery("#get_response").html("Please fill correct email address"); }
+                     
+                    } 
+                    else 
+                    {
+                        jQuery("#get_response").removeClass("eml_err");
+                        jQuery("#get_response").removeClass("drophint_mail_error");
+  						jQuery("#get_response").addClass("drophint_mail_sent");
+                      jQuery(".drophint_mail_sent").show();
+                     jQuery("#get_response").html("Mail sent successfully"); 
+                       var required = jQuery('input,textarea,select').filter('[required]:visible');
+                       required.each(function(){ 
+                         jQuery(this).val('');
+                          jQuery(this).removeClass('req_errors'); 
+                       });
+                    }
+                     setTimeout(function(){ jQuery(".drophint_mail_sent").fadeOut(); },3000);
+                  },
+                  error: function(e){
+                    jQuery("#drophint_mail_sent").hide();
+                    jQuery("#get_response").val(e);
+                //  alert('Error: '+e);
+                  }
+                });
+     });
+   jQuery('.phone,.contact_phone').keyup(function(e)
+                                {
+  if (/\D/g.test(this.value))
+  {
+   
+    this.value = this.value.replace(/\D/g, '');
+  }
+});
+    
+  
+
+    
+    
+      jQuery("#enquiry_form").click(function(e){
+       e.preventDefault();   
+       var required = jQuery('input,email,textarea').filter('[required]:visible');
+        var prd_title = jQuery("#prd_title").text();
+         required.each(function(){
+            var currentval = jQuery(this).val();
+           	if(jQuery(this).attr("type") == 'email'  && jQuery(this).parents("form").attr("id") == 'contact_form') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              }
+              else if( !validateEmail(currentval)) {
+                
+							jQuery(this).addClass('req_errors');  
+							 jQuery("#response").addClass("drophint_mail_error"); 
+  						jQuery("#response").removeClass("drophint_mail_sent");
+                   jQuery("#response").addClass("eml_err");
+                     jQuery("#response").html("Please enter valid email address"); 
+					 
+			   }
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 jQuery(".eml_err").hide();
+               }
+            }
+            	if(jQuery(this).attr("type") == 'textarea') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'text') {
+                if(currentval == '')
+                {  
+                    jQuery(this).addClass('req_errors');  
+                }
+                else
+                {
+                 jQuery(this).removeClass('req_errors'); 
+                   jQuery(".eml_err").hide();
+                }
+              }
+              }); 
+      
+        var prd_title = jQuery("#prd_title").text();
+         	
+      
+              var page_url      = window.location.href;   
+              var full_name = jQuery(".full_name").val();
+              var phone = jQuery(".phone").val();
+              var emailadd = jQuery(".email_order").val();
+              var order_number = jQuery(".order_number").val();
+        
+       // if( !validateEmail(email)) { jQuery("#get_response_data").html("Please fill correct email address"); }
+
+             
+              var message = jQuery("#ContactForm-message").val();  
+              
+              var URL="https://form.jadetrau.com/wp-json/contact-form-7/v1/contact-forms/14/feedback";
+              var cfdata = {};
+              cfdata['text-486'] = full_name;
+              cfdata['tel-747'] = phone;
+              cfdata['email-449'] = emailadd; 
+              cfdata['text-730'] = order_number; 
+              cfdata['textarea-753'] = message;  
+              cfdata['pageURL'] = page_url; 
+              cfdata['prd_title'] = prd_title; 
+	
+                jQuery.ajax({
+                  url: URL ,
+                  data: cfdata,
+                  type: 'POST',
+                  success: function (resp) { 
+                    if(resp.status == 'validation_failed') {
+                       
+                         // jQuery("#response").addClass("eml_err"); 
+                        jQuery("#get_response_data").removeClass("drophint_mail_sent");
+                       jQuery("#get_response_data").addClass("drophint_mail_error");
+                   //    jQuery("#get_response_data").html("Please fill all fields");
+                     
+                    } 
+                    else 
+                    {
+                        jQuery("#get_response_data").removeClass("eml_err");
+                        jQuery("#get_response_data").removeClass("drophint_mail_error");
+  						jQuery("#get_response_data").addClass("drophint_mail_sent");
+                      jQuery(".drophint_mail_sent").show();
+                     jQuery("#get_response_data").html("Mail sent successfully"); 
+                       var required = jQuery('input,textarea,select').filter('[required]:visible');
+                       required.each(function(){ 
+                         jQuery(this).val('');
+                          jQuery(this).removeClass('req_errors'); 
+                       });
+                    }
+                     setTimeout(function(){ jQuery(".drophint_mail_sent").fadeOut(); },3000);
+                  },
+                  error: function(e){
+                    jQuery("#drophint_mail_sent").hide();
+                    jQuery("#get_response_data").val(e);
+                //  alert('Error: '+e);
+                  }
+                });
+     });
+   });
+</script>

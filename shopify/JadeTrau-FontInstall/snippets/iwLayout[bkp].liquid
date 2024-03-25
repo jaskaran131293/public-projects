@@ -1,0 +1,72 @@
+<!--main------->
+<div class="colection_fulwidth iwishWrapper"> 
+<div class="collections-pages ">
+<div class=" main_row sidebar-left colection_fulwidth colection_fulwidth  hidden-sidebar">
+	<div class=" col-12  col-main  collection-page">
+		<div class="lg-red pd-top60">
+			<div class="">
+				<div class="cat-left-block col-sm-6 col-xs-12">
+					<header class="product-title iwishTitle">
+						<h1 data-open-accessibility-text-original="46px" style="font-size: 46px;">{{pageTitle}}</h1>
+						<div class="iwishMsg">
+						{% unless customer %}<div class="iWishLoginNote">Wishlist is not saved permanently yet. Please <a href="{{loginUrl}}">log in</a> or <a href="{{registerUrl}}">Create Account</a> to save it.</div>{% endunless %}
+						{{sysMessage}}
+					</div>
+					</header>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="collection_custom_wr">
+		<div class="container">
+			<div id="shopify-section-collection-template1" class="shopify-section">
+				<div class="product-grid-isotope-parent">
+					<div class="products-grid product-grid-item collection-grid row iwishProducts">
+						{{productSnippet}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{shareWishlist}}
+</div>
+</div>
+</div>
+
+
+<!--product-template----------->
+<div class="  col-lg-4 col-md-4 col-6 product-items iwishItem">
+	<div class="grid-item product-item   check-wishlist">
+		<div class="product-inner">
+			{{form}}
+				<div class="product-image iwishImgWrap js-product-images-navigation">
+					<a href="{{productLink}}" class="grid-image cursor-default navigable">
+						<img class="lazyOwl feature-images" src="{{productImgSrc}}">
+						<img src="{{productImgSrc}}" class="product-card__image">
+						<span class="product-image-hover" data-idproduct="5434998784164">
+							<img src="{{productImgSrc}}"  class="product-card__image">
+						</span>
+					</a>
+				</div>
+				<div class="product-content iwishMeta">
+					<h3 data-open-accessibility-text-original="60px" style="font-size: 60px;">
+						<a class="product-title navigable" href="{{productLink}}">
+          Envoy Diamond Riviera Necklace
+        </a>
+					</h3>
+					<div class="price-box tiii">
+						<span class="regular-product" data-js-product-price="" data-open-accessibility-text-original="20px" style="font-size: 20px;">
+							<span id="Line Necklaces">
+							$11,000.00
+						</span>
+						</span>
+					</div>
+					<div class="iwishMeta-variant-title">{{variantTitle}}</div>
+					<div><input class="iwishBuyBtn" type="submit" value="Add to Cart" name="add"></div>
+		<div><a class="iwishRemoveBtn" href="{{removeWishLink}}" title="Remove from wishlist">Remove</a></div>
+				</div>
+			{{/form}}
+		</div>
+	</div>
+</div>

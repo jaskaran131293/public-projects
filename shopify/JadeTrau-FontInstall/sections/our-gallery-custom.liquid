@@ -1,0 +1,156 @@
+<style>
+  .template-{{ section.id }}.gallery {
+    display: flex;
+    flex-wrap: wrap; 
+    margin: 0 -10px;
+    margin-top: 70px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .template-{{ section.id }} .item {
+    width: 23%;
+    margin: 0 10px 20px;
+  }
+  
+  .template-{{ section.id }} .item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  } 
+  
+  .template-{{ section.id }} .item p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.02em; 
+    color: #3F3E40;
+  } 
+  .template-{{ section.id }} .item p strong { 
+    font-weight: 600; 
+    letter-spacing: 0.1em;
+    text-transform: uppercase;  
+  } 
+
+  .template-{{ section.id }} .hide.gimg.active {
+    display: block !important;  
+    position: fixed; /* Stay in place */
+    z-index: 99; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  .template-{{ section.id }}  .gimg .contentarea{
+    transition: opacity 0.2s ease;
+    background: #efefef;
+    padding: 30px;
+    width: 38vw;
+    margin: 25% auto;
+    position: relative;
+  }
+
+  /* The Close Button */
+  .template-{{ section.id }} .close {
+    color: #000;
+    font-size: 38px;
+    font-weight: 300;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+  
+  .template-{{ section.id }} .close:hover,
+  .template-{{ section.id }} .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+@media only screen and (max-width: 767px) {
+   .template-{{ section.id }} .item {
+     width: 46%;
+   }
+  .template-{{ section.id }} .gimg .contentarea { 
+    width: 90vw; 
+  }
+}
+@media only screen and (max-width: 480px) {
+  .template-{{ section.id }} .item {
+    width: 100%;
+  }
+}
+</style> 
+{% comment %} Gallery section HTML with schema.org markup {% endcomment %}
+<div class="gallery template-{{ section.id }}" itemscope itemtype="http://schema.org/ImageGallery">
+  {% for block in section.blocks %}
+    {% if block.settings.gallery_image %}
+      <div class="item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+        <img src="{{ block.settings.gallery_image | img_url: '1024x' }}" alt="{{ block.settings.gallery_name }}" title="{{ block.settings.gallery_name }}" itemprop="contentUrl" 
+          data-toggle="modal" data-target="#modal_{{ forloop.index }}">
+          {% if block.settings.gallery_text != blank %}
+          <div class="hide gimg">
+            <div class="contentarea"><span class="close">&times;</span>{{ block.settings.gallery_text }}</div>
+          </div>
+          {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<script>
+$(document).ready(function() {
+  $(document).on('click','.template-{{ section.id }} .item img',function(e) { 
+    $(this).next('.gimg').addClass('active');
+  });
+  $(document).on('click','.template-{{ section.id }} .close',function(e) { 
+    $(this).closest('.gimg').removeClass('active');
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Our Gallery Custom",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Gallery Settings"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Gallery Custom",
+      "category": "Image Gallery"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Gallery Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "gallery_image",
+          "label": "Image"
+        }, 
+        {
+          "type": "richtext",
+          "id": "gallery_text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

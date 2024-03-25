@@ -1,0 +1,90 @@
+<div class="pdp_materials">
+  <div class="container">
+    <div class="pdp_materials_upper">
+      <div class="pdp_materials_inner">
+        <div class="pdp_materials_inner_box_img">   
+          {% if section.settings.image != blank %}
+          <img src="{{ section.settings.image | img_url:'master' }}" alt="" title="" width="100%">
+          {% else %}
+          <div class="onboard">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="pdp_materials_inner">
+        <div class="pdp_materials_inner_box_text">   
+          {% if section.settings.title != blank %}
+          <h3>{{ section.settings.title }}</h3>
+          {% endif %}
+          {% if section.settings.content != blank %}
+          <p>{{ section.settings.content }}</p>
+          {% endif %}
+        </div>
+
+      
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .pdp_materials{background: #3F3F41;padding:100px 0;}
+  .pdp_materials_upper{display:flex;margin:0 -15px;flex-wrap:wrap;align-items:center;}
+  .pdp_materials_inner{width:50%;padding:0 15px; }
+.pdp_materials_inner_box_text a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: underline !important;
+}
+  .pdp_materials_inner_box_img{text-align:center;}
+  .pdp_materials_inner_box_text h3{font-size: 28px!important;margin:0 0 29px;line-height: 35px!important;font-family: 'Goldenbook'!important; !important;color: #FFFFFF;}
+  .pdp_materials_inner_box_text p{font-size: 16px;line-height: 22px;font-weight: normal!important;font-family: 'sofia-pro' !important;color: rgba(255, 255, 255, 0.8);}
+  .pdp_materials_inner_box_text p span{display:block;font-weight: 500!important;text-transform:uppercase;color: rgba(255, 255, 255, 0.8);}
+  .pdp_materials_inner_box_text {  max-width: 450px;  margin: 0 auto;}
+  
+  
+    @media only screen and (min-width:200px) and (max-width:767px){
+          .pdp_materials{padding:20px 0;}
+      .pdp_materials_inner{width:100%;}
+        .pdp_materials_inner_box_text {  max-width: 100%;  margin: 30px auto 0;}
+    }
+  @media only screen and (min-width:500px) and (max-width:767px){}
+  @media only screen and (min-width:768px) and (max-width:991px){}
+  @media only screen and (min-width:992px) and (max-width:1199px){}
+  @media only screen and (min-width:1200px) and (max-width:1367px){
+    .container{max-width:1170px;}
+  }
+  
+</style>
+
+{% schema %}
+  {
+    "name": "Pdp Material",
+    "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Text"
+          }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

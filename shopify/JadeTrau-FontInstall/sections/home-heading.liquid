@@ -1,0 +1,245 @@
+{%- if section.settings.reponsive_mt != blank -%}
+{%- assign margin_top_responsive = section.settings.reponsive_mt | split: ',' -%}
+{% capture margin_top %}mt-{{ margin_top_responsive[0] }} mt-sm-{{ margin_top_responsive[1] }} mt-md-{{ margin_top_responsive[2] }} mt-lg-{{ margin_top_responsive[3] }} {% endcapture %}
+
+{%- endif -%}
+{%- if section.settings.reponsive_bt != blank -%}
+{%- assign margin_bottom_responsive = section.settings.reponsive_bt | split: ',' -%}
+{% capture margin_bottom %}mb-{{ margin_bottom_responsive[0] }} mb-sm-{{ margin_bottom_responsive[1] }} mb-md-{{ margin_bottom_responsive[2] }} mb-lg-{{ margin_bottom_responsive[3] }} {% endcapture %}
+{%- elsif section.settings.margin_bottom != blank -%}
+{% capture margin_bottom %}margin-bottom-{{ section.settings.margin_bottom }}{% endcapture %}
+{%- endif -%}
+<div class="{% if section.settings.enable_home_section_full %} full-width {% else %} container {% endif %}">
+  <div class="section-heading {{margin_top}} {{margin_bottom}} type-{{section.settings.type}}" style="{%- unless section.settings.reponsive_mt != blank -%}margin-top:{{ section.settings.margin_top }}px;{%endunless %}{%- unless section.settings.reponsive_bt != blank -%}margin-bottom:{{ section.settings.margin_bottom }}px;{%endunless %}">
+    <{{section.settings.html_tag}} class="{{section.settings.custom_class_1}} size-{{section.settings.font_size}} heading-title text-align-{{section.settings.alignment}}" style="color:{{section.settings.color}}; text-transform: {{section.settings.text_transform}};">
+      <b class="heading-line-left"></b>
+      <span class="heading-title-main">{% if section.settings.icon != blank %}<i class="cs-font {{ section.settings.icon }}"></i>{% endif %}
+        {{section.settings.title}}
+      </span>
+      <b class="heading-line-right"></b>
+      {% if section.settings.anchor_link != blank %}
+      <a href="{{section.settings.link}}">
+        {{section.settings.anchor_link}}
+      </a> 
+      {% endif %}
+      </{{section.settings.html_tag}}>
+      {% if section.settings.type == 'type_3'%}{% if section.settings.icon != blank %}<div class="type3-bottom"><b class="heading-line-left"></b><i class="cs-font {{ section.settings.icon }}"></i><b class="heading-line-right"></b></div>{% endif %}{% endif %}
+      </div>
+  </div>
+{% schema %}
+  {
+    "name": "Heading",
+	"settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_home_section_full",
+          "label": "Enable Full Width"
+        },
+      	{
+        "type": "html",
+        "id": "title",
+        "label": "Heading",
+        "default": "Add Your Heading Text Here"
+      	},
+        {
+          "type": "text",
+          "id": "custom_class_1",
+          "label": "Custom Class"
+        },
+		{
+            "type": "color",
+            "id": "color",
+            "label": "Color ",
+            "default": "#000",
+            "info": "Default Value: #000"
+        },
+    	{
+  			"type": "select",
+      		"id": "type",
+      		"label": "Type",
+      		"default": "default",
+      		"options": [
+        		{
+          			"value": "default",
+          			"label": "Default"
+        		},
+        		{
+          			"value": "type_1",
+          			"label": "Type 1"
+        		},  
+        		{
+          			"value": "type_2",
+          			"label": "Type 2"
+        		},
+        		{
+          			"value": "type_3",
+          			"label": "Type 3"
+        		},
+        		{
+          			"value": "type_4",
+          			"label": "Type 4"
+        		}
+      		]
+    	},
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon Cheatsheet",
+		  "info": "[Get CleverFont Icon Cheatsheet](https:\/\/doc.zooextension.com\/cleverfonticon)"
+        },  
+        {
+        	"type": "text",
+          	"id": "anchor_link",
+          	"label": "Anchor Text"
+        },
+        {
+        	"type": "url",
+          	"id": "link",
+          	"label": "Link"
+        },
+    	{
+      		"type": "range",
+      		"id": "margin_top",
+      		"min": 0,
+      		"max": 100,
+      		"step": 1,
+      		"unit": "px",
+      		"label": "Margin Top",
+      		"default": 10
+    	},
+    	{
+      		"type": "text",
+      		"id": "reponsive_mt",
+      		"label": "Responsive Margin Top",
+      		"info": "Example is '20,30,40,60'"
+    	},
+    	{
+      		"type": "range",
+      		"id": "margin_bottom",
+      		"min": 0,
+      		"max": 100,
+      		"step": 1,
+      		"unit": "px",
+      		"label": "Margin Bottom",
+      		"default": 10
+    	},
+    	{
+      		"type": "text",
+      		"id": "reponsive_bt",
+      		"label": "Responsive Margin Bottom",
+      		"info": "Example is '20,30,40,60'"
+    	},  
+    	{
+          	"type": "range",
+          	"id": "font_size",
+          	"min": 1,
+          	"max": 100,
+          	"step": 1,
+          	"unit": "px",
+          	"label": "Size",
+          	"default": 40
+        },
+    	{
+      		"type": "select",
+      		"id": "html_tag",
+      		"label": "Html Tag",
+      		"default": "h3",
+      		"options": [
+        		{
+          			"value": "h1",
+          			"label": "H1"
+        		},
+        		{
+          			"value": "h2",
+          			"label": "H2"
+        		},
+        		{
+          			"value": "h3",
+          			"label": "H3"
+        		},
+        		{
+          			"value": "h4",
+          			"label": "H4"
+        		},
+        		{
+          			"value": "h5",
+          			"label": "H5"
+        		},
+        		{
+          			"value": "h6",
+          			"label": "H6"
+        		},
+        		{
+          			"value": "div",
+          			"label": "div"
+        		},
+        		{
+          			"value": "span",
+          			"label": "span"
+        		},
+        		{
+          			"value": "p",
+          			"label": "p"
+        		}
+      		]
+    	},
+    	{
+      		"type": "select",
+      		"id": "text_transform",
+      		"label": "Text Transform",
+      		"default": "none",
+      		"options": [
+ 
+        		{
+          			"value": "none",
+          			"label": "None"
+        		},
+        		{
+          			"value": "uppercase",
+          			"label": "Uppercase"
+        		},
+        		{
+          			"value": "capitalize",
+          			"label": "Capitalize"
+        		},
+        		{
+          			"value": "lowercase",
+          			"label": "Lowercase"
+        		}
+      		]
+    	},
+    	{
+      		"type": "select",
+      		"id": "alignment",
+      		"label": "Alignment",
+      		"default": "center",
+      		"options": [
+        		{
+          			"value": "left",
+          			"label": "Left"
+        		},
+        		{
+          			"value": "center",
+          			"label": "Center"
+        		},
+        		{
+          			"value": "right",
+          			"label": "Right"
+        		}
+      		]
+    	}
+	],
+    "presets": [
+      {
+        "name": "Heading",
+        "category": "3) Builder"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,216 @@
+{%- if section.settings.reponsive_mt != blank -%}
+{%- assign margin_top_responsive = section.settings.reponsive_mt | split: ',' -%}
+{% capture margin_top %}mt-{{ margin_top_responsive[0] }} mt-sm-{{ margin_top_responsive[1] }} mt-md-{{ margin_top_responsive[2] }} mt-lg-{{ margin_top_responsive[3] }} {% endcapture %}
+
+{%- endif -%}
+{%- if section.settings.reponsive_bt != blank -%}
+{%- assign margin_bottom_responsive = section.settings.reponsive_bt | split: ',' -%}
+{% capture margin_bottom %}mb-{{ margin_bottom_responsive[0] }} mb-sm-{{ margin_bottom_responsive[1] }} mb-md-{{ margin_bottom_responsive[2] }} mb-lg-{{ margin_bottom_responsive[3] }} {% endcapture %}
+{%- elsif section.settings.margin_bottom != blank -%}
+{% capture margin_bottom %}margin-bottom-{{ section.settings.margin_bottom }}{% endcapture %}
+{%- endif -%}
+<div class="main-brand brand-bottom {{margin_top}} {{margin_bottom}}" style="{%- unless section.settings.reponsive_mt != blank -%}margin-top:{{ section.settings.margin_top }}px;{%endunless %}{%- unless section.settings.reponsive_bt != blank -%}margin-bottom:{{ section.settings.margin_bottom }}px;{%endunless %}">
+   {% if section.settings.show_instagram_boxed %}
+  <div class="">
+    {% else %}
+    <div class="container">
+      {% endif  %}
+    {% if section.settings.brand_title != blank %}
+    <div class="heading-block">
+      <h3 class="title">{{ section.settings.brand_title }}</h3>
+    </div>
+    {% endif %}
+    <div id="logo-brand" class="slide owl-carousel owl-theme type-{{section.settings.type}}" data-limit="{{section.settings.grid}}" data-dots="{{section.settings.bullets}}" data-button="{{section.settings.arrows}}" data-autoplay="{{section.settings.autoplay}}">
+      {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+   
+      <div class="banner-items">
+        {% if block.settings.brand_thumb1 != blank %}
+        {{ block.settings.brand_thumb1 | img_url: 'master' | img_tag: section.settings.image.alt, 'logo-bar__image' }}
+        {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+        <div class="content-banner">
+          <div>{{block.settings.content }}</div>
+          <a href="{{ block.settings.link }}" class="logo-bar__link">
+            {{ block.settings.button}}
+          </a>
+        </div>
+      </div>
+
+      {% endfor %}
+      {% endif %}
+    </div>
+    {% if section.settings.show_carousel_layout_brand == 'slide' %}
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+  {
+  
+	"name": "Carousel Slider",
+    "class": "index-section",
+    "max_blocks": 10,
+    "settings": [
+ 		 {
+        "type": "checkbox",
+        "id": "show_instagram_boxed",
+        "label": "Enable Full Width"
+      },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "reponsive_mt",
+      "label": "Responsive Margin Top",
+      "info": "Example is '20,30,40,60'"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "reponsive_bt",
+      "label": "Responsive Margin Bottom",
+      "info": "Example is '20,30,40,60'"
+    },
+
+      {
+        "type": "range",
+        "id": "grid",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "label": "Item per row",
+        "default": 4
+      },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Autoplay",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "arrows",
+            "label": "Arrows",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "bullets",
+            "label": "Bullets",
+            "default": true
+        },
+  
+      {
+        "type": "text",
+        "id": "brand_title",
+        "label": "Heading",
+        "default": "Heading"
+      },
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Type",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Type #1"
+            },
+            {
+              "value": "2",
+              "label": "Type #2"
+            },
+            {
+              "value": "3",
+              "label": "Type #3"
+            },
+            {
+              "value": "4",
+              "label": "Type #4"
+            }
+          ]
+        }
+	],
+    "blocks": [
+ {
+
+              "type": "banner",
+              "name": "Banner",
+              "settings": [
+              {
+                "type": "image_picker",
+                "id": "brand_thumb1",
+                "label": "Logo"
+              },
+			
+            {
+              "type": "html",
+              "id": "content",
+              "label": "Content",
+              "default": "Content"
+            },{
+              "type": "text",
+              "id": "button",
+              "label": "Button",
+              "default": "Shop Now"
+            },
+            {
+              "type": "url",
+              "id": "link",
+              "label": "Link",
+              "info": "Optional"
+            }
+             ]
+          
+      }
+      
+	],
+    "presets": [
+        {
+          "name": "Carousel Slider",
+           "category": "3) Builder",
+          "blocks": [
+            {
+              "type": "banner"
+            },
+            {
+            	"type": "banner"
+            },
+            {
+            	"type": "banner"
+            },
+            {
+           		"type": "banner"
+            },
+            {
+           		"type": "banner"
+            }
+          ]
+        }
+  	]
+ }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

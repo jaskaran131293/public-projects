@@ -1,0 +1,159 @@
+<div class="container custom_coll_hd">
+  <div class="cat-left-block col-sm-6 col-xs-12">
+  	<p class="name-colection">
+      {% if tmplname == "newgridfirst" and collection.metafields.global.banner_collection_name.value != blank %}
+        {{ collection.metafields.global.banner_collection_name.value }}
+      {% else %}
+        Collection
+      {% endif %}
+    </p>
+    <header class="product-title">
+      {% if tmplname == "newgridfirst" and collection.metafields.global.banner_collection_title.value != blank %}
+        <h1>{{ collection.metafields.global.banner_collection_title.value }}</h1>
+      {% else %}
+        <h1>{{ collection.title }}</h1>
+      {% endif %}
+      
+    </header>
+  </div> 
+  
+  <div class="cat-right-text col-sm-6 col-xs-12">
+  	<div class="toolbar"> 
+      {% if tmplname == "newgridfirst" and collection.metafields.global.banner_collection_description.value != blank %}
+        <div class="description-new"><p>{{ collection.metafields.global.banner_collection_description.value }}</p></div>
+      {% else %}
+        <div class="description old"><p>{{ collection.banner_collection_descripiton }}</p></div>
+      {% endif %}  
+      <div class="toolbar-mode">
+        {% if section.settings.colection_view %}
+        <div class="collection-view">
+          <label>View As</label>
+    
+          <a class="change-view grid{% unless template contains 'list' %} active{% endunless %}" id="grid" rel="tooltip" title="Grid view">
+            <div class="layer layer--primary"><div></div><div></div></div><div class="layer layer--secondary"><div></div><div></div></div>
+          </a>
+    
+          <a class="change-view list{% if template contains 'list' %} active{% endif %}" id="list" rel="tooltip" title="List view">
+            <div class="togglelines"></div>
+          </a>      
+        </div>
+        {% endif %}
+        <div class="filter-collection-left">
+          <a {% if  settings.collection_layout == 'colection-left' and settings.collection_layout == 'right_sibar'%}style="display: none;"{% endif %}>
+            <span class="togglelines"></span>
+            <span class="shop-filter-text no-select">
+              <span class="closetext">{{ 'collection.toolbar.filter' | t }}</span>
+              <span class="opentext">Close</span>
+            </span>
+          </a>
+        </div>
+        {% if settings.isotope_collection_results_per_page != blank %}
+        {% assign product_per_page = settings.isotope_collection_results_per_page %}
+        {% else %}
+        {% assign product_per_page = 14 %}
+        {% endif %} 
+      </div> 
+    </div>
+  </div> 
+</div>
+
+<div class="container collection_img_desc">
+  {% if collection.image.src %}
+  <div class="images em-eff06-03">
+    {{ collection.image.src | collection_img_url: 'master' | img_tag: collection_title }}
+    
+    <div class="jade_stack_videos">
+   		<iframe width="100%" height="400" src="https://www.youtube.com/embed/XUwiRGhhw9M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+  </div>
+  {% endif %}
+
+</div>
+
+<style>
+  body .filter-collection-left{display:block}
+</style>
+<script>
+  jQuery("#filter-sidebar").scroll(function() {
+    if (jQuery(window).width() < 991) {
+      var scroll = jQuery("#filter-sidebar").scrollTop();
+      if (scroll > 30) {
+        jQuery(".continue-filter").addClass("fillter-ticky");
+      }else{
+        jQuery(".continue-filter").removeClass("fillter-ticky");
+      }
+    }
+  });
+
+  jQuery('.sort-by')
+  .val('{{ collection.sort_by | default: collection.default_sort_by  }}')
+       .bind('change', function() {
+    Shopify.queryParams.sort_by = jQuery(this).val();
+    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+  });
+  jQuery(function() {
+    $('.hidden-sidebar  #filter-sidebar').hide();
+    $('.hidden-sidebar .filter-collection-left > a').click( function(){
+      $('.toolbar').toggleClass('active');
+      $('#filter-sidebar').toggle(400);
+    });
+    jQuery('.close-sibade').on('click', function(){
+      jQuery('.wrapper-container').removeClass('show-fillter');
+      jQuery('.toolbar').removeClass('active');
+    });
+    $('.colection-left .filter-collection-left > a').click( function(){
+      $('.toolbar').toggleClass('active');
+      if ( $('.wrapper-container').hasClass('show-fillter') ) {
+        $('.wrapper-container').removeClass('show-fillter');
+      } else {
+        $('.wrapper-container').removeClass('show-fillter');
+        $('.wrapper-container').addClass('show-fillter');    
+      }
+    });
+
+    jQuery('body.template-collection .collection-view a').on('click', function() {
+      jQuery('.collection-view a.active').removeClass('active');
+      jQuery(this).addClass('active');
+
+    });
+
+    jQuery('body.template-collection .collection-view a.list').on('click', function() {
+      jQuery('body.template-collection').find('.products-grid').addClass('product-list-item');
+      if( jQuery('body.template-collection .products-grid').hasClass('product-grid-item')){
+        jQuery('body.template-collection').find('.products-grid').removeClass('product-grid-item');
+
+      }else{
+        jQuery('body.template-collection').find('.products-grid').addClass('');
+      }
+
+    });
+    jQuery('body.template-collection .collection-view a.grid').on('click', function() {
+      jQuery('body.template-collection').find('.products-grid').addClass('product-grid-item');
+      if( jQuery('body.template-collection .products-grid').hasClass('product-list-item')){
+        jQuery('body.template-collection').find('.products-grid').removeClass('product-list-item');
+
+      }else{
+        jQuery('body.template-collection').find('.products-grid').addClass('');
+      }
+    });
+
+
+  });
+
+
+</script>
+
+<style>
+.collections-pages .collection-page .display-toolbar .collection_img_desc > .images{
+	display: none;
+}
+
+#bridal .collections-pages .collection-page .display-toolbar .cat-right-text .toolbar .description{
+	background: none;
+	color: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 1.33px;
+}
+</style>

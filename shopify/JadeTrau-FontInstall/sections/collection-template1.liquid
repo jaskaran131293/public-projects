@@ -1,0 +1,210 @@
+{% if section.settings.collection_grid_slider == true and collection.metafields.global.gridimages.value != blank %}
+  {% assign columns_product = 4 | plus: 0 %}
+  {% assign product_grid = 12 | divided_by: 4 %}
+{% else %}
+  {% assign columns_product = settings.collection_results_per_row | plus: 0 %}
+  {% assign product_grid = 12 | divided_by: settings.collection_results_per_row %}
+{% endif %}
+
+{% assign display_image_cat = section.settings.display_image_cat %}
+{% assign image_category = section.settings.image_category %}
+{% assign columns = 12 | divided_by: columns_product %}
+{% assign collection_banner_title = section.settings.collection_banner_title %}
+{% assign collection_height_image = section.settings.collection_height_image %}
+
+{% assign sidebar_categories_title = section.settings.sidebar_categories_title %}
+
+{% if section.settings.collection_ajaxinate %} 
+  {% assign collection_infinite_scrolling = "click_loadmore" %}
+  {% assign collection_infinite_scrolling_no_more_product_text = settings.collection_infinite_scrolling_no_more_product_text %}
+{% else %} 
+  {% assign collection_infinite_scrolling = settings.collection_infinite_scrollings %}  
+  {% assign collection_infinite_scrolling_no_more_product_text = collection_infinite_scrolling_no_more_product_text %}
+{% endif %}
+{% assign collection_infinite_scrolling_text = settings.collection_infinite_scrolling_text %}
+
+
+{% if settings.isotope_collection_results_per_page != blank %}
+  {% assign product_per_page = settings.isotope_collection_results_per_page %}
+{% else %}
+  {% assign product_per_page = 14 %}
+{% endif %}
+
+{% unless settings.collection_layout == 'colection_fulwidth'%}
+{% include 'page-header' %} 
+{% endunless %}
+<div class="dfdfdf product-grid-isotope-parent collection-template1 {%if settings.colection_gutter %} colection_gutter {% endif %}  {%if settings.colection_boder %} colection_boder {% endif %} ">
+      <div class="products-grid product-grid-item collection-grid row">
+  
+        {% if collection.products.size > 0 %}  
+        
+            {% assign qty = false %} 
+            {%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
+            {% assign param = blank %}
+            
+            {%- for i in (1..1) -%}
+            
+              {%- unless page_url contains "?" -%}{% break %}{%- endunless -%}
+              {%- assign query_string = page_url | split:'?' | last -%}
+              {%- assign qry_parts= query_string | split:'&' -%}
+             
+              {%- for part in qry_parts -%}
+                {%- assign key_and_value = part | split:'=' -%}
+                {%- if key_and_value.size > 1 -%}
+                  {% if key_and_value[0] == 'qty' %}
+                    {% assign qty = true %}
+                  {% endif %}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          
+          {% paginate collection.products by product_per_page %}   
+            
+            {% for product in collection.products %} 
+              
+              {% if qty == true and product.variants.first.inventory_quantity > 0 %}
+                {% assign pass = true %}
+              {% elsif qty == true and product.variants.first.inventory_quantity <= 0 and product.variants.first.inventory_policy == 'deny' %}
+                {% assign pass = false %}
+              {% else %}
+                {% assign pass = true %}
+              {% endif %}
+              
+              {% if pass == true %}
+                {% assign columns = 12 | divided_by: columns_product %}
+                {% if collection.metafields.global.gridimages.value != blank and section.settings.collection_grid_slider == true and  paginate.current_page == 1 %}
+                  {% if section.settings.collection_grid_slider == true and forloop.index == 1 %} 
+                      <div class="col-md-6 custom_grid_image"> 
+                        <div class="row"> 
+                  {% endif %}
+                  {% if forloop.index == 1 or forloop.index == 2 or forloop.index == 3 or forloop.index == 4  %}
+                      {% assign columns = 6 %} 
+                  {% endif %}
+     
+                  {% if section.settings.collection_grid_slider == true and forloop.index == 5 %}
+                      </div></div>
+                    <div class="col-md-6 custom_grid_image"> 
+                      <div class="col-md-12 bicustom_grid_image" style="background-image: url('{{ collection.metafields.global.gridimages.value | img_url: '1024x' }}');">
+                        <div class="content-area col-md-12">
+                          {% if collection.metafields.global.gridtitle.value != blank %}<div class="title">{{ collection.metafields.global.gridtitle.value }}</div>{% endif %}
+                          {% if collection.metafields.global.griddescription.value != blank %}<div class="description">{{ collection.metafields.global.griddescription.value }}</div>{% endif %}
+                          {% if collection.metafields.global.gridbuttonurl.value != blank %}
+                            <div class="button">
+                              <a href="{{ collection.metafields.global.gridbuttonurl.value }}">{{ collection.metafields.global.gridbuttonurlname.value | default: "Shop The Edit" }}</a>
+                            </div>
+                          {% endif %} 
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+                
+                <div class="{% if product.variants.first.inventory_quantity <= 0 %} qty_0 {% endif %}{% if settings.collection_results_per_row != blank and settings.collection_results_per_row != '5' %}col-lg-{{columns}} col-md-4 col-6{% else %} item-col-5 col-md-4 col-6  {% endif %} product-items {% if collection_infinite_scrolling == 'auto_loadmore' %} collection-product-item {% endif %}">
+                  {% include 'product-item-new' %}
+                </div>
+                 
+              {% endif %}
+            {% endfor %}
+            </div>
+ 
+            {% if paginate.pages > 1 %}
+              <div class="col-12 padding pagination-wrap">
+                {% include 'pagination-page' %}
+              </div>
+            {% endif %}
+          {% endpaginate %}
+        {% else %}
+          <p style="text-align: center;">{{ 'collection.notice' | t }}</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+<script>
+  {% if section.settings.enable_full%}
+  jQuery('.collections-pages').addClass('full-width');
+  {% else %}
+  jQuery('.collections-pages').addClass('');
+  {% endif %}
+
+</script>
+{% schema %}
+{
+  "name": "Topbar",
+  "settings": [
+
+      
+      {
+        "type": "checkbox",
+        "id": "enable_full",
+        "label": "Enable Full Width",
+        "default": true
+      },
+{
+        "type": "header",
+        "content": "Image Category"
+      },
+    {
+        "type": "checkbox",
+        "id": "display_image_cat",
+        "label": "Enable Image Category",
+        "default": true
+      },
+
+{
+        "type": "header",
+        "content": "Collection Title"
+      },
+{
+        "type": "checkbox",
+        "id": "colection_title",
+        "label": "Enable Collection Title",
+        "default": true
+      },
+
+{
+        "type": "header",
+        "content": "Collection Description"
+      },
+{
+        "type": "checkbox",
+        "id": "colection_decription",
+        "label": "Enable Collection Description",
+        "default": true
+      },
+{
+        "type": "header",
+        "content": "Sort By"
+      },
+{
+        "type": "checkbox",
+        "id": "colection_softby",
+        "label": "Enable Sort By",
+        "default": true
+      },
+{
+        "type": "header",
+        "content": "View As"
+      },
+
+{
+        "type": "checkbox",
+        "id": "colection_view",
+        "label": "Enable View As",
+        "default": true
+      },
+    {
+      "type": "checkbox",
+      "id": "collection_ajaxinate",
+      "label": "Load More Enable",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_grid_slider",
+      "label": "Enable Image In Grid",
+      "default": false
+    } 
+  ]
+}
+{% endschema %}

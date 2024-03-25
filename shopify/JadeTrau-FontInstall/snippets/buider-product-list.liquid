@@ -1,0 +1,61 @@
+{%- if block.settings.reponsive_mt != blank -%}
+{%- assign margin_top_responsive = block.settings.reponsive_mt | split: ',' -%}
+{% capture margin_top %}mt-{{ margin_top_responsive[0] }} mt-sm-{{ margin_top_responsive[1] }} mt-md-{{ margin_top_responsive[2] }} mt-lg-{{ margin_top_responsive[3] }} {% endcapture %}
+{%- endif -%}
+{%- if block.settings.reponsive_bt != blank -%}
+{%- assign margin_bottom_responsive = block.settings.reponsive_bt | split: ',' -%}
+{% capture margin_bottom %}mb-{{ margin_bottom_responsive[0] }} mb-sm-{{ margin_bottom_responsive[1] }} mb-md-{{ margin_bottom_responsive[2] }} mb-lg-{{ margin_bottom_responsive[3] }} {% endcapture %}
+{%- elsif section.settings.margin_bottom != blank -%}
+{% capture margin_bottom %}margin-bottom-{{ block.settings.margin_bottom }}{% endcapture %}
+{%- endif -%}
+{%- if block.settings.grid_responsive != blank -%}
+{%- assign grid_responsive = block.settings.grid_responsive | split: ',' -%}
+{% capture class_grid %}col col-{{ grid_responsive[4] }} col-sm-{{ grid_responsive[3] }} col-md-{{ grid_responsive[2] }} col-lg-{{ grid_responsive[1] }} col-xl-{{ grid_responsive[0] }}{% endcapture %}
+{%- else -%}
+{% capture class_grid %}col-12 col-md-{{ block.settings.grid }}{% endcapture %}
+{%- endif -%}
+<div class="home-product-list  {{class_grid}} {{margin_top}} {{margin_bottom}} type-{{block.settings.type}}" style="{%- unless block.settings.reponsive_mt != blank -%}margin-top:{{ block.settings.margin_top }}px;{%endunless %}{%- unless block.settings.reponsive_bt != blank -%}margin-bottom:{{ block.settings.margin_bottom }}px;{%endunless %}">
+  {% assign tabs_collection = block.settings.tabnew_collection %}
+  {% if block.settings.home_product_title_1 != blank %}
+  <div class="heading-block">
+    <h3 class="title">
+      <span>{{ block.settings.home_product_title_1 }}</span>
+    </h3>
+  </div>
+  {% endif %}
+    {% for product in collections[tabs_collection].products limit: block.settings.limit_prodct %}          
+    {% assign current_collection = collections[tabs_collection] %}
+    <div class="home-product-list-items">
+      {% include 'product-item-new' %}
+    </div>
+    {% else %}
+    {% for i in (1..3) %}
+    <div class="home-product-list-items">
+      <div class="grid-view-item">
+        <a href="#" class="grid-view-item__link">
+          {% if product.title %}
+          {%- assign compare_at_price = product.compare_at_price -%}
+          {%- assign price = product.price -%}
+          {%- assign price_varies = product.price_varies -%}
+          {%- assign available = product.available -%}
+          {% else %}
+          {%- assign compare_at_price = 1999 -%}
+          {%- assign price = 1999 -%}
+          {%- assign price_varies = false -%}
+          {%- assign available = true -%}
+          {% endif %}
+          <div class="grid-view-item__image">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          <div class="h4 grid-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
+          <div class="grid-view-item__meta">
+            <s class="product-price__price">{{ compare_at_price | money }}</s>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+
+</div>

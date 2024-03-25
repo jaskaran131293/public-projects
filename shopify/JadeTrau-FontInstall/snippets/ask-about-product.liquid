@@ -1,0 +1,297 @@
+<!--ask-about-product.liquid-------->
+{% if section.settings.enable_ask_product %}
+<div class="contact-forms" style="display:none;">
+  <div class="contact-form-contents">
+    <a class="ask-product-close"><i class="cs-font clever-icon-close"></i></a>
+    <div class="pdp_popup">
+      <div class="pdp_popup_upper">
+        <div class="pdp_popup_inner">
+
+          {% if section.settings.popup_deart != blank %}
+          <h4>{{ section.settings.popup_deart }}</h4>
+          {% endif %}
+          
+          
+          {% if section.settings.popup_text != blank %}
+        {% comment %} <p>{{ section.settings.popup_text }}</p>   {% endcomment %} 
+            <p>I’ve got my eye on something special over at Jade Trau,
+              the {{ product.title }}. Hint Hint. I thought you’d like to know.</p>
+
+          {% endif %}
+          
+          <div class="bangle_div">
+            <img id="lbg-image" src="{{ product.featured_image | img_url: 'master' }}">
+            {% comment %}
+            {% if section.settings.bangle_img != blank %}
+            <img src="{{ section.settings.bangle_img | img_url:'master'  }}" >
+            {% endif %}
+            {% endcomment %}
+          </div>
+          
+          {% comment %}
+            {% if section.settings.btn_link != blank %}
+            <a href="{{ section.settings.btn_link }}" title="" class="btn">{{ section.settings.btn_text }}</a>
+            {% endif %}
+          {% endcomment %}
+
+          
+        </div>
+        <div class="pdp_popup_inner">
+
+          <div class="contact-form-body">
+            <form method="post" action="/contact#contact_form" accept-charset="UTF-8" class="contact-form" onsubmit="">
+              <h2 id="prd_title" style="display:none;">{{ product.title }}</h2>
+              <input type="text" name="page_url" id="pageURL" placeholder="" hidden="hidden">
+              <input type="text" name="prd_title" id="prd_title" placeholder="" hidden="hidden">
+             <div id="contactFormWrapper">
+              <div class="recipient_div">
+                <input type="text" name="" id="contactFormName" placeholder="Recipient's Name" class="recipientname" required >
+                <input type="email" name="" id="contactFormEmail" autocorrect="off" autocapitalize="off" class="recipientemail"  placeholder="Recipient's Email" required>
+              </div>
+              
+              <input type="text" name="" id="contactFormName" class="yourname"  placeholder="Your Name" required>
+              <input type="email" name="" id="contactFormEmail" class="youremail"  autocorrect="off" autocapitalize="off" placeholder="Your Email" required>
+              <textarea rows="4" name="" id="contactFormMessage" class="message"  placeholder="Message" required></textarea>
+              <input type="submit" id="get_drophint" class="btn submit_btn left" value="Submit">
+              <p id="response"></p>
+            </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
+
+
+<style>
+  .req_errors{
+	border:2px solid red !important;  
+  }
+  .drophint_mail_sent{
+   color:green !important;
+   font-weight:bold;
+    
+  }
+   .drophint_mail_error , .eml_err{
+   color:red !important;
+   font-weight:bold;
+    
+  }
+  .template-product .contact-forms .contact-form-contents .ask-product-close{    position: absolute;height:auto;top:0;right:0;padding:0;}
+  .template-product .contact-forms .contact-form-contents{width:1170px;background:#fff;padding:30px 30px;text-align:left;}
+  .template-product .contact-forms .contact-form-contents .ask-product-close i {
+    width: 30px;
+    height: 30px;
+    top: 0;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+    color: #ffffff;
+    z-index: 99999;
+    background: #000;
+    right: 0;
+    font-size: 14px;  }
+  .pdp_popup_upper{display:flex;flex-wrap:wrap;align-items: center;}
+  .pdp_popup_inner{width:50%;}
+  .pdp_popup_inner:first-child{padding:50px 50px 72px;background: #FAFAFA;}
+  .pdp_popup_inner:last-child{background:#fff;}
+
+  .pdp_popup_inner h4{margin:0 0 10px;font-size: 16px;line-height: 20px;font-weight:500!important;font-family:'sofia-pro'!important;text-align:left;text-transform: capitalize !important;}
+  .pdp_popup_inner p{font-size: 16px;line-height: 24px;font-weight:normal!important;font-family:'sofia-pro'!important;text-align:left;color: #3F3E40;}
+  .bangle_div{padding:50px 0;}
+  .pdp_popup_inner .btn{padding:12px 31px;background: #3F3E40; display: inline;text-transform: capitalize;font-size: 16px;line-height: 16px;text-align: center;font-weight:500!important;font-family:'sofia-pro'!important;color: #FFFFFF;}
+
+  .recipient_div{margin:0 0 40px;}
+  #contactFormWrapper input{ background: #f7f7f7;border:none;border-radius:0;height:40px;width:100%;font-weight:500!important;font-family:'sofia-pro'!important;color:#000;}
+  #contactFormWrapper input::placeholder{font-size: 16px;line-height: 20px;font-weight:500!important;font-family:'sofia-pro'!important;color: rgba(87, 87, 87, 0.8);}
+
+    #contactFormWrapper textarea{ background: #f7f7f7;border:none;resize:none;border-radius:0;height:100px;width:100%;font-weight:500!important;font-family:'sofia-pro'!important;color:#000;}
+  #contactFormWrapper textarea::placeholder{font-size: 16px;line-height: 20px;font-weight:500!important;font-family:'sofia-pro'!important;color: rgba(87, 87, 87, 0.8);}
+
+  
+ .pdp_popup_inner #contactFormWrapper input.submit_btn{padding:12px 31px;background: #3F3E40; display: inline;    width: auto;text-transform: capitalize;font-size: 16px;line-height: 16px;text-align: center;font-weight:500!important;font-family:'sofia-pro'!important;color: #FFFFFF;}
+
+
+  @media only screen and (min-width:200px) and (max-width:767px){
+    .template-product .delivery-popup, .template-product .contact-forms {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.template-product .contact-forms .contact-form-contents .contact-form-body {
+    padding: 15px 0;
+}
+    .pdp_popup_inner{width:100%;}
+    .drop_hint {
+      margin-top: 16px;
+      margin-bottom: 0;
+
+      width: 100%;
+      text-align: right;
+      float: none;
+    }
+    .pdp_popup_inner:first-child {
+    padding: 50px 0px 50px;
+    background: #FAFAFA;}
+    .template-product .contact-forms .contact-form-contents {
+      width: 270px;
+      background: #FAFAFA;
+      padding: 20px 20px;
+      text-align: left;    }
+      .pdp_popup_inner:last-child{ background: #FAFAFA;}
+    .template-product .contact-forms .contact-form-contents .contact-form-body{ background: #FAFAFA;}
+      .recipient_div{border-top: 1px solid #DCDCDC;padding:50px 0 0;margin:0 0 40px;}
+    .pdp_popup_inner .btn {display:block;height: 46px;}    
+ .pdp_popup_inner #contactFormWrapper input.submit_btn{display:block;height: 46px;}
+  }
+  @media only screen and (min-width:500px) and (max-width:767px){
+  .template-product .contact-forms .contact-form-contents {
+    width: 350px;}
+  }
+  @media only screen and (min-width:768px) and (max-width:991px){
+      .template-product .contact-forms .contact-form-contents {
+        width: 600px;}
+  }
+  @media only screen and (min-width:992px) and (max-width:1199px){
+     .template-product .contact-forms .contact-form-contents {
+        width: 800px;}
+  }
+  @media only screen and (min-width:1200px) and (max-width:1367px){
+    .container{max-width:1170px;}
+       .template-product .contact-forms .contact-form-contents {
+        width: 1000px;}
+  }
+  
+</style>
+
+
+
+<script>
+  jQuery(document).ready(function() {
+    jQuery('.ask-product-lable').click(function(){
+      jQuery('body').addClass('open-ask-product');
+    })
+    jQuery('.ask-product-close').click(function(){
+      jQuery('body').removeClass('open-ask-product');
+    })
+  });  
+</script>
+
+<script>
+  function validateEmail($email) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test( $email );
+  } 
+  jQuery(document).ready(function(){
+   
+
+    $elem = jQuery('textarea'); 
+    $elem.attr("required","required");
+    $elem.attr("type","textarea");
+    
+			 
+    jQuery("#get_drophint").click(function(e){
+      e.preventDefault();   
+       var required = jQuery('input,email,textarea').filter('[required]:visible');
+        var prd_title = jQuery("#prd_title").text();
+         required.each(function(){
+            var currentval = jQuery(this).val();
+           	if(jQuery(this).attr("type") == 'email') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              }
+              else if( !validateEmail(currentval)) { 
+							jQuery(this).addClass('req_errors');  
+							 jQuery("#response").addClass("drophint_mail_error"); 
+  						jQuery("#response").removeClass("drophint_mail_sent");
+                   jQuery("#response").addClass("eml_err");
+                     jQuery("#response").html("Please enter valid email address"); 
+					 
+			   }
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 jQuery(".eml_err").hide();
+               }
+            }
+            	if(jQuery(this).attr("type") == 'textarea') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'text') {
+                if(currentval == '')
+                {  
+                    jQuery(this).addClass('req_errors');  
+                }
+                else
+                {
+                 jQuery(this).removeClass('req_errors'); 
+                   jQuery(".eml_err").hide();
+                }
+              }
+              }); 
+      
+              var page_url      = window.location.href;   
+              var recipientname = jQuery(".recipientname").val();
+              var recipientemail = jQuery(".recipientemail").val();
+              var yourname = jQuery(".yourname").val();
+              var youremail = jQuery(".youremail").val();
+              var message = jQuery(".message").val(); 
+              var URL="https://form.jadetrau.com/wp-json/contact-form-7/v1/contact-forms/5/feedback";
+              var a = {};
+              a['text-513'] = recipientname;
+              a['email-410'] = recipientemail;
+              a['text-236'] = yourname;
+              a['email-504'] = youremail;
+              a['textarea-950'] = message; 
+              a['pageURL'] = page_url; 
+              a['prd_title'] = prd_title; 
+
+                jQuery.ajax({
+                  url: URL ,
+                  data: a,
+                  type: 'POST',
+                  success: function (resp) { 
+                    if(resp.status == 'validation_failed') {
+                       
+                         // jQuery("#response").addClass("eml_err"); 
+                        jQuery("#response").removeClass("drophint_mail_sent");
+                       jQuery("#response").addClass("drophint_mail_error");
+                       jQuery("#response").html("Please fill all fields");
+                     
+                    } 
+                    else 
+                    {
+                        jQuery("#response").removeClass("eml_err");
+                        jQuery("#response").removeClass("drophint_mail_error");
+  						jQuery("#response").addClass("drophint_mail_sent");
+                      jQuery(".drophint_mail_sent").show();
+                     jQuery("#response").html("Mail sent successfully"); 
+                       var required = jQuery('input,textarea,email').filter('[required]:visible');
+                       required.each(function(){ 
+                         jQuery(this).val('');
+                          jQuery(this).removeClass('req_errors'); 
+                       });
+                    }
+                     setTimeout(function(){ jQuery(".drophint_mail_sent").fadeOut(); },3000);
+                  },
+                  error: function(e){
+                    jQuery("#drophint_mail_sent").hide();
+                  alert('Error: '+e);
+                  }
+                });
+     });
+   });
+</script>
+
+{% endif %}
