@@ -1,1 +1,0 @@
-{% if content contains shortcode %}{% assign val = content | split: shortcode | last %}{% assign shortcode_last = shortcode | replace: "[", "[/" %}{{ val | split: shortcode_last | first }}{% endif %}
