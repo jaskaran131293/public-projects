@@ -1,0 +1,163 @@
+<style>
+  #filter-sidebar-newgrid {
+    border: 1px solid #3F3E40;
+    padding: 15px 0px;
+    border-left: 0;
+    border-right: 0; 
+    width: 90%;
+    margin: 0 auto;
+ margin-top: 30px;
+  }
+  .checkbox-qty span, .sortby select{ 
+    font-size: 12px;
+    line-height: 18px; 
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #3F3E40;
+  }
+</style>
+
+{% assign qty = false %} 
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
+{% assign param = blank %}
+
+{%- for i in (1..1) -%}
+
+  {%- unless page_url contains "?" -%}{% break %}{%- endunless -%}
+  {%- assign query_string = page_url | split:'?' | last -%}
+  {%- assign qry_parts= query_string | split:'&' -%}
+
+  {%- for part in qry_parts -%}
+    {%- assign key_and_value = part | split:'=' -%}
+    {%- if key_and_value.size > 1 -%}
+      {% if key_and_value[0] == 'qty' %}
+        {% assign qty = true %}
+      {% endif %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+
+  
+<div class="d-flex flex-row justify-content-between dfdf">
+  <div class="sortby align-items-center cursor-pointer">
+    <img src="{{ 'filter-az.png' | asset_url }}"> 
+    {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+
+    <select class="ff-poppins fw-300 uppercase ml-2" id="mySelect">
+    {%- for option in collection.sort_options %}
+      <option
+        value="{{ option.value }}"
+        {%- if option.value == sort_by %}
+          selected="selected"
+        {%- endif %}
+      >
+        {{ option.name }}
+      </option>
+    {% endfor -%}
+    </select>
+  </div>
+  <div class="checkbox-qty d-flex flex-row align-items-center dfdfdfd">
+    <input type="checkbox" value="1" id="my-checkbox" class="cursor-pointer" {% if qty == true %} checked="checked" {% endif %}>
+    <span class="ff-poppins fw-300 uppercase ml-2">Available Now</span>
+  </div>
+</div>
+
+<script>
+let selectElement = document.getElementById("mySelect");
+
+selectElement.addEventListener("change", function() {
+  let selectedValue = selectElement.options[selectElement.selectedIndex].value;
+  let currentUrl = window.location.href;
+  let newUrl;
+  let regex = /[?&]sort_by=([^&#]*)/;
+  let results = regex.exec(currentUrl);
+
+  if (!results) { // if selectedValue is not in the current URL
+    if (currentUrl.indexOf("?") === -1) {
+      newUrl = currentUrl + "?sort_by=" + selectedValue;
+    } else {
+      newUrl = currentUrl + "&sort_by=" + selectedValue;
+    }
+  } else {
+    if (currentUrl.indexOf("?") === -1 || results[0].charAt(0) === "?") {
+      newUrl = currentUrl.replace(regex, "?sort_by=" + selectedValue);
+    } else {
+      newUrl = currentUrl.replace(regex, "&sort_by=" + selectedValue);
+    }
+  }
+  
+  window.location.href = newUrl;
+});
+
+//   $('#my-checkbox').on('change', function() {
+//   var currentUrl = window.location.href;
+//   var newUrl;
+
+//   if (this.checked) {
+//     // Add the query parameter to the URL
+//     if (currentUrl.indexOf("?") === -1) {
+//       newUrl = currentUrl + '?qty=' + this.value;
+//     } else {
+//       newUrl = currentUrl + '&qty=' + this.value;
+//     }
+//   } else {
+//     // Remove the query parameter from the URL
+//     newUrl = currentUrl.replace(/\&qty=\d+/g, "").replace(/\?qty=\d+\&/, "?").replace(/\?qty=\d+$/, "");
+//   }
+
+//   window.history.pushState({}, '', newUrl);
+//   location.reload();
+// });
+
+// Function to check/uncheck the checkbox based on the URL
+function updateCheckboxState() {
+  var currentUrl = window.location.href;
+  var qtyParam = 'qty=1';
+
+  if (currentUrl.includes(qtyParam)) {
+    $('#my-checkbox').prop('checked', true);
+     $('.qty_0').css("display","none");
+  } else {
+    $('#my-checkbox').prop('checked', false);
+  }
+}
+
+// Call the function to initialize checkbox state on page load
+$(document).ready(function(){
+ setTimeout(function(){
+  updateCheckboxState();   
+ },1000);
+  
+})  
+
+
+$('#my-checkbox').on('change', function() {
+  var currentUrl = window.location.href;
+  var newUrl;
+
+  if (this.checked) {
+    // Add the query parameter to the URL
+    if (!currentUrl.includes('qty=1')) {
+      if (currentUrl.indexOf("?") === -1) {
+       
+        newUrl = currentUrl + '?qty=1';
+      } else {
+        newUrl = currentUrl + '&qty=1';
+      
+      }
+      
+    } else {
+      newUrl = currentUrl;
+    }
+  } else {
+    // Remove the query parameter from the URL
+    newUrl = currentUrl.replace(/[\?&]qty=\d+/g, "").replace(/\?$/, "");
+  }
+
+  window.history.pushState({}, '', newUrl);
+  location.reload();
+});
+
+
+</script>

@@ -1,0 +1,285 @@
+<!--header-layout-01.liquid-->
+{% include "mobile_naV"  %}
+<div class="header-topbar">
+  <div class="{% if  section.settings.enable_header_fullwidth  %}full-width {%endif %}">
+    {% unless section.settings.enable_header_fullwidth %}
+    <div class="container">
+      {% endunless  %} 
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="custom-text">{{section.settings.header_topbar_left }} </div>
+        </div>
+        <div class="col-12 col-md-4 text-center">
+          <div class="custom-text">{{section.settings.custom_content }} </div>
+        </div>
+        <div class="header-cart-container col-md-4 col-12 text-right"> 
+          {% if section.settings.show_header_currency %}
+          <div class="header-currency">
+            {% include 'new-currency-top' %}
+          </div>
+          {% endif %}
+          {%if section.settings.show_button_language %}
+          <div class="header-language">
+            <div class="header-language-inner">
+              {% if section.settings.language_app =='none' %}
+              <ul>
+                {%- assign footercol1 = section.settings.language_link_list -%}
+                {% for link in linklists[footercol1].links %}
+                <li{% if section.settings.default_language == link.title %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+              {% endif %}
+              {% if section.settings.language_app =='weglot' %}
+              <ul class="language_droplist" data-css="{{ 'weglot_app.css' | asset_url }}">
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+        </div> 
+      </div>
+      {% unless section.settings.enable_header_fullwidth %}
+    </div>
+    {% endunless  %}
+  </div>
+</div>
+<div id="header-content">
+  <div class="header header-center {% if  section.settings.enable_header_fullwidth  %}full-width {%endif %}">
+    {% unless section.settings.enable_header_fullwidth %}
+    <div class="container">
+      {% endunless  %}
+      <div class="header-inner">
+        <div class="row">
+          <div class="col-md-2 col-12 header_twoLi">
+<a class="lion_a" style = "opacity:0.5; padding-left:31px; color:
+white" href="/pages/visit-us">VISIT US</a>
+ <a class="lion_a" style = "opacity:0.5; padding-left:31px; color:
+white" href="/pages/appointment">APPOINTMENT</a>
+</div>
+          <div class="col-md-2  col-12 logo-container">
+            {% if template.name == 'index' %}
+            <h1 class="logo" itemscope itemtype="http://schema.org/Organization">
+              {% else %}
+              <div class="logo" itemscope itemtype="http://schema.org/Organization">
+                {% endif %}
+                <a href="/">
+                  {% if section.settings.enable_header_logosvg %}
+                  {% if section.settings.header_logo_svg  != blank %}
+                  <span style="height:{{ section.settings.logo_height_a }}px; width:auto;">
+                    {{ section.settings.header_logo_svg }}
+                  </span>
+                  {% else %}
+                  <img class="" src="{{ 'logo.svg' | asset_url }}" style="height:{{ section.settings.logo_height_a }}px; width:auto;" />
+                  {% endif %}
+                  {% else %}
+                  <img src="{{ section.settings.logo | img_url: '2048x' }}" alt="{{ shop.name }}" style="height:{{ section.settings.logo_height_a }}px; width:auto;"/>
+                  {% endif %}
+                </a>
+                {% if template.name == 'index' %}
+                </h1>
+              {% else %}
+              </div>
+            {% endif %}
+            <div class="logo-sticky">
+              <a href="/">
+                {% if section.settings.enable_header_logotickysvg %}
+                {% if section.settings.header_logo_tickysvg  != blank %}
+                <span style="height:{{ section.settings.logo_height_a }}px; width:auto;">
+                  {{ section.settings.header_logo_tickysvg }}
+                </span>
+                {% else %}
+                <img class="" src="{{ 'logo.svg' | asset_url }}" style="height:{{ section.settings.logo_height_a }}px; width:auto;" />
+                {% endif %}
+                {% else %}
+
+                <img src="{{ section.settings.logo_sticky | img_url: '2048x' }}" alt="{{ shop.name }}" style="height:{{ section.settings.logo_sticky_height_a }}px; width:auto"/>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class="header-cart-container menu col-md-5 col-sm-12 col-12"> 
+            {% if section.settings.show_header_search %}
+            <div class="search-top-container">
+              <div id="search-top">
+                <div class="icon-search"><i class="cs-font clever-icon-search-4"> </i>
+               
+
+                </div>
+              </div>
+            </div>
+             <div class = "top-location">
+              <div id = "loaction-top">
+                  
+<!-- <i style='font-size:24px' class='fas'>&#xf3c5;</i>  -->
+            <a href ="/pages/stockists"><img class="blackico"  width="20" height="20" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/loocatiion_black_1.png?v=1658914639"></a>
+              <img class="whiteico" id = "lll1"  width="20" height="20"src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/white.png?v=1658914044"> 
+              </div>
+            </div>
+            {% endif %}
+            {% if section.settings.show_header_account %}
+            <div class="top-currency">
+              <span class="dropdown-icon">
+                <i class="cs-font clever-icon-user-6"></i>
+              </span>
+              <div class="top-bar-dropdown">
+                <div class="cusstom-link">
+                  {% if customer %}
+                  <ul class="customer-links">
+                    
+                    {% if settings.enable_wishlist %}
+                    <li class="wishlist-menu">
+                      <i class="icon_heart" aria-hidden="true"></i>
+                      <a href="/app/iwish" title="My Wishlist">{{ 'header.custom_link_wishlist' | t }}</a>
+                    </li>
+                    {% endif %}
+                    <li><i class="icon_check_alt" aria-hidden="true"></i><a href="/checkout"><span>{{ 'header.custom_link_checkout' | t }}</span></a></li>
+                    <li>
+                      <a href="/account/logout">{{ 'header.custom_link_logout' | t }}</a>
+                    </li>
+                    <li>
+                      <a href="/account">{{ 'header.custom_link_account' | t }}</a>
+                    </li>
+                  </ul>
+                  {% else %}
+                  <ul class="customer-links">
+                    {% if settings.enable_wishlist %}
+                    <li class="wishlist-menu">
+                      <i class="icon_heart" aria-hidden="true"></i>
+                      <a href="/pages/wish-list" title="My Wishlist">{{ 'header.custom_link_wishlist' | t }}</a>
+                    </li>
+                    {% endif %}
+                    <li><i class="icon_check_alt" aria-hidden="true"></i><a href="/checkout"><span>{{ 'header.custom_link_checkout' | t }}</span></a></li>
+                    <li><i class="icon_lock-open" aria-hidden="true"></i>
+
+                      <a href="/account/login">{{ 'header.custom_link_login' | t }}</a>
+                    </li>
+                    <li><i class="icon_profile" aria-hidden="true"></i>
+                      {% if shop.customer_accounts_optional %}
+                      <a href="/account/register">{{ 'header.custom_link_create_account' | t }}</a>
+                      {% endif %}
+                    </li>
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if section.settings.show_header_compare %}
+            <div class="compare-target">     
+              <a href="javascript:;" class="num-items-in-compare show-compare" title="compare">
+                <i class="cs-font clever-icon-law-1"></i>
+                <span class="compare-icon"><span class="number">0</span></span>
+              </a>
+            </div>
+            {% endif %}
+            {% if section.settings.show_header_wishlist %}
+            <div class="wishlist-header">
+              {% include 'iwish_v2' with 'iwishlink' %}              
+            </div>
+            {% endif %}
+            {% if section.settings.show_header_cart %}
+            <div class="header-cart">
+              <!--%include 'customer_links' %-->
+              <div class="top-cart-wr">
+                <div class="top-cart">
+                  <a href="#" class="cartToggle">
+                    <i class="cs-font {{ section.settings.header_icon_cart }}">
+                      {% if section.settings.header_icon_carttype == 'cart_type_1' %}
+                      <span class="cart-count">{{ cart.item_count }}</span>
+                      {% endif %}
+                    </i>
+                    {% if section.settings.header_icon_carttype == 'cart_type_2' %}
+                    <div class="minicart-wr">
+                      <span class="cart-count"> Cart ({{ cart.item_count }})</span>
+                    </div>
+                    {% endif %}
+                  </a> 
+                </div>
+
+                {% comment %}
+                If customer accounts are enabled, provide login and create account links
+                {% endcomment %}
+              </div> <!-- End Top Header --> 
+            </div>
+            {% endif %}
+          </div>   
+
+
+        </div>
+
+          <div class=" menu-main-home menu col-md-5  col-12 newhead01">
+            <div class="menu-top">
+              <div class="menu-action">{% include 'site-nav' %}</div>
+            </div>
+          </div>
+        {% unless section.settings.enable_header_fullwidth %}
+      </div>
+      {% endunless  %}
+    </div>
+  </div>
+</div>
+<script> 
+
+if (screen && screen.width > 900) {
+  let oldValue = 0;
+  let newValue = 0;
+  const header = document.querySelector(".header.header-center.full-width");
+
+  if (header && header.classList.contains("is-ticky")) {
+    header.classList.add("hide");
+  }
+
+  window.addEventListener("scroll", (e) => {
+    newValue = window.pageYOffset;
+    if (oldValue < newValue) {
+      if (header && header.classList.contains("is-ticky")) {
+        header.classList.add("hide");
+      }
+    } else if (oldValue > newValue) {
+      if (header && header.classList.contains("is-ticky")) {
+        header.classList.remove("hide");
+      }
+    }
+    oldValue = newValue;
+  });
+}
+
+if (screen && screen.width < 900) {
+    let oldValue = 0;
+    let newValue = 0;
+    window.addEventListener("scroll", (e) => {
+        newValue = window.pageYOffset;
+        if (oldValue < newValue) {
+            // document.querySelector('#header-mobile').classList.add('hide');
+            //    alert("Up");
+        } else if (oldValue > newValue) {
+            //     document.querySelector('.header.header-center.full-width.is-ticky').classList.remove('hide');
+            // document.querySelector('#header-mobile').classList.remove('hide');
+            //     alert("Down");
+        }
+        oldValue = newValue;
+    });
+}
+
+</script>
+              <style>
+.template-index .header-absolute .header.is-ticky #search-top  .template-index .header-absolute .header.is-ticky img.whiteico {
+    display: none;
+}
+img.blackico {
+    display: none;
+}
+ .template-index .header-absolute:hover #search-top .clever-icon-search-4, .template-index .header-absolute:hover .blackico {
+    display: block !important;
+}
+                .template-index .header-absolute:hover #search-top .clever-icon, .template-index .header-absolute:hover .header img.whiteico {
+    display: none !important;
+    padding-bottom: 0px !important;
+}
+                .template-index .header-absolute .header.is-ticky #search-top .clever-icon-search-4, .template-index .header-absolute .header.is-ticky img.blackico {
+    display: block !important;
+}
+                .template-index .header-absolute .header.is-ticky .clever-icon-search-4, .template-index .header-absolute .header.is-ticky img.whiteico {
+    display: none !important;
+}
+              </style>

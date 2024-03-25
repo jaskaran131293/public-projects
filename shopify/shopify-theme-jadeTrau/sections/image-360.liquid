@@ -1,0 +1,111 @@
+{%- if section.settings.reponsive_mt != blank -%}
+{%- assign margin_top_responsive = section.settings.reponsive_mt | split: ',' -%}
+{% capture margin_top %}mt-{{ margin_top_responsive[0] }} mt-sm-{{ margin_top_responsive[1] }} mt-md-{{ margin_top_responsive[2] }} mt-lg-{{ margin_top_responsive[3] }} {% endcapture %}
+{%- endif -%}
+{%- if section.settings.reponsive_bt != blank -%}
+{%- assign margin_bottom_responsive = section.settings.reponsive_bt | split: ',' -%}
+{% capture margin_bottom %}mb-{{ margin_bottom_responsive[0] }} mb-sm-{{ margin_bottom_responsive[1] }} mb-md-{{ margin_bottom_responsive[2] }} mb-lg-{{ margin_bottom_responsive[3] }} {% endcapture %}
+{%- elsif section.settings.margin_bottom != blank -%}
+{% capture margin_bottom %}margin-bottom-{{ section.settings.margin_bottom }}{% endcapture %}
+{%- endif -%}
+<div id="clv-product360s" class="clv-product360 {{margin_top}} {{margin_bottom}} type-{{section.settings.type}}" style="{%- unless section.settings.reponsive_mt != blank -%}margin-top:{{ section.settings.margin_top }}px;{%endunless %}{%- unless section.settings.reponsive_bt != blank -%}margin-bottom:{{ section.settings.margin_bottom }}px;{%endunless %}">
+  <div class="container">
+    {% if section.settings.home_block_2_title != blank %}
+    <div class="heading-block">
+      <h3 class="title">
+        {{ section.settings.home_block_2_title }}
+      </h3>
+      {% if section.settings.home_block_2_subtitle %}
+      <p class="subtitle">
+        {{ section.settings.home_block_2_subtitle }}
+      </p>
+      {% endif %}
+    </div>
+    {% endif %}
+    <div class="product-image-360" style="" data-allimage="{{section.settings.image_box }}">
+      <div class="nav_bar">
+        <a href="#" class="custom_previous"><i class="cs-font clever-icon-arrow-left-5"></i></a><a href="#" class="custom_play"><i class="cs-font clever-icon-360-1"></i></a><a href="#" class="custom_stop"><i class="cs-font clever-icon-360-1"></i></a><a href="#" class="custom_next"><i class="cs-font clever-icon-arrow-right-5"></i></a>
+        <p>Drag to ratation</p>
+      </div>
+      <ul class="product-images-item" style="display: block;">
+
+      </ul>
+      <div class="spinner"><span>0%</span></div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Block image 360deg",
+    "settings": [
+     
+    	{
+      		"type": "range",
+      		"id": "margin_top",
+      		"min": 0,
+      		"max": 100,
+      		"step": 1,
+      		"unit": "px",
+      		"label": "Margin Top",
+      		"default": 10
+    	},
+    	{
+      		"type": "text",
+      		"id": "reponsive_mt",
+      		"label": "Responsive Margin Top",
+      		"info": "Example is '20,30,40,60'"
+    	},
+    	{
+      		"type": "range",
+      		"id": "margin_bottom",
+      		"min": 0,
+      		"max": 100,
+      		"step": 1,
+      		"unit": "px",
+      		"label": "Margin Bottom",
+      		"default": 10
+    	},
+    	{
+      		"type": "text",
+      		"id": "reponsive_bt",
+      		"label": "Responsive Margin Bottom",
+      		"info": "Example is '20,30,40,60'"
+    	}, 
+      {
+        "type": "text",
+        "id": "home_block_2_title",
+        "label": "Heading",
+        "default": "Product 360 View"
+      },
+      {
+        "type": "text",
+        "id": "home_block_2_subtitle",
+        "label": "Sub Title",
+        "default": "View more with 360"
+      },
+		
+          {
+            "type": "textarea",
+            "id": "image_box",
+            "label": "Box Image",
+            "default": "https://cdn.shopify.com/s/files/1/0006/4189/2409/files/01.jpg,https://cdn.shopify.com/s/files/1/0006/4189/2409/files/02.jpg,https://cdn.shopify.com/s/files/1/0006/4189/2409/files/03.jpg, https://cdn.shopify.com/s/files/1/0006/4189/2409/files/04.jpg",
+			"info":"img1, img2, ..."
+          }
+	],
+    "presets": [
+        {
+          "name": "Block image 360deg",
+          "category": "Image"
+         
+        }
+  	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

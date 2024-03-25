@@ -1,0 +1,290 @@
+<div id="inquire-form-eng" class="modal inquire-form-container">   
+  <div class="inquire-form">
+    <h3>Inquire More</h3>
+    <div class="contact-form-body">
+        {% form 'contact' %}
+      <form method="post"   accept-charset="UTF-8" class="product-inquire-form" onsubmit="">
+        <div id="contactFormWrapper">
+          <div class="recipient_div">
+            <h2 id="prd_title" style="display:none;">{{ product.title }}</h2>
+            <div class="row-sec">
+              <div class="col-n">
+                  <label for="ContactFormCountry-">First Name*</label>
+              <input type="text" name="" id="contactFormName" placeholder="" class="firstname" required>
+              </div>
+              <div class="col-n">
+                  <label for="ContactFormCountry-">Last Name*</label>
+              <input type="text" name="" id="contactFormName" placeholder="" class="lastname" required>
+              </div>
+            </div>
+
+            <div class="row-sec">
+              <div class="col-n">
+                  <label for="ContactFormCountry-">Email*</label>
+                  <input type="email" name="" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="" class="emailaddr" required>
+              </div>
+
+              <div class="col-n">
+                  <label for="ContactFormCountry-">Phone*</label>
+                  <input type="tel" name="" id="contactFormnumber" placeholder="" class="phonenum" required>
+              </div>
+            </div>
+
+            <div class="row-sec">
+              <div class="col-n">
+                <label for="ContactFormCountry-">Ring Style Name*</label>
+                <input type="text" name="" id="contactFormnumber" placeholder="" class="ringstylename" required>
+              </div> 
+              <div class="col-n">
+                <label for="ContactFormCountry-">Project Type*</label>
+                <select id="ContactFormCountry-" name="id" class="sel_project_type" required>
+                        <option value="-1">Select the option</option>	
+                       <option value="source_a_diamond">Source A Diamond</option>
+                       <option value="restyle_a_heirloo_piece">Restyle A Heirloom Piece</option>
+               </select>
+             </div>
+           </div>
+
+           <div class="row-sec">
+              <div class="col-n">
+               <label for="ContactFormCountry-">Budget*</label>
+               <select id="ContactFormCountry-" name="" class="budget" required>
+                  <option value="-1">Select the option</option>
+                  <option value="$10,000 - 12,000">$10,000 - 12,000 </option>
+                  <option value="$12,000 - 15,000">$12,000 - 15,000 </option>
+                  <option value="$15,000 - 20,000">$15,000 - 20,000 </option>
+                  <option value="$20,000 - 50,000">$20,000 - 50,000 </option>
+                  <option value="$50,000+">$50,000+ </option>
+               </select> 
+             </div>
+             <div class="col-n">
+                <label for="ContactFormCountry-">Timeline</label>
+                <input type="text" name="timeline" id="contactFormnumber" placeholder="" class="ringstylename" required>
+             </div>
+           </div>
+
+           <div class="row-sec desc">
+              <div class="col-n">
+               <label for="ContactFormCountry-">Diamond Preference</label> 
+               <textarea rows="4" name="" id="contactFormMessage" class="diamodpreference" placeholder="Include info about your desired diamond shape, size or cut/color..." class="diamond_pref"></textarea> 
+              
+             </div>
+              <div class="col-n">
+               <label for="ContactFormCountry-">Notes</label>  
+               <textarea rows="4" name="" class="notes" id="contactFormMessage" placeholder=""></textarea>
+             </div>
+           </div>
+            <div class="row-sec requiredfiled">
+             <div class="notes-txt">*Required Fields</div> 
+            </div> 
+            <div class="row-sec">
+               <div class="checkbx">
+                   {% comment %}<div class="col-one"><input style="" type="checkbox" id="agree" class="accept_terms" required/></div>{% endcomment %}
+                   <div class="col-sec2">
+                      <label style="" for="agree">
+                      I understand, that there will be a $500 non-refundable consultation fee that is applicable towards the final amount. The consultation will include a personal stylist that will work one-on-one with me from design to producing my bespoke engagement ring. 
+                      </label>
+                    </div>
+                </div> 
+            </div> 
+            
+          </div>
+
+   
+          <input type="submit" id="get_inquire_data" class="btn submit_btn left" value="Submit">
+          <p class="ff-poppins fw-400 arrv_time uppercase ff-size btn-below-p">LEARN MORE ABOUT OUR CUSTOM PROCESS</p>
+          <p id="cf7response"></p>
+        </div>
+        
+      </form>
+       
+        {% endform %}
+      </div>
+  </div>
+</div>
+
+
+<script>
+  function validateEmail($email) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test( $email );
+  } 
+  jQuery(document).ready(function(){
+   
+
+    
+    $elem2 = jQuery('select'); 
+    $elem2.attr("required","required");
+    $elem2.attr("type","select");
+     jQuery("#agree").val('0');
+    jQuery("#agree").change(function(){
+    	if(jQuery("#agree").prop('checked') == true){
+				jQuery(this).val('1');
+          
+        }else{
+          jQuery(this).val('0');
+        }
+    });
+    
+    jQuery(".phonenum").keyup(function(evt){
+      evt.preventDefault();
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+      if ((charCode < 48 || charCode > 57)){
+        return false;
+      }
+ 
+});
+
+    
+			 
+    jQuery("#get_inquire_data").click(function(e){
+      e.preventDefault();   
+      
+       var required = jQuery('input,textarea,select').filter('[required]:visible');
+        var prd_title = jQuery("#prd_title").text();
+         required.each(function(){
+            var currentval = jQuery(this).val();
+           	if(jQuery(this).attr("type") == 'email') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              }
+              else if( !validateEmail(currentval)) { 
+							jQuery(this).addClass('req_errors');  
+							 jQuery("#cf7response").addClass("drophint_mail_error"); 
+  						jQuery("#cf7response").removeClass("drophint_mail_sent");
+                   jQuery("#cf7response").addClass("eml_err");
+                     //jQuery("#cf7response").html("Please enter valid email address"); 
+					 
+			   }
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 jQuery(".eml_err").hide();
+               }
+            }
+            	if(jQuery(this).attr("type") == 'textarea') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+           if(jQuery(this).attr("type") == 'tel') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              }  
+             
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+            if(jQuery(this).attr("type") == 'checkbox') {
+             
+               if(currentval == '0')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'select') {
+              
+               if(currentval == '-1')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'text') {
+                if(currentval == '')
+                {  
+                    jQuery(this).addClass('req_errors');  
+                }
+                else
+                {
+                 jQuery(this).removeClass('req_errors'); 
+                   jQuery(".eml_err").hide();
+                }
+              }
+              }); 
+      
+              var page_url      = window.location.href;   
+              var firstname = jQuery(".firstname").val();
+              var lastname = jQuery(".lastname").val();
+              var emailaddr = jQuery(".emailaddr").val();
+              var phonenum = jQuery(".phonenum").val();
+              var message = jQuery(".message").val(); 
+      		  var phonenum = jQuery(".phonenum").val();
+              var ringstylename = jQuery(".ringstylename").val();
+              var projecttype = jQuery(".sel_project_type").val();
+    		  var budget = jQuery(".budget").val();
+              var diamodpreference = jQuery(".diamodpreference").val();
+              var notes = jQuery(".notes").val();
+              var URL="https://form.jadetrau.com/wp-json/contact-form-7/v1/contact-forms/10/feedback";
+              var data = {};
+              data['text-366'] = firstname;
+              data['text-215'] = lastname;
+              data['email-666'] = emailaddr;
+              data['tel-771'] = phonenum;
+              data['text-533'] = ringstylename; 
+      		  data['menu-921'] = projecttype;
+              data['menu-823'] = budget;
+              data['textarea-497'] = diamodpreference; 
+              data['textarea-897'] = notes; 
+              data['pageURL'] = page_url; 
+              data['prd_title'] = prd_title; 
+
+                jQuery.ajax({
+                  url: URL ,
+                  data: data,
+                  type: 'POST',
+                  success: function (resp) { 
+                    if(resp.status == 'validation_failed') {
+                       
+                         // jQuery("#response").addClass("eml_err"); 
+                        jQuery("#cf7response").removeClass("drophint_mail_sent");
+                       jQuery("#cf7response").addClass("drophint_mail_error");
+                       jQuery("#cf7response").html("Please fill all fields");
+                     
+                    } 
+                    else 
+                    {
+                        jQuery("#cf7response").removeClass("eml_err");
+                        jQuery("#cf7response").removeClass("drophint_mail_error");
+  						jQuery("#cf7response").addClass("drophint_mail_sent");
+                      jQuery(".drophint_mail_sent").show();
+                     jQuery("#cf7response").html("Mail sent successfully"); 
+                       var required = jQuery('input,textarea,select').filter('[required]:visible');
+                       required.each(function(){ 
+                         jQuery(this).val('');
+                          jQuery(this).removeClass('req_errors'); 
+                       });
+                    }
+                     setTimeout(function(){ jQuery(".drophint_mail_sent").fadeOut(); },3000);
+                  },
+                  error: function(e){
+                    jQuery("#drophint_mail_sent").hide();
+                    jQuery("#cf7response").val(e);
+                //  alert('Error: '+e);
+                  }
+                });
+     });
+   });
+
+  
+</script>

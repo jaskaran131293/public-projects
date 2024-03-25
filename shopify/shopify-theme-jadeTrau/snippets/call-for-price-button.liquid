@@ -1,0 +1,21 @@
+{% assign custom = shop.metafields.call_for_price.Settings %}
+
+{% assign btn_name=custom.callforprice_label %}
+{% assign is_enabled=custom.is_enabled %} 
+{% assign product_array=custom.products %}  
+{% if is_enabled == "1" %} 
+
+<div class="cfp-prod-wrapper" data-handle="{{collection.handle}}" data-coll-id="{{collection.id}}">
+  <div class="cfp-prod-url" style="display: none;">{{product.url}}</div>
+   <div class="cfp-prod-id" style="display: none;">{{product.id}}</div>
+  <div class="cfp-prod-title" style="display: none;">{{product.title}}</div>
+  <div class="cfp-prod-handle" style="display: none;">{{product.handle}}</div>
+  <div class="cfp-prod-button">
+   <button type="button" class="btn Button Button--primary button button--primary call-for-price-btn ">
+     {{btn_name}}
+   </button>
+  </div> 
+</div> 
+
+
+{% endif %}

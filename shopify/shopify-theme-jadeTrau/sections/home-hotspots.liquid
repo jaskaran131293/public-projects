@@ -1,0 +1,442 @@
+<div class="lookbook-item slide main-slide-{{ i }} section"  id="section{{ i }}" >
+  <h2 style="color:{{section.settings.lookboo_color_1}};">
+    {{ section.settings.lookbook_text_title_1 | split: '|' | first }}
+  </h2>
+  <div class="slide-item slide-item-{{ i }}" >
+    {% if section.settings.lookbook-img-1 != blank %}
+
+    {%- assign img_url = section.settings.lookbook-img-1 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    <img class="lazyload"
+         src="{{ section.settings.lookbook-img-1 | img_url: '2048x'  }}"
+         data-src="{{ img_url }}"
+         data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+         data-aspectratio="{{ section.settings.lookbook-img-1.aspect_ratio }}"
+         data-sizes="auto"
+         alt="{{ image.alt | escape }}">
+
+    {% else %}
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+
+    {% for block in section.blocks %}
+   
+    
+    {%- if block.settings.lookbook_block3_coord_pr_1_1 != blank -%}
+    {%- assign margin_top_responsive = block.settings.lookbook_block3_coord_pr_1_1 | split: ',' -%}
+    {% capture position_left %}pl-{{ margin_top_responsive[0] }} pl-sm-{{ margin_top_responsive[1] }} pl-md-{{ margin_top_responsive[2] }} pl-lg-{{ margin_top_responsive[3] }} {% endcapture %}
+    {%- endif -%}
+    {%- if block.settings.lookbook_block3_coord_pr_1_2 != blank -%}
+    {%- assign margin_bottom_responsive = block.settings.lookbook_block3_coord_pr_1_2 | split: ',' -%}
+    {% capture position_top %}pt-{{ margin_bottom_responsive[0] }} pt-sm-{{ margin_bottom_responsive[1] }} pt-md-{{ margin_bottom_responsive[2] }} pt-lg-{{ margin_bottom_responsive[3] }} {% endcapture %}
+    {%- endif -%}
+     {%- case block.type -%}
+     {%- when 'lookbook' -%}
+    <div class="lookbook">
+      {% assign product_slide = block.settings.lookbook_block3_pr_1_1 %}
+      {% assign _product1 = all_products[product_slide] %}
+      <div class="hint pro1 {{position_left }} {{position_top }}" style="background:{{block.settings.bg_color }}">
+        <span style="color:{{block.settings.color}}"> {{block.settings.icon }}</span><span class="hint__dot" style="border-color:{{block.settings.bg_color }}"></span>
+        <div class="link-product grid-item product-item {{ block.settings.lookbook_block3_tool_pr1_1 }}" id="product-{{ _product1.id }}">
+          <a  href="{{ _product1.url | within: collection }}">
+            <img src="{{_product1.featured_image.src  | product_img_url: 'large'}}" alt />
+            <span class="hint-title">{{ _product1.title }}</span>
+          </a>
+           <span class="hint-price">{{ _product1.selected_or_first_available_variant.price | money }}</span>
+           <div class="add-to-carts">
+          {% assign variantCount = _product1.variants | size %}
+              <form action="/cart/add" method="post" class="variants" id="product-actions-{{ _product1.id }}" enctype="multipart/form-data" style="padding:0px;">    
+                {% if lable_out %}
+                <input class="add-to-cart-btn" type="submit" value="{{'product.detail.unavailable' | t}}" disabled="disabled" />
+                {% else %}
+                {% if variantCount > 1 %}
+                <button class="add-to-slect-btn" type="button" onclick="window.location.href='{{_product1.url}}'" >{{'product.detail.sellect_option' | t}}</button>
+                {% else %}
+                <input type="hidden" name="id" value="{{ _product1.variants[0].id }}" />      
+                <button class="add-to-cart-btn" type="submit">{{'product.detail.add_cart' | t}}</button>
+                {% endif %}
+                {% endif %}
+              </form>
+             <a  href="{{ _product1.url | within: collection }}" class="button-lookbook">details</a>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    {%- when 'use_icon' -%}
+    <div class="lookbook type-icon">
+     <div class="hint pro1 {{position_left }} {{position_top }}" style="background:{{block.settings.bg_color }}">
+        <span style="color:{{block.settings.color}}"><i class="cs-font {{block.settings.icon }}"></i></span><span class="hint__dot" style="border-color:{{block.settings.bg_color }}"></span>
+        {% if block.settings.icon_content != blank %}
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_1 }}"  style="color:{{block.settings.color_text}}">
+         {{block.settings.icon_content }}
+        </div>
+       {% endif %}
+      </div>
+    </div>
+    {%- when 'text' -%}
+    
+    <div class="lookbook type-text">
+      <div class="hint pro1 {{position_left }} {{position_top }}" style="background:{{block.settings.bg_color }}">
+        <span style="color:{{block.settings.color}}"> {{block.settings.icon }}</span><span class="hint__dot" style="border-color:{{block.settings.bg_color }}"></span>
+         {% if block.settings.icon_content != blank %}
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_1 }}" style="color:{{block.settings.color_text}}">
+         {{block.settings.icon_content }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {%- when 'image' -%}
+    <div class="lookbook type-image">
+   
+      <div class="hint pro1 {{position_left }} {{position_top }}" style="">
+        <span>  {% if block.settings.image != blank %}
+
+          {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <img class="" src="{{ block.settings.image | img_url: '348x'  }}" alt="{{ image.alt | escape }}">
+          {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}</span>
+        {% if block.settings.icon_content != blank %}
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_1 }}" style="color:{{block.settings.color_text}}">
+          {{block.settings.icon_content }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+     {%- endcase -%}
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Hotspots",
+    "settings": [
+	
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "reponsive_mt",
+      "label": "Responsive Margin Top",
+      "info": "Example is '20,30,40,60'"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "reponsive_bt",
+      "label": "Responsive Margin Bottom",
+      "info": "Example is '20,30,40,60'"
+    },
+          {
+            "type": "image_picker",
+            "id": "lookbook-img-1",
+            "label": "Hotspot Image"
+          },
+	
+          {
+            "type": "text",
+            "id": "lookbook_text_title_1",
+            "label": "Text Title",
+            "default": "Title"
+          },
+		 {
+            "type": "color",
+            "id": "lookboo_color_1",
+            "label": "Color Text",
+            "default": "#2d2d2d",
+            "info": "Default Value: #2d2d2d"
+          }
+
+	],
+    "blocks": [
+        {
+          "type": "lookbook",
+          "name": "Pin Product",
+          "settings": [
+
+            {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Pin Background Color ",
+        "default": "#222"
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Pin Color",
+        "default": "#222"
+      },
+            {
+          "type": "text",
+          "id": "icon",
+          "label": "label"
+        },
+          {
+            "type": "product",
+            "id": "lookbook_block3_pr_1_1",
+            "label": "Select Product"
+          },
+
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_1",
+          "label": "Responsive Horizontal Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_2",
+          "label": "Responsive Vertical Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+          {
+            "type": "select",
+            "id": "lookbook_block3_tool_pr1_1",
+            "options": [
+
+			
+              {
+                "value": "left",
+                "label": "Left"
+              },
+			{
+                "value": "top",
+                "label": "Top"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              },
+				{
+                "value": "bottom",
+                "label": "Bottom"
+              }
+            ],
+        	"default": "left",
+            "label": "Tooltip Position"
+          }
+        ]
+      },
+		{
+          "type": "use_icon",
+          "name": "Pin Icon",
+          "settings": [
+            {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Pin Background Color",
+        "default": "#222"
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Pin Color",
+        "default": "#222"
+      },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Class Icon",
+		  "info": "[Get CleverFont Icon Cheatsheet](https:\/\/doc.zooextension.com\/cleverfonticon)"
+        },
+
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_1",
+          "label": "Responsive Horizontal Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_2",
+          "label": "Responsive Vertical Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+		
+          {
+          "type": "html",
+          "id": "icon_content",
+          "label": "Tooltip Content"
+        },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Color Text",
+        "default": "#222"
+      },
+          {
+            "type": "select",
+            "id": "lookbook_block3_tool_pr1_1",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+        	"default": "left",
+            "label": "Tooltip Position"
+          }
+        ]
+      },
+		{
+          "type": "text",
+          "name": "Pin Text",
+          "settings": [
+            
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color Pin",
+        "default": "#222"
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Color Pin",
+        "default": "#222"
+      },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Content",
+		  "info": "content"
+        },
+
+
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_1",
+          "label": "Responsive Horizontal Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_2",
+          "label": "Responsive Vertical Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+
+          {
+          "type": "html",
+          "id": "icon_content",
+          "label": "Tooltip Content"
+        },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Color Text",
+        "default": "#222"
+      },
+          {
+            "type": "select",
+            "id": "lookbook_block3_tool_pr1_1",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+        	"default": "left",
+            "label": "Tooltip Position"
+          }
+        ]
+      },
+		{
+          "type": "image",
+          "name": "Pin Image",
+          "settings": [
+            
+        
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_1",
+          "label": "Responsive Horizontal Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+        {
+          "type": "text",
+          "id": "lookbook_block3_coord_pr_1_2",
+          "label": "Responsive Vertical Position(%)",
+          "info": "Example is '20,30,40,60'"
+        },
+		
+          {
+          "type": "html",
+          "id": "icon_content",
+          "label": "Tooltip Content"
+        },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Color Text",
+        "default": "#222"
+      },
+          {
+            "type": "select",
+            "id": "lookbook_block3_tool_pr1_1",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+        	"default": "left",
+            "label": "Tooltip Position"
+          }
+        ]
+      }
+    ],
+  "presets": [
+    {
+      "name": "Hotspots",
+      "category": "3) Builder",
+ 		"blocks": [
+          {
+            "type": "lookbook"
+          }
+		]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

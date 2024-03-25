@@ -1,0 +1,63 @@
+{% render 'shogun-products', content: collection %}
+{% if collection.metafields.global.banner_collection_bgimage.value != blank %}
+  {% assign bgimage = collection.metafields.global.banner_collection_bgimage.value | img_url: 'master' %}
+{% else %} 
+  {% assign bgimage = collection.featured_image | img_url: 'master' %}
+{% endif %}
+
+{% if collection.metafields.global.banner_collection_bgimage_mobile.value != blank %}
+  {% assign bgimage_mobile = collection.metafields.global.banner_collection_bgimage_mobile.value | img_url: 'master' %}
+{% else %}  
+  {% assign bgimage_mobile = bgimage %}
+{% endif %}
+
+<style>
+  .toolbar-new .display-toolbar{
+      background-image: url('{{ bgimage }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-color: #c6c2bc !important;
+  }
+
+  .site-nav li:hover .dropdown-menu-inner {
+    border-top: 1px solid #000;
+  }
+
+  @media screen and (max-width: 768px) { 
+    .toolbar-new .display-toolbar{
+        background-image: url('{{ bgimage_mobile }}');
+        background-size: 100%;  
+    }
+  }
+</style>
+ 
+
+
+{{collection.metafields.shogun.above}}
+
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %} 
+
+{% if collection.handle == 'your-charm-bundle' %}
+  {% include 'collection-template-bundel' %}
+{% else %}
+  {% include 'collection-template', tmplname: "newgridfirst", classname: "toolbar-new" %}
+{% endif %}
+
+{% comment %}
+{%section "home-newsletter" %}
+{% endcomment %}
+{{collection.metafields.shogun.below}}
+
+<style>
+  .sidebar-custom .content>.widget-content>ul li button.navigable {
+      padding: 0 15px;
+      color: #666!important;
+      background: no-repeat;
+      outline: none;
+      border: 0px;
+      opacity: 1;
+  }
+</style>

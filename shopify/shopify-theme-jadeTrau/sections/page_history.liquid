@@ -1,0 +1,318 @@
+<div class="history_banner">
+  {% if section.settings.image != blank %}
+  <img src="{{ section.settings.image | img_url:'master' }}" alt="" title="" width="100%">
+  {% else %}
+  <div class="onboard">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+  {% endif %}
+</div>
+
+<div class="container">
+<div class="history_banner_content">
+  {% if section.settings.title != blank %}
+  <h3>{{ section.settings.title }}</h3>
+  {% endif %}
+  {% if section.settings.text != blank %}
+  <p>{{ section.settings.text }}</p>
+  {% endif %}
+</div>
+</div>
+
+<div class="container">
+  <div class="history_content">
+    {% if section.settings.content != blank %}
+    <p>{{ section.settings.content }}</p>
+    {% endif %}
+  </div>
+</div>
+
+
+<section class="history_about">     
+  {% if section.settings.heading != blank %}
+  <h2>{{ section.settings.heading }}</h2>
+  {% endif %}
+  <div class="container">   
+    {% for block in section.blocks %}
+    {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
+    {% if thecycle == 'odd' %}  
+    <div class="page_about_upper_main"> 
+      {% if block.settings.title != blank %}
+      <h3>{{ block.settings.title }}</h3>
+      {% endif %}
+
+      <div class="page_about_upper"> 
+
+        <div class="page_about_divide visible-xs">
+          <div class="page_about_img ">
+            {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url:'master' }}" alt="" title="" width="100%">
+            {% else %}
+            <div class="onboard">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% endif %}
+          </div>
+
+        <div class="extra_img">   
+            {% if block.settings.img2 != blank %}
+            <img src="{{ block.settings.img2 | img_url:'master' }}" alt="" title="">
+            {% endif %}
+          </div>
+
+        </div>
+
+        <div class="page_about_divide ">
+          <div class="page_about_text">
+            {% if block.settings.content != blank %}
+            <p>{{ block.settings.content }}</p>
+            {% endif %}
+
+            {% if block.settings.img != blank %}
+            <img src="{{ block.settings.img | img_url:'master' }}" alt="" title="">
+            {% endif %}
+
+          </div>
+        </div>
+
+        <div class="page_about_divide hidden-xs">
+          <div class="page_about_img ">
+            {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url:'master' }}" alt="" title="" width="100%">
+            {% else %}
+            <div class="onboard">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% endif %}
+          </div>
+
+       <div class="extra_img">   
+            {% if block.settings.img2 != blank %}
+            <img src="{{ block.settings.img2 | img_url:'master' }}" alt="" title="">
+            {% endif %}
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    {% else %}   
+    <div class="page_about_upper_main"> 
+      {% if block.settings.title != blank %}
+      <h3>{{ block.settings.title }}</h3>
+      {% endif %}
+
+      <div class="page_about_upper"> 
+
+        <div class="page_about_divide">
+          <div class="page_about_img ">
+            {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url:'master' }}" alt="" title="" width="100%">
+            {% else %}
+            <div class="onboard">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% endif %}
+          </div>
+          
+          <div class="extra_img">   
+            {% if block.settings.img2 != blank %}
+            <img src="{{ block.settings.img2 | img_url:'master' }}" alt="" title="">
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="page_about_divide ">
+          <div class="page_about_text">
+            {% if block.settings.content != blank %}
+            <p>{{ block.settings.content }}</p>
+            {% endif %}
+
+            {% if block.settings.img != blank %}
+            <img src="{{ block.settings.img | img_url:'master' }}" alt="" title="">
+            {% endif %}
+
+          </div>
+        </div>
+
+      </div>
+    </div>    
+    {% endif %}
+    {% endfor %}   
+  </div>
+</section>
+  
+<style>
+  .history_banner_content{max-width:1030px;margin:0 auto;background: #BBB2B2;padding:60px 87px;margin-top: -65px;    position: relative;}
+  .history_banner_content h3{text-align:center;font-size: 24px!important;margin:0 0 30px;font-weight: 500!important;font-family: 'sofia-pro' !important;line-height: 24px!important;color: #FFFFFF;} 
+  .history_banner_content p{font-size: 26px;margin:0 0 0px;text-align:center;line-height: 26px;font-weight: normal;color: #FFFFFF;font-family: 'Goldenbook'!important;}
+  
+  .history_content{max-width:1030px;margin:0 auto;padding:0 15px;margin-top:70px; }
+  .history_content p{font-size: 16px;line-height: 22px;text-align: center;color: #FFFFFF;font-weight: normal!important;font-family: 'sofia-pro' !important;}
+  
+  .history_about{padding:133px 0;}
+  .history_about h2{ font-size: 32px!important;margin:0 0 95px;text-align: center;color: #FFFFFF;line-height: 32px!important;font-family: 'Goldenbook'!important;font-weight:bold !important;text-transform:uppercase;} 
+  .page_about_upper_main{margin-bottom:90px;}
+  .page_about_upper_main:last-child{margin-bottom:0}
+  .page_about_upper{display:flex;flex-wrap:wrap;margin:0 -15px;}
+
+  .page_about_divide{width:50%;padding:0 15px;}
+  
+  .page_about_upper_main h3{font-size: 118px!important;margin: 0 0 20px;line-height: 147px!important;color: rgba(255, 255, 255, 0.15);font-family: 'Goldenbook'!important;font-weight:bold !important;}
+  .page_about_upper_main:nth-child(even) h3{text-align:right;}
+  .page_about_upper_main:nth-child(odd) h3{text-align:left;}
+  .visible-xs{display:none;}
+  .hidden-xs{display:block;}
+  .page_about_upper_main:nth-child(odd) .page_about_text{max-width:370px;text-align:left; margin: 0 auto 0 0;}
+  .page_about_upper_main:nth-child(even) .page_about_text{ max-width:370px;text-align:left; margin: 0 0 0 auto;}
+  .page_about_text p{font-size: 16px;margin:0 0 34px;line-height: 22px;color: #FFFFFF;font-weight: normal!important;font-family: 'sofia-pro' !important;}
+ 
+  .extra_img{margin:70px 0 0;}
+
+    @media only screen and (min-width:200px) and (max-width:767px){
+      .visible-xs{display:block;}
+  .hidden-xs{display:none;}
+      .history_banner_content { padding: 20px 15px;margin-top: 0px;}
+    .history_banner_content h3 { text-align: center; font-size: 18px!important;    margin: 0 0 18px;}  
+      .history_banner_content p {
+        font-size: 16px;}
+      .history_content { margin-top: 30px;}
+      .history_content p {
+        font-size: 14px;}
+      .history_about {
+    padding: 40px 0;
+}
+      .history_about h2 {
+    font-size: 20px!important;
+    margin: 0 0 30px;
+      }
+      .page_about_upper_main h3 {
+    font-size: 35px!important;
+    margin: 0 0 20px;
+    line-height: 45px!important;
+      }
+      .page_about_upper_main:nth-child(even) h3{text-align:center;}
+  .page_about_upper_main:nth-child(odd) h3{text-align:center;}
+      .page_about_divide {
+    width: 100%;
+    padding: 0 15px;    text-align: center;
+}
+      .extra_img {
+    margin: 20px 0 0;
+}
+      .page_about_text p {
+    font-size: 14px;
+        margin: 20px 0 25px;}
+      .page_about_upper_main{margin-bottom:40px;}
+      .page_about_upper_main:nth-child(odd) .page_about_text {
+    max-width: 370px;
+    text-align: center;
+    margin: 0 auto 0;
+}
+      .page_about_upper_main:nth-child(even) .page_about_text {
+    max-width: 370px;
+    text-align: center;
+    margin: 0 auto 0;
+}
+    }
+  @media only screen and (min-width:500px) and (max-width:767px){}
+  @media only screen and (min-width:768px) and (max-width:991px){
+  
+    .history_banner_content { padding: 40px 40px;margin-top: -40px;}
+    .history_content {  margin-top: 40px;}
+    .history_about { padding: 65px 0;}
+    .history_about h2 { font-size: 25px!important;margin: 0 0 50px;}
+    .page_about_upper_main h3 { font-size: 75px!important;line-height: 66px!important;  }
+    .page_about_upper_main {
+    margin-bottom: 60px;
+}
+  @media only screen and (min-width:992px) and (max-width:1199px){
+  .page_about_upper_main h3 {
+    font-size: 85px!important;
+    margin: 0 0 20px;
+    line-height: 80px!important;}
+    .page_about_upper_main {
+    margin-bottom: 70px;
+}
+    .history_about {
+    padding: 80px 0;
+}
+  
+  }
+  @media only screen and (min-width:1200px) and (max-width:1367px){
+    .container{max-width:1170px;}
+  }
+  
+</style>
+
+{% schema %}
+  {
+    "name": "History",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+],
+    "blocks": [
+      {
+        "type": "repeat",
+        "name": "History Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },         
+          {
+            "type": "image_picker",
+            "id": "img2",
+            "label": "Under Main Image"
+          },
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Text"
+          },         
+          {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

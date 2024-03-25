@@ -1,0 +1,1048 @@
+{% comment %}
+Refined tags
+{% endcomment %}
+
+{% if current_tags == blank %}
+{% assign has_refined = false %}
+{% else %}
+{% assign has_refined = true %}
+{% endif %}
+
+     <div class="filter-top-wr">
+      <div class="addlabel sidebar-custom sidebar-tag ">
+        <div class="filter-title-wr">
+          <div class="title">{{ 'collection.sidebar.title_filter' | t }}</div>
+        </div>
+        <ul>  
+          {% for t in current_tags %}
+          {% assign tag = t  | downcase | strip %}
+
+          {%- assign tag1 = t | strip | downcase -%}
+          {%- assign checktag = '"' | append: tag1 | append: '"' -%}
+          {% assign tag_value = checktag  | handleize %}
+          <li>
+            <span>{{tag}}</span> <a role="button" data-filter-tag="{{ tag }}"><i class="cs-font clever-icon-close-1"></i></a></li>
+          {% endfor %}
+        </ul>
+       
+        <a class="clear-all show_on_mob">{{ 'collection.sidebar.clear_filter' | t }}</a>
+        
+      </div>
+    </div>
+
+ 
+
+<div class="continue-filter"><span>Filter</span><span class="close-sibade"></span></div>
+<div class="sidebar-filter-wr">
+
+  <div class="filter-wr">
+
+
+
+    <div class="sidebar-block row">
+      
+           <div class="sidebar-custom visible-xs">
+        <div class="collection-filters__actions">
+          <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="show_on_mob">Clear all</button>
+        </div>
+      </div>
+     
+      <div class="left_filter_section">
+        <a class="filter_row">Filter</a>
+      <div class="sidebar-custom sidebar-tagg size {{ block.settings.style_filter}}">
+        <div class="title">
+          <h3 onclick="show_sort()" class="custom_active" id="tabs">
+            <span>Sort By</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+        <div class="content">
+          <div class="widget-content widget-content1 ">
+            <ul class="sort-by">
+              <li> <a href="{{ collection.url | sort_by: 'price-ascending' }}">{{ 'collection.toolbar.manual' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'price-ascending' }}">{{ 'collection.toolbar.price_ascending' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'price-descending' }}">{{ 'collection.toolbar.price_descending' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'best-selling' }}">{{ 'collection.toolbar.best_selling' | t }}</a></li>
+                 
+              <li> <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="show_on_mob">Clear all</button></li>
+                 
+            </ul>   
+          </div>
+        </div> 
+      </div> 
+      
+       <div class="sidebar-custom sidebar-tagg size {{ block.settings.style_filter}}">
+        <div class="title">
+          <h3 onclick="show_price()"  class="custom_active"   id="tabs">
+            <span>Prices</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+        <div class="content">
+          <div class="widget-content widget-content8 ">
+            <ul class="sort-by">
+              <li> <a href="?filter.v.price.gte=10&filter.v.price.lte=1000">Under $1,000</a></li>
+              <li> <a href="?filter.v.price.gte=1000&filter.v.price.lte=2000">$1,000 - 2,000</a></li>
+              <li> <a href="?filter.v.price.gte=2000&filter.v.price.lte=3000">$2,000 - 3,000</a></li>
+              <li> <a href="?filter.v.price.gte=3000&filter.v.price.lte=5000">$3,000 - 5,000</a></li>
+              <li> <a href="?filter.v.price.gte=5000&filter.v.price.lte=10000">$5,000 - 10,000</a></li>
+              <li> <a href="?filter.v.price.gte=10000&filter.v.price.lte=20000">$10,000 - 20,000</a></li>
+                <li> <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="show_on_mob">Clear all</button></li>   
+            </ul>   
+          </div>
+        </div> 
+      </div>
+      
+      {% assign current_tags = current_tags  | downcase  %}
+      {% for block in section.blocks %}
+      
+      {% assign shop_by_tags_1_title = block.settings.shop_by_tags_1_title %}
+      {% assign enable_shop_by_tags_1 = block.settings.enable_shop_by_tags_1 %}
+      {% assign enable_shop_by_tags_2 = block.settings.enable_shop_by_tags_2 %}
+      {% assign shop_by_tags_2_title = block.settings.title %}
+      {% assign shop_by_tags_2_list_tags = block.settings.shop_by_tags_2_list_tags %}
+      {% assign enable_shop_by_tags_show_text = block.settings.enable_shop_by_tags_show_text %}
+      {% assign enable_shop_by_tags_image = block.settings.enable_shop_by_tags_image %}
+      {%- case block.type -%}
+      
+      {% when 'block_filter_categories' %}
+      
+      <div class="widget sidebar-links">
+        <div class="title">
+          <h3 onclick="show_filter({{ forloop.index }})" class="custom_active csutom_active{{ forloop.index }}"  id="tab{{ forloop.index }}">
+          <span>{{ block.settings.sidebar_categories_title }}</span>
+          <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+          <ul class="widget-content content" id="q{{ forloop.index }}">
+            {% for category in collections %}
+            <li>
+              <a href="{{ category.url }}" {% if collection.handle == category.handle %} class="active" {% endif %}>
+                {{ category.title }}
+                <span class="count-sidebar">{{ collection.products_count }}</span>
+              </a> 
+            </li> 
+           
+            {% endfor %}
+          </ul>
+        
+      </div>
+       
+
+      {% when 'block_filter_size' %}
+        
+        {% if block.settings.title  == 'Category' %} 
+       <div class="right_filter_section">
+        {% endif %}
+      <div class="sidebar-custom sidebar-tag size {{ block.settings.style_filter}}">
+        {% assign tags = shop_by_tags_2_list_tags | split: ',' %}
+        
+      
+        <div class="title"> 
+          <h3 onclick="show_filter({{ forloop.index }})" class="custom_active csutom_active{{ forloop.index }}"  id="tab{{ forloop.index }}"><span>{{ shop_by_tags_2_title }}</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+          
+
+          <ul class="widget-content content {{block.settings.style_filter}}"  id="q{{ forloop.index }}">
+            {% for t in tags %}
+        
+            {%- assign tag = t  | strip -%}
+
+            {% assign tag_value = tag | downcase | handleize %}
+
+            {%- assign all_tags = collection.all_tags  -%}
+
+
+            {%- assign tag1 = t | strip | downcase -%}
+            {%- assign all_tags1 = collection.all_tags | downcase -%}
+            {%- assign checktag = '"' | append: tag1 | append: '"' -%}
+            {%- assign colors = ',' | append: settings.product_colors | strip_newlines | downcase | append: ',' -%}
+            {%- assign _tag = tag | downcase | strip -%}
+            {%- assign _tag = ',' | append: _tag | append: ':' -%}
+            {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+            {% if block.settings.style_filter == 'color' %}
+            {%- assign s = 'style="background:' | append: curcol | append: '"' -%}
+            {% endif %}
+            {% if current_tags contains checktag %}
+              
+            <li><input type="checkbox" value="{{ tag_value }}" checked/><label>
+              <span>{{ tag }}</span>
+              <div {{s}}></div>{%if block.settings.show_tooltips %}<span class="tooltip">{{ tag_value }}</span>{% endif %}</label></li>
+            {% elsif all_tags1 contains tag1 %}
+           
+           
+            <li><input type="checkbox" value="{{ tag_value }}"/><label>
+              <span>{{ tag }}</span>
+              <div {{s}}></div>
+              {%if block.settings.show_tooltips %}<span class="tooltip">{{ tag }}</span>{% endif %}</label></li> 
+            {% endif %}
+            {% endfor %}
+                   <li> <a class="clear-all show_on_mob">{{ 'collection.sidebar.clear_filter' | t }}</a> </li     
+          </ul>
+       
+      </div> 
+          {% if block.settings.title  == 'Category' %} 
+         <button style="display:none;" onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="hide_for_cat">Clear all</button>
+         </div> 
+        {% endif %}
+          {% if block.settings.title  == 'Shapes' %} 
+          <button style="display:none;" onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="hide_on_shapes">Clear all</button>
+        </div>
+        {% endif %}
+
+      {% when 'block_filter_material' %}
+      <div class="sidebar-custom sidebar-tag color">
+        <div class="title">
+          <h3 onclick="show_filter({{ forloop.index }}"  class="custom_active csutom_active{{ forloop.index }}" id="tab{{ forloop.index }}"><span>{{  block.settings.title }}</span>
+           <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+
+          <ul class="widget-content color content" id="q{{ forloop.index }}">
+
+            {% for i in (1..10) %}   
+            {% capture material_name %}material_name_{{ i }}{% endcapture %}
+            {% assign material_name = settings[material_name] %} 
+
+            {% assign material_name = material_name |strip %} 
+            {% capture material_image %}material_{{ i }}{% endcapture %}
+            {% assign material_image = settings[material_image] %} 
+            {% if material_name != blank %}
+            {% if current_tags contains material_name %}
+            <li>
+              {% assign tag_value = material_name | handleize %}
+              <input type="checkbox" value="{{ tag_value }}" {% if current_tags contains material_name %}checked{% endif %}/>
+              <a href="javascript:void(0)"  {% if current_tags contains material_name %} class="active" {% endif %} title="{{material_name}}">
+
+                {{material_image | img_url: '160x160' | img_tag  }}
+
+                <span class="tooltip">{{ tag_value }}</span>
+              </a>
+            </li>
+            {% elsif collection.tags contains material_name %}
+            <li>
+              {% assign tag_value = material_name | handleize %}
+              <input type="checkbox" value="{{ tag_value }}" />
+              <a href="javascript:void(0)"   title="{{material_name}}">
+                {{material_image | img_url: '160x160' | img_tag  }}
+                <span class="tooltip">{{ material_name }}</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </ul>
+
+      </div>
+      {% when 'block_promobox' %}
+      <div class="sidebar-promobox">
+        {{ block.settings.image | img_url: 'master' | img_tag  }}
+        <div class="content-promobox">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{block.settings.custom_html }}</p>
+          <a href="{{block.settings.url }}">{{block.settings.button_text }}</a>
+        </div>
+      </div>
+      {% when 'block_customhtml' %}
+      <div class="sidebar-customhtml">
+        <div class="content-customhtml">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{block.settings.custom_html }}</p>
+          <a href="{{block.settings.url }}">{{block.settings.button_text }}</a>
+        </div>
+      </div>
+      {% when 'block_newsletter' %}
+      <div class="block_newsletter">
+        {% if block.settings.home_newsletter_title != blank %}
+        <div class="title_newsletter">
+          {{ block.settings.home_newsletter_title }}
+        </div>
+        {% endif %}
+        {% if block.settings.home_newsletter_subtitle != blank %}
+        <div class="subtitle_newsletter">
+          {{ block.settings.home_newsletter_subtitle }}
+        </div>
+        {% endif %}
+        <form action="{{ block.settings.mailing_list_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+          <div class="input-group newsletter_form_content">
+            <input  class="input__field input-group-field" type="email" value="" name="EMAIL" aria-label="Email Address" placeholder="{{ 'footer.footer_newsletter_content' | t }}">
+            <span class="input-group-btn">
+              <input type="submit" class="btn" value="{{ 'footer.footer_newsletter_go' | t }}" name="subscribe">
+            </span>
+          </div>
+        </form>
+      </div>
+      {% when 'block_product' %}
+      <div class="sidebar-product">
+        {% if block.settings.tabs_title_block != blank %}
+        <div class="heading-block">
+          <h3 class="title"><span>{{ block.settings.tabs_title_block }}</span></h3>
+          {% if block.settings.subtitle %}
+          <p class="subtitle">{{ block.settings.subtitle }}
+          </p>
+          {% endif %}
+          <div class="products-grid-sidebar">
+            {% assign tabnew_collection = block.settings.tabnew_collection %}
+            {% assign collection =   collections[tabnew_collection] %}
+            {% for product in collections[tabnew_collection].products limit:block.settings.products_limit %}
+            <div class="product-sidebar-item">
+              {% include 'product-item-new' %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}	
+      </div>
+
+      {%- endcase -%}
+      {% endfor %}
+      
+      <div class="sidebar-custom hidden-xs">
+        <div class="collection-filters__actions">
+         
+          <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="show_on_mob">Clear all selections</button>
+           
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+  
+ {%comment%}
+  
+<!-- end of desktop version -->
+  <div class="custom_mobile_filter">
+    <div class="filter-top-wr">
+      <div class="addlabel sidebar-custom sidebar-tagm1 ">
+        <div class="filter-title-wr">
+          <div class="title">{{ 'collection.sidebar.title_filter' | t }}</div>
+        </div>
+        
+        <ul>  
+          {% for t in current_tags %}
+          {% assign tag = t  | downcase | strip %}
+
+          {%- assign tag1 = t | strip | downcase -%}
+          {%- assign checktag = '"' | append: tag1 | append: '"' -%}
+          {% assign tag_value = checktag  | handleize %}
+          <li>
+            <span>{{tag}}</span> <a role="button" data-filter-tag="{{ tag }}"><i class="cs-font clever-icon-close-1"></i></a></li>
+          {% endfor %}
+        </ul>
+       
+           {% comment %} <a class="clear-all show_on_mob">{{ 'collection.sidebar.clear_filter' | t }}</a>   {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+ 
+<div id="mobile_version_1"> 
+<a class="filter_show">Filter</a>
+<div class="continue-filter"><span>Filter</span><span class="close-sibade"></span></div>
+<div class="sidebar-filter-wr">
+
+  <div class="filter-wr"> 
+    <div class="sidebar-block row"> 
+           <div class="sidebar-custom visible-xs">
+        <div class="collection-filters__actions">
+          <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="show_on_mob">Clear all</button>    
+        </div>
+      </div> 
+     
+      <div class="sidebar-custom sidebar-tagg size {{ block.settings.style_filter}}">
+        <div class="title">
+          <h3 onclick="show_sort()"   class="custom_active" id="tabs">
+            <span>Sort By</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+        <div class="content">
+          <div class="widget-content widget-content1 ">
+            <ul class="sort-by">
+              <li> <a href="{{ collection.url | sort_by: 'price-ascending' }}">{{ 'collection.toolbar.manual' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'price-ascending' }}">{{ 'collection.toolbar.price_ascending' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'price-descending' }}">{{ 'collection.toolbar.price_descending' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'best-selling' }}">{{ 'collection.toolbar.best_selling' | t }}</a></li>
+                {% comment %}  <li> <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all</button></li>    {% endcomment %}
+            </ul>   
+          </div>
+        </div> 
+      </div> 
+      
+       <div class="sidebar-custom sidebar-tagg size {{ block.settings.style_filter}}">
+        <div class="title"> 
+          <h3 onclick="show_price()" class="custom_active" id="tabs">
+            <span>Prices</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+        <div class="content">
+          <div class="widget-content widget-content8 ">
+            <ul class="sort-by">
+              <li> <a href="?filter.v.price.gte=10&filter.v.price.lte=1000">Under $1,000</a></li>
+              <li> <a href="?filter.v.price.gte=1000&filter.v.price.lte=2000">$1,000 - 2,000</a></li>
+              <li> <a href="?filter.v.price.gte=2000&filter.v.price.lte=3000">$2,000 - 3,000</a></li>
+              <li> <a href="?filter.v.price.gte=3000&filter.v.price.lte=5000">$3,000 - 5,000</a></li>
+              <li> <a href="?filter.v.price.gte=5000&filter.v.price.lte=10000">$5,000 - 10,000</a></li>
+              <li> <a href="?filter.v.price.gte=10000&filter.v.price.lte=20000">$10,000 - 20,000</a></li>
+                 {% comment %}  <li> <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all</button></li>    {% endcomment %}
+            </ul>   
+          </div>
+        </div> 
+      </div>
+      
+      {% assign current_tags = current_tags  | downcase  %}
+      {% for block in section.blocks %}
+      
+      {% assign shop_by_tags_1_title = block.settings.shop_by_tags_1_title %}
+      {% assign enable_shop_by_tags_1 = block.settings.enable_shop_by_tags_1 %}
+      {% assign enable_shop_by_tags_2 = block.settings.enable_shop_by_tags_2 %}
+      {% assign shop_by_tags_2_title = block.settings.title %}
+      {% assign shop_by_tags_2_list_tags = block.settings.shop_by_tags_2_list_tags %}
+      {% assign enable_shop_by_tags_show_text = block.settings.enable_shop_by_tags_show_text %}
+      {% assign enable_shop_by_tags_image = block.settings.enable_shop_by_tags_image %}
+      {%- case block.type -%}
+      
+      {% when 'block_filter_categories' %}
+      
+      <div class="widget sidebar-links">
+        <div class="title">
+          <h3 onclick="show_filters({{ forloop.index }})" class="custom_active csutom_active{{ forloop.index }}"   id="tab{{ forloop.index }}">
+          <span>{{ block.settings.sidebar_categories_title }}</span>
+          <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+          <ul class="widget-content content" id="cq{{ forloop.index }}">
+            {% for category in collections %}
+            <li>
+              <a href="{{ category.url }}" {% if collection.handle == category.handle %} class="active" {% endif %}>
+                {{ category.title }}
+                <span class="count-sidebar">{{ collection.products_count }}</span>
+              </a> 
+            </li> 
+           
+            {% endfor %}
+          </ul>
+        
+      </div>
+       
+
+      {% when 'block_filter_size' %}
+      <div class="sidebar-custom sidebar-tagm1 size {{ block.settings.style_filter}}">
+        {% assign tags = shop_by_tags_2_list_tags | split: ',' %}
+       {% if block.settings.title  != 'Category' %} 
+        <div class="title"> 
+          <h3 onclick="show_filters({{ forloop.index }})" class="custom_active csutom_active{{ forloop.index }}" id="tab{{ forloop.index }}"><span>{{ shop_by_tags_2_title }}</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+
+          <ul class="widget-content content {{block.settings.style_filter}}"  id="cq{{ forloop.index }}">
+            {% for t in tags %}
+            {%- assign tag = t  | strip -%}
+
+            {% assign tag_value = tag | downcase | handleize %}
+
+            {%- assign all_tags = collection.all_tags  -%}
+
+
+            {%- assign tag1 = t | strip | downcase -%}
+            {%- assign all_tags1 = collection.all_tags | downcase -%}
+            {%- assign checktag = '"' | append: tag1 | append: '"' -%}
+            {%- assign colors = ',' | append: settings.product_colors | strip_newlines | downcase | append: ',' -%}
+            {%- assign _tag = tag | downcase | strip -%}
+            {%- assign _tag = ',' | append: _tag | append: ':' -%}
+            {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+            {% if block.settings.style_filter == 'color' %}
+            {%- assign s = 'style="background:' | append: curcol | append: '"' -%}
+            {% endif %}
+            {% if current_tags contains checktag %}
+              
+            <li><input type="checkbox" value="{{ tag_value }}" checked/><label>
+              <span>{{ tag }}</span>
+              <div {{s}}></div>{%if block.settings.show_tooltips %}<span class="tooltip">{{ tag_value }}</span>{% endif %}</label></li>
+            {% elsif all_tags1 contains tag1 %}
+           
+           
+            <li><input type="checkbox" value="{{ tag_value }}"/><label>
+              <span>{{ tag }}</span>
+              <div {{s}}></div>
+              {%if block.settings.show_tooltips %}<span class="tooltip">{{ tag }}</span>{% endif %}</label></li> 
+            {% endif %}
+            {% endfor %}
+                {% comment %}  <li> <a class="clear-all">{{ 'collection.sidebar.clear_filter' | t }}</a> </li>    {% endcomment %}
+          </ul>
+        {% endif %}
+      </div> 
+        
+
+      {% when 'block_filter_material' %}
+      <div class="sidebar-custom sidebar-tagm1 color">
+        <div class="title">
+          <h3 onclick="show_filters({{ forloop.index }}"  class="csutom_active{{ forloop.index }}" id="tab{{ forloop.index }}"><span>{{  block.settings.title }}</span>
+           <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+
+          <ul class="widget-content color content" id="cq{{ forloop.index }}">
+
+            {% for i in (1..10) %}   
+            {% capture material_name %}material_name_{{ i }}{% endcapture %}
+            {% assign material_name = settings[material_name] %} 
+
+            {% assign material_name = material_name |strip %} 
+            {% capture material_image %}material_{{ i }}{% endcapture %}
+            {% assign material_image = settings[material_image] %} 
+            {% if material_name != blank %}
+            {% if current_tags contains material_name %}
+            <li>
+              {% assign tag_value = material_name | handleize %}
+              <input type="checkbox" value="{{ tag_value }}" {% if current_tags contains material_name %}checked{% endif %}/>
+              <a href="javascript:void(0)"  {% if current_tags contains material_name %} class="active" {% endif %} title="{{material_name}}">
+
+                {{material_image | img_url: '160x160' | img_tag  }}
+
+                <span class="tooltip">{{ tag_value }}</span>
+              </a>
+            </li>
+            {% elsif collection.tags contains material_name %}
+            <li>
+              {% assign tag_value = material_name | handleize %}
+              <input type="checkbox" value="{{ tag_value }}" />
+              <a href="javascript:void(0)"   title="{{material_name}}">
+                {{material_image | img_url: '160x160' | img_tag  }}
+                <span class="tooltip">{{ material_name }}</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </ul>
+
+      </div>
+      {% when 'block_promobox' %}
+      <div class="sidebar-promobox">
+        {{ block.settings.image | img_url: 'master' | img_tag  }}
+        <div class="content-promobox">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{block.settings.custom_html }}</p>
+          <a href="{{block.settings.url }}">{{block.settings.button_text }}</a>
+        </div>
+      </div>
+      {% when 'block_customhtml' %}
+      <div class="sidebar-customhtml">
+        <div class="content-customhtml">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{block.settings.custom_html }}</p>
+          <a href="{{block.settings.url }}">{{block.settings.button_text }}</a>
+        </div>
+      </div>
+      {% when 'block_newsletter' %}
+      <div class="block_newsletter">
+        {% if block.settings.home_newsletter_title != blank %}
+        <div class="title_newsletter">
+          {{ block.settings.home_newsletter_title }}
+        </div>
+        {% endif %}
+        {% if block.settings.home_newsletter_subtitle != blank %}
+        <div class="subtitle_newsletter">
+          {{ block.settings.home_newsletter_subtitle }}
+        </div>
+        {% endif %}
+        <form action="{{ block.settings.mailing_list_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+          <div class="input-group newsletter_form_content">
+            <input  class="input__field input-group-field" type="email" value="" name="EMAIL" aria-label="Email Address" placeholder="{{ 'footer.footer_newsletter_content' | t }}">
+            <span class="input-group-btn">
+              <input type="submit" class="btn" value="{{ 'footer.footer_newsletter_go' | t }}" name="subscribe">
+            </span>
+          </div>
+        </form>
+      </div>
+      {% when 'block_product' %}
+      <div class="sidebar-product">
+        {% if block.settings.tabs_title_block != blank %}
+        <div class="heading-block">
+          <h3 class="title"><span>{{ block.settings.tabs_title_block }}</span></h3>
+          {% if block.settings.subtitle %}
+          <p class="subtitle">{{ block.settings.subtitle }}
+          </p>
+          {% endif %}
+          <div class="products-grid-sidebar">
+            {% assign tabnew_collection = block.settings.tabnew_collection %}
+            {% assign collection =   collections[tabnew_collection] %}
+            {% for product in collections[tabnew_collection].products limit:block.settings.products_limit %}
+            <div class="product-sidebar-item">
+              {% include 'product-item-new' %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}	
+      </div>
+
+      {%- endcase -%}
+      {% endfor %}
+      
+      <div class="sidebar-custom hidden-xs">
+        <div class="collection-filters__actions">
+          {% comment %}
+          <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all selections</button>
+          {% endcomment %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all</button>
+</div>
+ 
+</div>
+
+<!-- end of right mobile version -->
+
+<div id="mobile_version_2"> 
+<div class="continue-filter"><span>Filter</span><span class="close-sibade"></span></div>
+<div class="sidebar-filter-wr">
+ 
+    <div class="sidebar-block row">
+      
+      <div class="sidebar-custom visible-xs">
+        <div class="collection-filters__actions">
+            {% comment %} <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all</button>    {% endcomment %}
+        </div>
+      </div>
+      
+     {% comment %} 
+      <div class="sidebar-custom sidebar-tagg size {{ block.settings.style_filter}}">
+        <div class="title">
+          <h3 onclick="show_sort()" class="custom_active"  id="tabs">
+            <span>Sort By</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+        <div class="content">
+          <div class="widget-content widget-content1 ">
+            <ul class="sort-by">
+              <li> <a href="{{ collection.url | sort_by: 'price-ascending' }}">{{ 'collection.toolbar.manual' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'price-ascending' }}">{{ 'collection.toolbar.price_ascending' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'price-descending' }}">{{ 'collection.toolbar.price_descending' | t }}</a></li>
+              <li> <a href="{{ collection.url | sort_by: 'best-selling' }}">{{ 'collection.toolbar.best_selling' | t }}</a></li>
+              <li> <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all</button></li>
+            </ul>   
+          </div>
+        </div> 
+      </div> 
+       {% endcomment %} 
+      
+        
+      
+      {% assign current_tags = current_tags  | downcase  %}
+      {% for block in section.blocks %}
+      
+      {% assign shop_by_tags_1_title = block.settings.shop_by_tags_1_title %}
+      {% assign enable_shop_by_tags_1 = block.settings.enable_shop_by_tags_1 %}
+      {% assign enable_shop_by_tags_2 = block.settings.enable_shop_by_tags_2 %}
+      {% assign shop_by_tags_2_title = block.settings.title %}
+      {% assign shop_by_tags_2_list_tags = block.settings.shop_by_tags_2_list_tags %}
+      {% assign enable_shop_by_tags_show_text = block.settings.enable_shop_by_tags_show_text %}
+      {% assign enable_shop_by_tags_image = block.settings.enable_shop_by_tags_image %}
+      {%- case block.type -%}
+      
+      {% when 'block_filter_categories' %}
+      
+      <div class="widget sidebar-links">
+        <div class="title">
+          <h3 onclick="show_filterd({{ forloop.index }})"  class="custom_active csutom_active{{ forloop.index }}" id="tab{{ forloop.index }}">
+          <span>{{ block.settings.sidebar_categories_title }}</span>
+          <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span> 
+          </h3>
+        </div>
+          <ul class="widget-content content" id="dq{{ forloop.index }}">
+            {% for category in collections %}
+            <li>
+              <a href="{{ category.url }}" {% if collection.handle == category.handle %} class="active" {% endif %}>
+                {{ category.title }}
+                <span class="count-sidebar">{{ collection.products_count }}</span>
+              </a> 
+            </li> 
+           
+            {% endfor %}
+          </ul>
+        
+      </div>
+       
+
+      {% when 'block_filter_size' %}
+      <div class="sidebar-custom sidebar-tagm2  size {{ block.settings.style_filter}}">
+        {% assign tags = shop_by_tags_2_list_tags | split: ',' %}
+         {% if block.settings.title  == 'Category' %} 
+        <div class="title">
+          <h3 onclick="show_filterd({{ forloop.index }})" class="custom_active csutom_active{{ forloop.index }}"  id="tab{{ forloop.index }}"><span>{{ shop_by_tags_2_title }}</span>
+            <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+
+          <ul class="widget-content content {{block.settings.style_filter}}"  id="dq{{ forloop.index }}">
+            {% for t in tags %}
+            {%- assign tag = t  | strip -%}
+
+            {% assign tag_value = tag | downcase | handleize %}
+
+            {%- assign all_tags = collection.all_tags  -%}
+
+
+            {%- assign tag1 = t | strip | downcase -%}
+            {%- assign all_tags1 = collection.all_tags | downcase -%}
+            {%- assign checktag = '"' | append: tag1 | append: '"' -%}
+            {%- assign colors = ',' | append: settings.product_colors | strip_newlines | downcase | append: ',' -%}
+            {%- assign _tag = tag | downcase | strip -%}
+            {%- assign _tag = ',' | append: _tag | append: ':' -%}
+            {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+            {% if block.settings.style_filter == 'color' %}
+            {%- assign s = 'style="background:' | append: curcol | append: '"' -%}
+            {% endif %}
+            {% if current_tags contains checktag %}
+              
+            <li><input type="checkbox" value="{{ tag_value }}" checked/><label>
+              <span>{{ tag }}</span>
+              <div {{s}}></div>{%if block.settings.show_tooltips %}<span class="tooltip">{{ tag_value }}</span>{% endif %}</label></li>
+            {% elsif all_tags1 contains tag1 %}
+           
+           
+            <li><input type="checkbox" value="{{ tag_value }}"/><label>
+              <span>{{ tag }}</span>
+              <div {{s}}></div>
+              {%if block.settings.show_tooltips %}<span class="tooltip">{{ tag }}</span>{% endif %}</label></li> 
+            {% endif %}
+            {% endfor %}
+                {% comment %}   <li> <a class="clear-all">{{ 'collection.sidebar.clear_filter' | t }}</a> </li>   {% endcomment %}
+          <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all</button>
+        </ul>
+        {% endif %}
+      </div> 
+        
+
+      {% when 'block_filter_material' %}
+      <div class="sidebar-custom sidebar-tagm2  color">
+        <div class="title">
+          <h3 onclick="show_filterd({{ forloop.index }}" class="custom_active csutom_active{{ forloop.index }}" id="tab{{ forloop.index }}"><span>{{  block.settings.title }}</span>
+           <span> <img src="{{ 'down_stoke.svg' | asset_url}}" /></span>
+          </h3>
+        </div>
+
+          <ul class="widget-content color content" id="dq{{ forloop.index }}">
+
+            {% for i in (1..10) %}   
+            {% capture material_name %}material_name_{{ i }}{% endcapture %}
+            {% assign material_name = settings[material_name] %} 
+
+            {% assign material_name = material_name |strip %} 
+            {% capture material_image %}material_{{ i }}{% endcapture %}
+            {% assign material_image = settings[material_image] %} 
+            {% if material_name != blank %}
+            {% if current_tags contains material_name %}
+            <li>
+              {% assign tag_value = material_name | handleize %}
+              <input type="checkbox" value="{{ tag_value }}" {% if current_tags contains material_name %}checked{% endif %}/>
+              <a href="javascript:void(0)"  {% if current_tags contains material_name %} class="active" {% endif %} title="{{material_name}}">
+
+                {{material_image | img_url: '160x160' | img_tag  }}
+
+                <span class="tooltip">{{ tag_value }}</span>
+              </a>
+            </li>
+            {% elsif collection.tags contains material_name %}
+            <li>
+              {% assign tag_value = material_name | handleize %}
+              <input type="checkbox" value="{{ tag_value }}" />
+              <a href="javascript:void(0)"   title="{{material_name}}">
+                {{material_image | img_url: '160x160' | img_tag  }}
+                <span class="tooltip">{{ material_name }}</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            
+          </ul>
+
+      </div>
+      {% when 'block_promobox' %}
+      <div class="sidebar-promobox">
+        {{ block.settings.image | img_url: 'master' | img_tag  }}
+        <div class="content-promobox">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{block.settings.custom_html }}</p>
+          <a href="{{block.settings.url }}">{{block.settings.button_text }}</a>
+        </div>
+      </div>
+      {% when 'block_customhtml' %}
+      <div class="sidebar-customhtml">
+        <div class="content-customhtml">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{block.settings.custom_html }}</p>
+          <a href="{{block.settings.url }}">{{block.settings.button_text }}</a>
+        </div>
+      </div>
+      {% when 'block_newsletter' %}
+      <div class="block_newsletter">
+        {% if block.settings.home_newsletter_title != blank %}
+        <div class="title_newsletter">
+          {{ block.settings.home_newsletter_title }}
+        </div>
+        {% endif %}
+        {% if block.settings.home_newsletter_subtitle != blank %}
+        <div class="subtitle_newsletter">
+          {{ block.settings.home_newsletter_subtitle }}
+        </div>
+        {% endif %}
+        <form action="{{ block.settings.mailing_list_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+          <div class="input-group newsletter_form_content">
+            <input  class="input__field input-group-field" type="email" value="" name="EMAIL" aria-label="Email Address" placeholder="{{ 'footer.footer_newsletter_content' | t }}">
+            <span class="input-group-btn">
+              <input type="submit" class="btn" value="{{ 'footer.footer_newsletter_go' | t }}" name="subscribe">
+            </span>
+          </div>
+        </form>
+      </div>
+      {% when 'block_product' %}
+      <div class="sidebar-product">
+        {% if block.settings.tabs_title_block != blank %}
+        <div class="heading-block">
+          <h3 class="title"><span>{{ block.settings.tabs_title_block }}</span></h3>
+          {% if block.settings.subtitle %}
+          <p class="subtitle">{{ block.settings.subtitle }}
+          </p>
+          {% endif %}
+          <div class="products-grid-sidebar">
+            {% assign tabnew_collection = block.settings.tabnew_collection %}
+            {% assign collection =   collections[tabnew_collection] %}
+            {% for product in collections[tabnew_collection].products limit:block.settings.products_limit %}
+            <div class="product-sidebar-item">
+              {% include 'product-item-new' %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}	
+      </div>
+
+      {%- endcase -%}
+      {% endfor %}
+      
+      <div class="sidebar-custom hidden-xs">
+        <div class="collection-filters__actions">
+          {% comment %}
+          <button onclick="window.location='{{collection.url}}'" aria-label="Clear filters" class="">Clear all selections</button>
+          {% endcomment %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+</div> 
+ {%endcomment%}
+<!-- end of mobile version -->
+<style>
+  
+  .sidebar-block .title h3, .sidebar-links .title h3, .addlabel.active .filter-title-wr {
+    font-size: 14px !important;
+    line-height: 14px !important;
+    color: #fff;
+    margin:0 0 9px;
+    font-weight: normal !important;font-family: 'sofia-pro' !important;
+    text-transform: uppercase;
+    position: relative;cursor:pointer;display: flex;
+    align-items: center;
+  }
+  /* Large devices (over 700 px) */
+@media only screen and (min-width: 768px) {
+  #mobile_version_1,#mobile_version_2 {
+    display:none;
+  }
+} 
+
+/* Small devices (under 700 px) */
+@media only screen and (max-width: 767px) {
+  #desktop_version{
+    display:none;
+  }
+} 
+
+  .sidebar-filter-wr .clever-icon-down:before {
+    content: "";
+    background-image:url({{ 'down_stoke.svg' | asset_url }});
+    width: 10px;
+    height: 6px;
+    position: absolute;
+    top: 50%;transform:translateY(-50%);  }
+  .sidebar-filter-wr .clever-icon-down.fa-caret-right:before {
+    content: "";
+    background-image:url({{ 'up_stoke.svg' | asset_url }});
+    width: 10px;
+    height: 6px;
+    position: absolute;
+    top: 50%;transform:translateY(-50%);  }
+ .sidebar-block .title h3 img, .sidebar-links .title h3 img{padding-left:35px;}
+  
+  .widget-content ul li a{
+    font-size: 14px;
+    padding:0 15px;
+    line-height: normal;
+    font-weight: 300 !important;font-family: 'sofia-pro' !important;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.8);border:none;text-decoration: none!important;  }
+  
+  .widget-content ul li a:hover{background: rgba(187, 178, 178, 0.5);border:none;text-decoration: none!important;}
+  
+   ul.widget-content li label span{  
+      font-size: 14px;
+    line-height: normal;
+    font-weight: 300 !important;font-family: 'sofia-pro' !important;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.8);  }
+  
+  .collection-filters__actions button{background:transparent;border: none;color: #E7E7E7 !important;font-size: 12px;padding:0;line-height: 12px; font-weight: 300 !important;font-family: 'sofia-pro' !important;}
+  
+  .hidden-xs{display:block}
+  .visible-xs{display:none}
+  .template-collection .filter-wr .sidebar-block .sidebar-custom { padding: 0 15px;}
+  .template-collection .colection_fulwidth .sidebar-block { margin: 0 -15px;}
+
+  @media only screen and (min-width:200px) and (max-width:767px){
+    .hidden-xs{display:none}
+    .visible-xs{display:block;}
+    .widget-content { padding: 14px 0px!important; display: none;  background: #3F3E40; border-top: none!important;}
+    .template-collection .filter-wr .sidebar-block .sidebar-custom{border:none;margin:0 0 15px;}
+    .sidebar-block .title h3, .sidebar-links .title h3 {  position: relative;  max-width: 200px; font-size:14px !important;    }
+    .sidebar-block .title h3 img, .sidebar-links .title h3 img{position:absolute;right:0;}
+    .widget-content ul li a {   font-size: 14px;  padding: 0;}
+  }
+  @media only screen and (min-width:500px) and (max-width:767px){}
+  
+  
+  @media only screen and (min-width:768px) and (max-width:991px){
+    body .sidebar-block .title h3,  body .sidebar-links .title h3 {
+      font-size:14px !important;
+    }
+    .sidebar-block .title h3 img, .sidebar-links .title h3 img {
+      padding-left: 15px;
+    }
+  }
+
+
+  @media only screen and (min-width:992px) and (max-width:1199px){}
+  @media only screen and (min-width:1200px) and (max-width:1367px){
+    .container{max-width:1170px;}
+  }
+
+  
+  
+</style>
+
+<script>
+  function show_price(){
+    $('.widget-content8').slideToggle();
+    
+      if($('#tabs'+' '+'img').attr('src') == '{{ 'down_stoke.svg' | asset_url }}'){
+     $('#tabs'+' '+'img').attr('src', '{{ 'up_stoke.svg' | asset_url }}');
+    } else {
+       $('#tabs'+' '+'img').attr('src', '{{ 'down_stoke.svg' | asset_url }}');    
+    }
+  }
+  function show_sort(){
+    $('.widget-content1').slideToggle();
+    
+      if($('#tabs'+' '+'img').attr('src') == '{{ 'down_stoke.svg' | asset_url }}'){
+     $('#tabs'+' '+'img').attr('src', '{{ 'up_stoke.svg' | asset_url }}');
+    } else {
+       $('#tabs'+' '+'img').attr('src', '{{ 'down_stoke.svg' | asset_url }}');    
+    }
+  }
+    
+    function show_filter(para){
+    $('#q'+para).slideToggle('1000');
+     
+     if($('#tab'+para +' '+'img').attr('src') == '{{ 'down_stoke.svg' | asset_url }}'){
+     $('#tab'+para +' '+'img').attr('src', '{{ 'up_stoke.svg' | asset_url }}');
+    } else {
+       $('#tab'+para +' '+'img').attr('src', '{{ 'down_stoke.svg' | asset_url }}');    
+    }
+  }
+     
+    jQuery("h3.custom_active").click(function(){
+    //   jQuery("h3").removeClass("current_active");
+       jQuery(this).toggleClass("current_active");
+     });
+    
+        /*jQuery(".filter_show").click(function(){
+          	jQuery(this).parent("div#mobile_version_1").toggleClass("version_one");
+        });*/
+       jQuery(".filter_row").click(function(){
+        jQuery(this).parent(".left_filter_section").toggleClass("version_one");
+      });
+    /*if(window.outerWidth < 567) {
+    
+    function show_filters(para){
+    $('#cq'+para).slideToggle('1000');
+     
+     if($('#tab'+para +' '+'img').attr('src') == '{{ 'down_stoke.svg' | asset_url }}'){
+     $('#tab'+para +' '+'img').attr('src', '{{ 'up_stoke.svg' | asset_url }}');
+    } else {
+       $('#tab'+para +' '+'img').attr('src', '{{ 'down_stoke.svg' | asset_url }}');    
+    }
+  }
+  function show_filterd(para){
+    $('#dq'+para).slideToggle('1000');
+     
+     if($('#tab'+para +' '+'img').attr('src') == '{{ 'down_stoke.svg' | asset_url }}'){
+     $('#tab'+para +' '+'img').attr('src', '{{ 'up_stoke.svg' | asset_url }}');
+    } else {
+       $('#tab'+para +' '+'img').attr('src', '{{ 'down_stoke.svg' | asset_url }}');    
+    }
+  }
+     jQuery("h3.custom_active").click(function(){
+    //   jQuery("h3").removeClass("current_active");
+       jQuery(this).toggleClass("current_active");
+     });
+     }
+        
+       jQuery(".filter_row").click(function(){
+        jQuery(this).parent(".left_filter_section").toggleClass("version_one");
+      });
+    */
+</script>
+
+
+
+<script>
+  function collectionfilter() {
+    var collFilters = jQuery('.coll-filter');
+
+    var newTags = [];
+    collFilters.each(function() {
+      if ($(this).is(":checked")) {
+        newTags.push(jQuery(this).val());
+      }
+    });
+    if (newTags.length) {
+      var query = newTags.join('+');
+      window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('tag', query);
+                                    }
+                                    else {
+                                    {% if collection.handle %}
+                                    window.location.href = '/collections/{{ collection.handle }}';
+                                    {% elsif collection.products.first.type == collection.title %}
+                                    window.location.href = '{{ collection.title | url_for_type }}';
+                                    {% elsif collection.products.first.vendor == collection.title %}
+                                    window.location.href = '{{ collection.title | url_for_vendor }}';
+                                    {% endif %}
+                                    }            
+                                    }
+</script>

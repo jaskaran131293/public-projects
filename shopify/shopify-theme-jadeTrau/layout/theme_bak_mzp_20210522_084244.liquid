@@ -1,0 +1,295 @@
+<!doctype html>
+<html {% if settings.body_rtl %}dir="rtl"{% endif %}>
+  <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <link rel="stylesheet" href="https://obscure-escarpment-2240.herokuapp.com/stylesheets/bcpo-front.css">
+    <script>var bcpo_product={{ product | json }}; {% if product.metafields.bcpo.bcpo_data %}var bcpo_data={{ product.metafields.bcpo.bcpo_data }};{% endif %} {% if shop.metafields.bcpo.bcpo_settings %}var bcpo_settings={{ shop.metafields.bcpo.bcpo_settings }};{% endif %}var inventory_quantity = [];{% for v in product.variants %}inventory_quantity.push({{v.inventory_quantity}});{% endfor %}if(bcpo_product) { for (var i = 0; i < bcpo_product.variants.length; i += 1) { bcpo_product.variants[i].inventory_quantity = inventory_quantity[i]; }}window.bcpo = window.bcpo || {}; bcpo.cart = {{cart | json}}; bcpo.ogFormData = FormData;</script>
+
+    <!-- Basic page needs ================================================== -->
+    <meta charset="utf-8">
+<meta name="google-site-verification" content="oqIybKp_5B5nZW8fsYsqJIIXERBm88hy0rdLgqhGd1E" />
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9EFMX9ZRZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-D9EFMX9ZRZ');
+</script>
+    <!-- Title and description ================================================== -->
+    <title>
+      {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- Helpers ================================================== -->
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    {% include 'meta-social' %}
+    <!-- Favicon -->
+    {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+    {% include 'font-family' %}
+
+    {{ 'lazysizes.js' | asset_url | script_tag }}
+    <!-- Styles -->
+    {% if settings.body_rtl %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    {{ 'styles-rtl.css' | asset_url | stylesheet_tag }}
+    {% else %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% endif %}
+    {% if settings.layout_fullpage %}
+    {{ 'fullpage.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+    <!-- Theme base and media queries -->
+    {{ 'theme_exention.css' | asset_url | stylesheet_tag }}
+    {{ 'styles.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="https://use.typekit.net/ojd6eom.css">
+    {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+    {{ 'theme_core.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'responsive.css' | asset_url | stylesheet_tag }}
+    {% if settings.display_csseditor %}
+    {{ 'bannereditor.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+    <!-- Scripts -->
+    {% include 'head_scripts' %}
+    {{ 'skrollr.js' | asset_url | script_tag }}
+    {{ "tricky3.infinite-scroll.v2.min.js" | asset_url | script_tag }}
+    <!-- 360 Product -->
+    {{ 'threesixty.min.js' | asset_url | script_tag }}
+    <!-- Header hook for plugins ================================================== -->
+
+    {% include 'meteor-menu', load: 'head' %}
+    {{ content_for_header }}
+    {%- capture CFH -%}{{ content_for_header }}{%- endcapture -%}
+    {%- if CFH contains 'design_mode' -%}
+    {%- assign isAdmin = true -%}
+    {%- else -%}
+    {%- assign isAdmin = false -%}
+    {%- endif -%}
+    <!--[if lt IE 9]>
+    {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+    <![endif]-->
+
+    {% comment %}
+    If you store has customers disabled, you can remove the following JS file
+    {% endcomment %}
+    {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+    {% endif %}
+
+    {% include 'weglot_hreftags' %}
+    {% include 'weglot_switcher' %}
+
+    {% render 'pagefly-header' %}
+
+    
+
+    {{ 'custom-css-shopify.css' | asset_url | stylesheet_tag }}
+    {% include 'qikify-smartmenu-data' %}
+    <script type="text/javascript" src="https://sdk.qikify.com/tmenu/app-v5.js?token=CnnPUqWbMh4g8WTnUN5YSn7dJPJtIseb&shop=jade-trau-dev.myshopify.com" defer="defer"></script>
+    {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
+    
+    {% comment %}
+    <!--PRELOADER_STYLE-->
+    <style>#page-transition-preloader { z-index: 999999; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; } #page-transition-preloader { background: rgba(0,0,0,.8); --color: #fff; --background: #43467F; } .preloader-graphics .ptb-preloader-3 .la-ball-beat,.preloader-graphics .ptb-preloader-3 .la-ball-beat>div{position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.preloader-graphics .ptb-preloader-3 .la-ball-beat{display:block;font-size:0;color:var(--color)}.preloader-graphics .ptb-preloader-3 .la-ball-beat>div{display:inline-block;float:none;background-color:currentColor;border:0 solid currentColor}.preloader-graphics .ptb-preloader-3 .la-ball-beat{width:54px;height:18px}.preloader-graphics .ptb-preloader-3 .la-ball-beat>div{width:10px;height:10px;margin:4px;border-radius:100%;animation:ptb-preloader-3-ball-beat .7s -0.15s infinite linear}.preloader-graphics .ptb-preloader-3 .la-ball-beat>div:nth-child(2n-1){animation-delay:-0.5s}.preloader-graphics .ptb-preloader-3 .la-ball-beat.la-2x{width:108px;height:36px}.preloader-graphics .ptb-preloader-3 .la-ball-beat.la-2x>div{width:20px;height:20px;margin:8px}@keyframes ptb-preloader-3-ball-beat{50%{opacity:.2;-webkit-transform:scale(0.75);-moz-transform:scale(0.75);-o-transform:scale(0.75);transform:scale(0.75)}100%{opacity:1;-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1)}}</style>
+    <!--PRELOADER_STYLE-->
+    <!--PRELOADER_SCRIPT-->
+    <script src="https://preloader.devbyte.io?SHOP_ID=jade-trau-dev.myshopify.com&ts=1607456429" async></script>
+    <!--PRELOADER_SCRIPT-->
+    {% endcomment %}
+  
+  {% render 'shogun-head' %}
+</head> 
+  
+  {% comment %}
+  Add the page template as a class for easy page or template specific styling.
+  {% endcomment %}
+  <body id="{{ page_title | handle }}" data-page="{{page.handle}}" class="{% if settings.layout_width_body %}boxed-layout {% endif %}{{ settings.layout_fullpage_ancho}}{% if customer %} customer-logged-in{% endif %}{% if settings.body_rtl %} rtl{% else %} ltr{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}"><!--PAGE_PRELOADER_HTML-->
+
+    {% comment %}
+    <div id="loading"></div>
+    <div class="pageloader"></div>
+    {% endcomment %}
+
+    <div class="wrapper-container">
+      <div class="header-wrapper">
+        {% section 'header' %}
+      </div>
+      <div class="product-quickview"></div>
+      {% include 'breadcrumb' %}
+      <main class="main-content">
+        {% if settings.header_layout == "header-vertical-left" %}
+        {% include 'header-search-cart' %}
+        {% endif %}
+
+        <div class="{% unless template contains 'collection' %}container {% endunless %}main_container">
+          {{ content_for_layout }}
+        </div>
+      </main>
+      {% section 'footer' %}
+      {% section 'popups' %}
+      {% include 'message-modal' %}
+      {% include 'quick-view-product' %}
+      {% include 'popup-newsletter' %}
+      {% include 'layout-compare' %}
+    </div>
+
+    {% include 'canvas-menu' %}
+    {% include 'search-autocomplete' %}
+    {% include 'footer_scripts' %}
+    {% if template contains 'index' and isAdmin %}
+    {% include 'setup_demo' %}
+    {% endif %}
+
+    {{ weglot_includes }}
+
+    <style>
+      {% if settings.use_scale_product_image %}
+      .products-grid .grid-item .grid-image img{width:auto;max-height:{{settings.product_scale_height }}px;}
+      .products-grid .grid-item .product-image{height:{{settings.product_container_scale_height}}px;}
+      {% endif %}
+    </style>
+
+    {% if settings.age_verify %}
+    <div class="age-verify" style="">
+      <div class="content-popup">
+        {% if settings.age_verify_title != blank %}
+        <h3> {{settings.age_verify_title }}</h3>
+        {% endif %}
+        {% if settings.age_verify_subtitle != blank %}
+        <p>{{settings.age_verify_subtitle }}</p>
+        {% endif %}
+        <div class="button">
+          <a class="enter-page">Enter <i class="cs-font clever-icon-arrow-right-4"></i></a> or <a class="button-close" href="{{settings.age_verify_link}}">Exit</a>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .age-verify{display:none;}
+    </style>
+    <script>
+      $(document).ready(function(){
+        $(window).load(function() {
+          // if no cookie
+          // if no cookie
+          if ($.cookie('alert') != "true") {
+            $('.age-verify').show();
+            $(".age-verify .enter-page").click(function () {
+              $(".age-verify").slideUp("slow");
+              // set the cookie for 24 hours
+              var date = new Date();
+              date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+              $.cookie('alert', "true", {
+                expires: date
+              });
+            });
+          }
+        });
+      });
+    </script>
+    {% endif %}
+
+    <script>
+      $(window).load(function(){
+        $(".navbar-togggle").click(function(){
+          $(".megamenu.mobile_mega_nav").addClass('open_menu');
+          $("body").addClass('ovflow_hidden');
+        });
+        $(".close__s_btn").click(function(){
+          $(".megamenu.mobile_mega_nav").removeClass('open_menu');
+          $("body").removeClass('ovflow_hidden');
+        });
+
+        $(".cstm_menu").click(function(){
+          $(this).toggleClass('actv');
+        });
+      });  
+
+      /*
+      $(window).load(function() {
+        $(".pageloader").fadeOut("slow");
+      });
+      */
+
+      $(".mobile_mega_nav .dropee").click(function(){
+        $(this).parent(".widget-inner").toggleClass("active_s").find(".nav-links").slideToggle();
+      });
+    </script>
+
+    {% if template contains 'cart' %}
+    <script>
+      window.theme = window.theme || {};
+      /**
+     * Module to add a shipping rates calculator to cart page.
+     *
+     * Copyright (c) 2011-2016 Caroline Schnapp (11heavens.com)
+     * Dual licensed under the MIT and GPL licenses:
+     * http://www.opensource.org/licenses/mit-license.php
+     * http://www.gnu.org/licenses/gpl.html
+     * Modified by David Little, 2016
+     */
+
+      "object"==typeof Countries&&(Countries.updateProvinceLabel=function(e,t){if("string"==typeof e&&Countries[e]&&Countries[e].provinces){if("object"!=typeof t&&(t=document.getElementById("address_province_label"),null===t))return;t.innerHTML=Countries[e].label;var r=jQuery(t).parent();r.find("select");r.find(".custom-style-select-box-inner").html(Countries[e].provinces[0])}}),"undefined"==typeof Shopify.Cart&&(Shopify.Cart={}),Shopify.Cart.ShippingCalculator=function(){var _config={submitButton:"Calculate shipping",submitButtonDisabled:"Calculating...",templateId:"shipping-calculator-response-template",wrapperId:"wrapper-response",customerIsLoggedIn:!1,moneyFormat:"${{amount}}"},_render=function(e){var t=jQuery("#"+_config.templateId),r=jQuery("#"+_config.wrapperId);if(t.length&&r.length){var templateSettings={evaluate:/<%([\s\S]+?)%>/g,interpolate:/<%=([\s\S]+?)%>/g,escape:/<%-([\s\S]+?)%>/g};var n=Handlebars.compile(jQuery.trim(t.text())),a=n(e);if(jQuery(a).appendTo(r),"undefined"!=typeof Currency&&"function"==typeof Currency.convertAll){var i="";jQuery("[name=currencies]").size()?i=jQuery("[name=currencies]").val():jQuery("#currencies span.selected").size()&&(i=jQuery("#currencies span.selected").attr("data-currency")),""!==i&&Currency.convertAll(shopCurrency,i,"#wrapper-response span.money, #estimated-shipping span.money")}}},_enableButtons=function(){jQuery(".get-rates").removeAttr("disabled").removeClass("disabled").val(_config.submitButton)},_disableButtons=function(){jQuery(".get-rates").val(_config.submitButtonDisabled).attr("disabled","disabled").addClass("disabled")},_getCartShippingRatesForDestination=function(e){var t={type:"POST",url:"/cart/prepare_shipping_rates",data:jQuery.param({shipping_address:e}),success:_pollForCartShippingRatesForDestination(e),error:_onError};jQuery.ajax(t)},_pollForCartShippingRatesForDestination=function(e){var t=function(){jQuery.ajax("/cart/async_shipping_rates",{dataType:"json",success:function(r,n,a){200===a.status?_onCartShippingRatesUpdate(r.shipping_rates,e):setTimeout(t,500)},error:_onError})};return t},_fullMessagesFromErrors=function(e){var t=[];return jQuery.each(e,function(e,r){jQuery.each(r,function(r,n){t.push(e+" "+n)})}),t},_onError=function(XMLHttpRequest,textStatus){jQuery("#estimated-shipping").hide(),jQuery("#estimated-shipping em").empty(),_enableButtons();var feedback="",data=eval("("+XMLHttpRequest.responseText+")");feedback=data.message?data.message+"("+data.status+"): "+data.description:"Error : "+_fullMessagesFromErrors(data).join("; ")+".","Error : country is not supported."===feedback&&(feedback="We do not ship to this destination."),_render({rates:[],errorFeedback:feedback,success:!1}),jQuery("#"+_config.wrapperId).show()},_onCartShippingRatesUpdate=function(e,t){_enableButtons();var r="";if(t.zip&&(r+=t.zip+", "),t.province&&(r+=t.province+", "),r+=t.country,e.length){"0.00"==e[0].price?jQuery("#estimated-shipping em").html("FREE"):jQuery("#estimated-shipping em").html(_formatRate(e[0].price));for(var n=0;n<e.length;n++)e[n].price=_formatRate(e[n].price)}_render({rates:e,address:r,success:!0}),jQuery("#"+_config.wrapperId+", #estimated-shipping").fadeIn()},_formatRate=function(e){function t(e,t){return"undefined"==typeof e?t:e}function r(e,r,n,a){if(r=t(r,2),n=t(n,","),a=t(a,"."),isNaN(e)||null==e)return 0;e=(e/100).toFixed(r);var i=e.split("."),o=i[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1"+n),s=i[1]?a+i[1]:"";return o+s}if("function"==typeof Shopify.formatMoney)return Shopify.formatMoney(e,_config.moneyFormat);"string"==typeof e&&(e=e.replace(".",""));var n="",a=/\{\{\s*(\w+)\s*\}\}/,i=_config.moneyFormat;switch(i.match(a)[1]){case"amount":n=r(e,2);break;case"amount_no_decimals":n=r(e,0);break;case"amount_with_comma_separator":n=r(e,2,".",",");break;case"amount_no_decimals_with_comma_separator":n=r(e,0,".",",")}return i.replace(a,n)};return _init=function(){new Shopify.CountryProvinceSelector("address_country","address_province",{hideElement:"address_province_container"});var e=jQuery("#address_country"),t=jQuery("#address_province_label").get(0);"undefined"!=typeof Countries&&(Countries.updateProvinceLabel(e.val(),t),e.change(function(){Countries.updateProvinceLabel(e.val(),t)})),jQuery(".get-rates").click(function(){_disableButtons(),jQuery("#"+_config.wrapperId).empty().hide();var e={};e.zip=jQuery("#address_zip").val()||"",e.country=jQuery("#address_country").val()||"",e.province=jQuery("#address_province").val()||"",_getCartShippingRatesForDestination(e)}),_config.customerIsLoggedIn&&jQuery(".get-rates:eq(0)").trigger("click")},{show:function(e){e=e||{},jQuery.extend(_config,e),jQuery(function(){_init()})},getConfig:function(){return _config},formatRate:function(e){return _formatRate(e)}}}();
+
+    Shopify.Cart.ShippingCalculator.show( {
+      submitButton: theme.strings.shippingCalcSubmitButton,
+      submitButtonDisabled: theme.strings.shippingCalcSubmitButtonDisabled,
+      customerIsLoggedIn: theme.strings.shippingCalcCustomerIsLoggedIn,
+      moneyFormat: theme.strings.shippingCalcMoneyFormat                                     
+    } );
+    </script>
+    {% endif %}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+      window.theme = {
+        strings: {
+
+          items_count_one: {{ 'layout.cart.items_count.one' | t | json }},
+          items_count_other: {{ 'layout.cart.items_count.other' | t | json }},  
+          addToCart: {{ 'products.product.add_to_cart' | t | json }},
+          soldOut: {{ 'products.product.sold_out' | t | json }},
+          unavailable: {{ 'products.product.unavailable' | t | json }},
+          priceSaleSeparator: {{ 'products.product.price_sale_separator' | t | json }},
+          availability_value_in_stock: {{ 'products.product.availability_value_in_stock' | t | json }},
+          availability_value_out_stock: {{ 'products.product.availability_value_out_stock' | t | json }},
+          stock_countdown: {
+          title: {{ 'products.product.stock_countdown_html' | t | json }}
+        }
+      },
+        multipleСurrencies: {{ settings.show_multiple_currencies | json }},
+          moneyFormat: {{ shop.money_format | json }}
+      };
+    </script>
+
+    {{ "parallax.js" | asset_url | script_tag }}
+    {{ 'vendor.js' | asset_url | script_tag }}
+    {{ 'slick.js' | asset_url | script_tag }}
+    {{ 'jquery_newcore.js' | asset_url | script_tag }}
+    {{ 'function_theme.js' | asset_url | script_tag }}
+
+    <script defer src="https://connect.podium.com/widget.js#API_TOKEN=aba07d31-be3c-4c4c-8bc7-8270ecfd9a74" id="podium-widget" data-api-token="aba07d31-be3c-4c4c-8bc7-8270ecfd9a74"></script>
+    <script type="text/javascript" async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=L5rTxn"></script>
+    
+  </body>
+  </html>

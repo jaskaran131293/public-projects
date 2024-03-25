@@ -1,0 +1,10 @@
+{% assign instructions = product.metafields.meta %}
+{% assign key = 'countdown' %}
+{% if instructions.countdown %}
+<p class="product-bar">{{'products.product.countdown.title' | t}}</p>
+<div class="countdown">
+  <div id="cntdwn" class="deal-clock lof-clock-{{ product.id }}-detail" data-date="{{ instructions.countdown }}"	></div>
+
+  {{ 'jquery.countdown.js' | asset_url | script_tag }}
+</div>
+{% endif %}

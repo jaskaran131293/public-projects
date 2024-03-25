@@ -1,0 +1,188 @@
+<style>
+  .booking_popup {
+    z-index: 99999999999;
+    position: relative;
+    width:500px;
+    margin:0px auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .background_color {
+    height: 100vh;
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 99999999999;
+  }
+.overlay {
+    background: rgba( 0, 0, 0, 0.6 );
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999999;
+}
+  .popup_booking{
+    margin: 0px auto;
+    width: 500px;
+    border: 2px solid #BBB2B2;
+    background-color: #fff;
+    border-radius: 2px;
+    padding:20px;
+  }
+  .booking_slot h4 {
+    margin: 0 0 40px;
+    padding: 0 0 12px;
+    font-size: 18px !important;
+    color: #424347;
+    font-family: 'Sofia Pro' !important;
+    font-weight: 400 !important;
+    border-bottom: 1px solid #BBB2B2;
+    text-transform: uppercase !important;
+  }
+  .booking_form label{
+    margin:0 0;
+    padding:0 0;
+    color:#575757 !important;
+    font-size:16px !important;
+    font-family: 'Sofia Pro' !important;
+    font-weight: 400 !important;
+  }
+.booking_form input {
+    margin: 8px 0;
+    padding: 0 6px;
+    color: #575757 !important;
+    font-size: 16px !important;
+    font-family: 'Sofia Pro' !important;
+    font-weight: 400 !important;
+    width: 100%;
+    height: 44px;
+}
+  .booking_flex {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .booking_mian{
+  width:48%;
+  }
+  .booking_form textarea {
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 14px !important;
+    color: #575757 !important;
+    line-height: 17px;
+    font-family: 'Sofia Pro' !important;
+    font-weight: 400 !important;
+    width: 100%;
+    height: 70px;
+    resize: none;
+  }
+  .booking_form textarea::placeholder{ color: #575757 !important;}
+  .booking_form button {
+    width: 100%;
+    background-color: #3F3E40;
+    font-size: 16px;
+    color: #FFFFFF;
+    font-family: 'Sofia Pro' !important;
+    font-weight: 500 !important;
+    border: none;
+    outline: none;
+    height: 44px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  .booking_form h5 {
+    margin: 0 0;
+    padding: 0 0 35px;
+    font-size: 12px;
+    font-family: 'Sofia Pro' !important;
+    font-weight: 400 !important;
+    color: #575757 !important;
+    text-transform: capitalize !important;
+    text-align: end;
+  }
+  .booking_form button:hover {
+    background-color: #3F3E40C2;
+  }
+
+</style>
+
+<div class="background_color" id="book_slot">
+  <div class="overlay" onclick="close_popup()">
+  
+  </div>
+  <section class="booking_popup">
+    <div class="popup_booking">
+      <div>
+      <div class="booking_slot">
+        {% if section.settings.title_slot != blank %}
+        <h4>{{ section.settings.title_slot }}</h4>
+        {% endif %}
+      </div>
+
+      <div class="booking_form">
+        {% form 'contact' %}
+        <div class="booking_flex">
+          <div class="booking_mian">
+           <label>First Name *</label>
+            <input required type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          </div>
+          <div class="booking_mian">
+            <label> Last Name* </label>
+            <input required type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          </div>
+          
+        </div>
+<label> Email * </label>
+          <input required
+                 type="email"
+                 id="{{ formId }}-email"
+                 name="contact[email]"
+                 autocorrect="off"
+                 autocapitalize="off"
+                 value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                 aria-required="true"
+                 {%- if form.errors contains 'email' -%}
+                 class="input--error"
+                 aria-invalid="true"
+                 aria-describedby="{{ formId }}-email-error"
+                 {%- endif -%}
+                 >
+          {%- if form.errors contains 'email' -%}
+          <span id="{{ formId}}-email-error" class="input-error-message">
+            <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+            {% include 'icon-error' %}
+            <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+          </span>
+          {%- endif -%}
+          <label>Phone </label>
+          <input type="tel" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}"> 
+ <div class="booking_flex">
+          <div class="booking_mian">
+            <label> Date * </label>
+            <input required type="date" >
+          </div>
+          <div class="booking_mian">
+            <label> Time * </label>
+            <input required type="text" id="{{ formId }}-time" name="contact[time]">
+          </div>
+          
+        </div>
+        
+        <label>Notes</label>
+        <textarea required placeholder="let us know if you have an earring studs preference to get pierced with."></textarea>
+        <h5>*Required Fields</h5>
+        <button type="submit"> Book Now </button>
+          {% endform %}
+      </div>
+      </div>
+    </div>  
+  </section>
+</div>      

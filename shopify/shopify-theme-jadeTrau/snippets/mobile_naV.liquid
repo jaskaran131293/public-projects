@@ -1,0 +1,774 @@
+<!--mobile_naV.liquid------>
+<script>
+   let oldValue = 0
+   let newValue = 0
+   window.addEventListener('scroll', (e) => { 
+      newValue = window.pageYOffset; 
+      oldValue = newValue;
+   }); 
+  
+  if (screen && screen.width < 900) {
+    window.addEventListener('load', (e) => {
+      document.querySelectorAll('.Mob > div').map(data => {
+        alert(data)
+      }) 
+    })
+  }
+
+  
+</script> 
+   
+<style>
+.show {
+    display: block !important;
+}
+.hide {
+    display: none !important;
+}
+
+  #collections,
+#discover,
+#story,
+#concierge,
+#bespoke,
+#earrings,
+#rings,
+#bracelets,
+#just-in,
+#necklaces,
+#products {
+    background-color: #3f3e40 !important;
+}
+.accordion .card-header:after {
+    font-family: "FontAwesome";
+    content: "\f077";
+    float: right;
+    font-size: 10px;
+}
+.accordion .card-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f078";
+}
+
+body .card-header {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+.discover_dropdown ul {
+    padding-left: 0;
+}
+
+.discover_dropdown ul li {
+    list-style: none;
+}
+
+body .card-body {
+    padding-left: 0;
+}
+
+body .card {
+    border: 0;
+}
+
+body .card-header a.card-title {
+    font-family: "Poppins" !important;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+body .card-body li a {
+    font-family: Sofia Pro !important;
+    font-size: 12px;
+    font-weight: 300;
+}
+.myaccount h2 {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    padding: 20px 0 !important;
+    font-family: sofia-pro !important;
+    color: #fff;
+    letter-spacing: 1.4px !important;
+    text-transform: uppercase !important;
+}
+
+.myaccount button.btn {
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid #eae7e7;
+    background-color: transparent;
+    min-height: 44px;
+    color: #fff;
+    font-weight: 400;
+    outline: none;
+    box-shadow: none;
+}
+
+.megamenu.mobile_mega_nav img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.myaccount button.btn.active {
+    background-color: #5f5f5f;
+    border: 1px solid #5f5f5f;
+}
+body .card {
+    background-color: transparent;
+}
+
+body .card-header a.card-title {
+    color: #fff;
+    padding: 8px 0;
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+}
+
+a.card-title,
+a.card-title:focus {
+    color: #fff !important;
+}
+
+.discover_dropdown .clever-icon-down {
+    margin-left: 5px;
+    font-size: 8px;
+    font-weight: 700;
+    float: right;
+    margin-top: 5px;
+}
+
+li.discover.level-top > .discover {
+    padding-bottom: 14px !important;
+    position: relative;
+}
+
+.card-header[aria-expanded="true"] .cs-font {
+    transform: rotate(180deg);
+}
+
+body .card-body {
+    padding-top: 0;
+}
+
+.discover.level-top .card-body span {
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: 13px;
+}
+
+.discover.level-top .card-body a span {
+    padding: 0 !important;
+}
+.megamenu.mobile_mega_nav .card-body li > a {
+    padding: 5px 0 !important;
+}
+
+body .megamenu.mobile_mega_nav li > a {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    padding: 0 20px !important;
+  line-height: 25px;
+}
+
+a.discover.cstm_menu i {
+    opacity: 1;
+}
+
+a.discover.cstm_menu.actv i {
+    opacity: 0;
+}
+
+a.discover.cstm_menu.actv:after {
+    content: "\f053";
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    font-weight: 900;
+    position: absolute;
+    left: 20px;
+    top: 42%;
+    transform: translateY(-43%) !important;
+    font-size: 10px;
+}
+
+li.discover.level-top > .discover.actv {
+    padding-left: 20px !important;
+}
+.megamenu.mobile_mega_nav.open_menu .widget-inner a > span,
+.megamenu.mobile_mega_nav li > a {
+    font-family: 'Poppins' !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+.accordion .card-header:after {
+    display: none;
+}
+.megamenu.mobile_mega_nav ul.navbar-nav.site-nav .discover.level-top > .discover {
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+}
+
+    
+body .site-nav li .dropdown-subs li a {
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+}
+body .dropdown-subs .dropdown-menu-inner:before {
+    top: -10px;
+    width: calc(100% + 196px);
+    left: -98px;
+    top: -10px;
+}
+.header-layout-01 #header-content .header .header-inner {
+    padding: 0;
+}
+.header.header-center.full-width {
+    padding-left: 98px !important;
+    padding-right: 98px !important;
+}
+body .header .header-inner .menu-main-home .site-nav > li {
+    margin-right: 19px !important;
+}
+
+@media screen and (max-width: 1024px) {
+    .megamenu.mobile_mega_nav li > a .cs-font.clever-icon-down {
+        float: right;
+        padding-top: 14px;
+    }
+
+    .megamenu.mobile_mega_nav li a .cs-font.clever-icon-down {
+        transform: rotate(270deg);
+    }
+}
+   
+.megamenu.mobile_mega_nav.open_menu > .container:before,
+.megamenu.mobile_mega_nav.open_menu > .container:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #eae7e7;
+    bottom: 0;
+}
+.megamenu.mobile_mega_nav.open_menu > .container:before {
+    left: -50%;
+}
+.megamenu.mobile_mega_nav.open_menu .container {
+    position: relative; 
+}
+
+.megamenu.mobile_mega_nav.open_menu > .container:after {
+    right: -50%;
+    transition: transform 0.3s ease;
+    transform: translateX(-50%);
+} 
+
+.megamenu.mobile_mega_nav.open_menu > .container {
+    padding-bottom: 1px !important;
+}
+
+li.discover.shop1.level-top {
+    padding-top: 28px;
+}
+body .megamenu.mobile_mega_nav .card-body li > a {
+    padding: 8px 0 !important;
+}
+body .dropdown-subs .dropdown-menu-inner:before {
+    display: none;
+}
+
+.megamenu.mobile_mega_nav .account--sse {
+    border: 0; margin-bottom: 20px !important;
+}
+
+.container1 {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 40px;
+}
+
+ 
+
+.megamenu.mobile_mega_nav ul.navbar-nav.site-nav .discover.level-top > .discover {
+    padding: 0 20px!important;
+    line-height: 25px;
+}
+body .card {
+    background-color: rgb(0 0 0 / 0%);
+    line-height: 25px;
+}
+a.discover.cstm_menu.navigable.actv span {
+    font-weight: 800 !important;
+}
+.card-header {
+    overflow: visible !important;
+    /*     padding-bottom:20px !important; */
+}
+span.fa.fa-heart {
+    color: white;
+    font-size: 20px;
+}
+.nik1 {
+    position: absolute;
+}
+
+.container1 {
+    padding: 5px !important;
+}
+
+  
+ 
+{% if template contains 'index' %}
+  @media only screen and (max-width: 1024px){
+    .mob_wr #search-top .clever-icon-search-4 {
+        margin-top: 0;
+        color: rgb(255 255 255) !important;
+        /*     color: #3F3E40 !important; */
+    }
+  }
+{% else %}
+     @media only screen and (max-width: 1024px){
+      .mob_wr #search-top .clever-icon-search-4 {
+          margin-top: 0; 
+          color: #3F3E40 !important;
+      }
+    }
+{% endif %}
+
+#collections {
+    background-color: rgb(245, 245, 245) !important;
+}
+@media only screen and (max-width: 754px) {
+    .row.Mob.collapse.show {
+        padding-bottom: 10px !important;
+    }
+    .collections .viewallcoll {
+        display: none !important;
+    }
+    body .card-header a.card-title { 
+        padding: 0 20px !important;
+    }
+    .viewallcoll {
+        line-height: 40px;
+        position: absolute;
+        left: 55%;
+        top: 210% !important; 
+        --Example: 35px;
+        width: 100% !important;
+    }
+}
+img.cross {
+    height: 20px !important;
+}
+.collapse.show {
+    display: flex !important;
+}
+.card-header a {
+    font-weight: 600 !important;
+}
+.card-header.collapsed a {
+    font-weight: 400 !important;
+}
+div#our-brand ul a.navigable {
+    text-align: left;
+}
+div#our-services ul li a.navigable {
+    text-align: left;
+}
+div#visit-us ul li a.navigable {
+    text-align: left;
+}
+div#get-started ul li a.navigable {
+    text-align: left;
+}
+div#guide-to-custom ul li a.navigable {
+    text-align: left;
+}
+div#our-projects ul li a.navigable {
+    text-align: left;
+}
+
+
+{% comment %} Slide Menu CSS Start {% endcomment %}
+
+.mobile_mega_nav  .level-top .accordion {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s cubic-bezier(.39,.575,.565,1),transform .3s cubic-bezier(.39,.575,.565,1);
+  transform: translate3d(100%,0,0);
+  left: 0; 
+  background: #f5f5f5; 
+  margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.mobile_mega_nav .accordion .card {
+  display: none;
+}
+.mobile_mega_nav .actv.accordion .card {
+  display: block;
+    height: 100%;
+}
+.mobile_mega_nav .actv.accordion, 
+.mobile_mega_nav .accordion.show { 
+    transform: translateZ(0);
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    overflow-y: scroll;
+    height: 100%;
+} 
+
+.mobile_mega_nav .posrel {
+    position: relative;
+}
+.mobile_mega_nav .posrel span {
+    margin-left: 20px;
+} 
+
+.mobile_mega_nav .elsefourthlevel .row.Mob.accordion {
+    flex-direction: column; 
+    height: 100%;
+        flex-wrap: nowrap;
+}
+
+.mobile_mega_nav .shop_1 .elsefourthlevel .row.Mob.accordion {
+    flex-direction: column;
+    height: 100%;
+}
+  
+
+.flex {
+    display: flex;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+a.card-title.discover.cstm_menu.actv span {
+    font-weight: 600;
+}
+
+.mobileNavbarNav .container:nth-child(1), 
+.mobile_mega_nav .mobileNavbarNav .card.secondlevel,
+.thirdlevel ul {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.mobile_mega_nav .mobileNavbarNav .card.secondlevel .card-header:first-child {
+    padding-top: 18px;
+}
+.discover.card-header.fourthlevel, .discover.card-header.thirdlevel{
+    padding-bottom: 18px;
+}
+
+.megamenu.mobile_mega_nav .account--sse { 
+    margin-bottom: 150px !important;
+}
+
+.thirdlevel ul { 
+  padding-top: 18px;
+}
+
+.elsefourthlevel_1, .thirdlevel_1,
+  .thirdlevel_child_1{
+    padding-top: 10px !important;
+}
+
+.mobileNavbarNav .haad img {
+  width: 16px !important;
+  height: 16px !important;
+  object-fit: contain !important;
+}
+</style>
+  
+  
+  
+  <div class="megamenu mobile_mega_nav" style="display: block; background-color:#FFFFFF !important;">
+    <div class="container">
+       <div class="close__s">
+          <div class="close__s_btn"><img class ="cross" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/close_bc5a5acd-03ab-43c0-9b58-980c1cb4dd8f.png?v=1658758225"></div>
+          <div class="close__s_logo"><a href="/"> 
+          {% comment %}
+            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 88" width="150" height="27"><style>.ab{fill:black;}</style>
+              <path class="ab" d="m75.8 49.4c0 22.1-14 38.2-37.6 38.2-21.9 0-37.5-13-37.5-37.2h15.9c0 14.6 7 22.1 21.6 22.1 14.7 0 21.5-10.2 21.5-23.1v-34h-25.8v-15h41.9z"></path>
+              <path fill-rule="evenodd" class="ab" d="m152 0.4l38.3 85.5h-17.5l-7.3-16.1h-44.7l-7.3 16.1h-17.5l38.4-85.5zm-24.7 54.4h31.8l-15.9-36.5z"></path>
+              <path fill-rule="evenodd" class="ab" d="m291.5 42.4c0.4 21.6-12.8 43.5-42.7 43.5h-33.7v-85.5h33.7c29.3 0 42.4 20.9 42.7 42zm-60.4 28h17.7c19.4 0 27.1-14.2 26.7-28.1-0.3-13.3-8.2-26.7-26.7-26.7h-17.7z"></path><path class="ab" d="m385.8 0.4v15.6h-48.1v19.7h46.3v15h-46.3v19.3h48.1v15.9h-64.1v-85.5z"></path><path class="ab" d="m528.6 0.4v14.6h-27.1v70.9h-16.1v-70.9h-27.2v-14.6z"></path><path fill-rule="evenodd" class="ab" d="m631.5 85.9h-19.2l-24.9-28.6h-15.5v28.6h-16.2v-85.7c13.6 0 27.2 0.2 40.7 0.2 20.2 0.1 30.8 13.5 30.8 28.3 0 11.8-5.3 23.6-21.6 26.9l25.9 29.2zm-59.6-70.5v27.4h24.5c10.3 0 14.7-6.9 14.7-13.7 0-6.9-4.5-13.7-14.7-13.7z"></path><path fill-rule="evenodd" class="ab" d="m708 0.4l38.4 85.5h-17.6l-7.2-16.1h-44.8l-7.3 16.1h-17.5l38.4-85.5zm-24.7 54.4h31.8l-15.9-36.5z"></path><path class="ab" d="m839.3 0.5v49c0 25.3-15.5 38.3-37 38.3-20.5 0-38-12.5-38-38.3v-49h16v49c0 15.4 8.8 23.6 22.1 23.6 13.3 0 20.9-8.9 20.9-23.6v-49z"></path></svg>{% endcomment %}
+           {% if section.settings.enable_header_logosvg %}
+              {% if section.settings.header_logo_svg  != blank %}
+                <span style="height:auto; width:auto;">
+                  {{ section.settings.header_logo_svg }}
+                </span>
+              {% else %}
+                <img class="" src="{{ 'logo.svg' | asset_url }}" style="height:{{ section.settings.logo_height_a }}px; width:auto;" />
+              {% endif %}
+           {% else %}
+              <img src="{{ section.settings.logo | img_url: '2048x' }}" alt="{{ shop.name }}" style="height:{{ section.settings.logo_height_a }}px; width:auto;"/>
+           {% endif %}
+          
+          </a></div>
+       </div>
+    </div>
+    <ul class="navbar-nav site-nav mobileNavbarNav">
+       <div class="container">
+          {% assign menu = linklists[section.settings.menu] %}
+          {% for link in menu.links %}
+             <li class="discover {{link.title | handleize}}1 level-top ">
+                <a href="{% if link.levels > 0 %}javascript:void(0){% else%} {{ link.url }} {% endif %}" class="discover cstm_menu" data-id="{{ link.title | handleize }}_{{ forloop.index }}">
+                   <span>{{link.title}}</span>
+                   <i class="cs-font clever-icon-down"></i>
+                </a>
+                {%- if link.levels > 0 -%}
+                   <div id="accordion" class="accordion discover_dropdown {{ link.title | handleize }}_{{ forloop.index }}">
+                      <div class="card mb-0 secondlevel">
+                         <div class="discover card-header secondlevel bb1">
+                            <a class="card-title discover cstm_menu actv posrel m-0" data-id="{{ link.title | handleize }}_{{ forloop.index }}">
+                               <span>{{link.title}} </span>
+                            </a> 
+                         </div> 
+                         <div class="customBorderForExtend"></div>
+                         {% for child_link in link.links %}
+                            {%- if child_link.levels > 0 -%}
+
+                              {% if link.title != "Custom" %}
+                                 <div class="card-header collapsed thirdlevel thirdlevel_{{ forloop.index }}">
+                                    <a href="javascript:void(0)" class="card-title cstm_menu m-0" data-id="{{ child_link.title | handleize }}_{{ forloop.index }}">
+                                       {{child_link.title}}
+                                       <i class="cs-font clever-icon-down"></i> 
+                                    </a> 
+                                 </div> 
+                                 <div id="{{child_link.title | handleize}}" class="accordion thirdlevel {{ child_link.title | handleize }}_{{ forloop.index }}">
+                                    <div class="discover card-header thirdlevel bb1">
+                                        <a class="card-title discover cstm_menu actv posrel m-0" data-id="{{ child_link.title | handleize }}_{{ forloop.index }}">
+                                           <span>{{child_link.title}} </span>
+                                        </a> 
+                                    </div> 
+                                    <div class="customBorderForExtend"></div>
+                                    <ul class="thirdlevel_child"> 
+                                       {%- for subchild_link in child_link.links -%}
+                                          <li class="test thirdlevel_child_{{ forloop.index }}">
+                                             <a href="{{subchild_link.url}}" class="">
+                                                <span>{{subchild_link.title}}</span>
+                                             </a>
+                                          </li> 
+                                       {%- endfor -%}    
+                                    </ul>
+                                 </div>
+                               {% else %}
+                                  <div class="card-header collapsed thirdlevel innermenus thirdlevel_{{ forloop.index }}">
+                                    <a class="card-title discover" href="{{child_link.url}}">
+                                       <span>{{child_link.title}} </span>
+                                    </a>
+                                  </div>
+                               {% endif %}
+                            {%- else -%} 
+                               {% assign vari = child_link.title | upcase %}
+                               {% assign variab = vari | replace: ' ', ''  %}
+                               <div class="card-header collapsed elsefourthlevel elsefourthlevel_{{ forloop.index }}" data-toggle="collapse" href="#{{variab}}">
+                                 <a class="card-title tesq" href="javascript:void(0)">
+                                     {% assign vi = child_link.title | downcase %}
+                                     {{child_link.title}}
+                                     <i class="cs-font clever-icon-down"></i>
+                                 </a> 
+                                 <div class="row Mob accordion" id={{variab}}>
+                                    <div class="discover card-header fourthlevel">
+                                        <a class="card-title discover cstm_menu actv posrel  m-0"  data-toggle="collapse" href="#{{variab}}"">
+                                           <span>{{child_link.title}} </span>
+                                        </a> 
+                                    </div> 
+                                    <div class="flex flex-wrap row-gap-20" style="padding-top: 30px;border-top: 1px solid #000;     padding-bottom: 30px;">
+                                    {% for block in section.blocks %}
+                                         {% assign set = block.settings.for_item | downcase  %}
+                                         {% assign wet = set | replace: '-', ' '  %} 
+                                                             
+                                         {% if block.type == 'megamenu_title_image' %} 
+                                             <div class="col-sm-3 col-6 innermenus {{  block.settings.for_item }} {% if  vi == wet  %}show{% else %}hide{% endif %}" > 
+                                                {% if block.settings.image != blank %} 
+                                                  <a  href="{{ block.settings.url | default: sub_link.url }}"> 
+                                                      <div class="MObreveal reveal">
+                                                          <img class="mmMob mm" src="{{ block.settings.image | img_url: '2048x'  }}" alt="{{ image.alt | escape }}" />
+                                                          {% if block.settings.image_2 != blank %}
+                                                               <img class="hidden" src="{{ block.settings.image_2 | img_url: '2048x' }}" alt="{{ image.alt | escape }}" />
+                                                          {% endif %}   
+                                                      </div> 
+                                                      <span>{{ block.settings.text-for-image }}</span> 
+                                                  </a>
+                                              
+                                                 <div class="viewallcoll">
+                                                    <a href="{{ block.settings.url_all }}"> <span>{{ block.settings.text-of-viewAll }}</span> </a>
+                                                  </div> 
+                                                {% else %}
+                                                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                {% endif %}               
+                                             </div> 
+                                       {% endif %} 
+                                     {% endfor %} 
+                                    </div> 
+                                  </div>
+                               </div> 
+                            {%- endif -%}
+                         {% endfor %}
+                      </div>
+                   </div>
+                {%- endif -%}
+             </li>
+          {% endfor %}   
+       </div>
+    
+       <div class="container" style="display: none;">
+          <li class="collections  level-top menu-dropdown megamenu-dropdow">
+             <a href="javascript:void(0)" class="collections cstm_menu">
+             <span>Gift guide</span>
+             <i class="cs-font clever-icon-down"></i></a>
+             <div class="dropdown-subs ">
+                <div class="dropdown-menu-inner container">
+                   <div class=" nav-links row  sub-menu-lv2 ">
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="/collections/gifts-for-her" class="menu-title"> <span>Gifts for Her</span> </a>
+                         <a href="/collections/gifts-for-her"> <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/GiftsforHer.webp_2048x_4f9e6e31-01de-473b-8486-1dbeab6b9dd4.jpg?v=1615367030" alt=""> </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="/collections/gifts-for-him" class="menu-title"> <span>Gifts for Him</span> </a>
+                         <a href="/collections/gifts-for-him"> <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/mega-giftsforhim_2048x_b7248b81-3faf-4eff-bf11-ed6564629512.jpg?v=1615367180" alt=""> </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="https://jadetrau.com/collections/personalized-gifts" class="menu-title"> <span>Personalized Gifts</span> </a>
+                         <a href="https://jadetrau.com/collections/personalized-gifts"> <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/personalized.webp_2048x_4525192d-f548-44aa-aa51-dd81af8b3e8a.jpg?v=1615367264" alt=""> </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="https://jadetrau.com/collections/under-2-500" class="menu-title"> <span>Under $2,500</span> </a>
+                         <a href="https://jadetrau.com/collections/under-2-500"> <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/Best_Sellers.webp_2048x_4c6a6903-0199-4d5f-8919-9fa135b7cc37.jpg?v=1615367343" alt=""> </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="https://jadetrau.com/collections/under-1-500" class="menu-title"> <span>Under $1,500</span> </a>
+                         <a href="https://jadetrau.com/collections/under-1-500"> <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/ezgif.com-gif-maker_1.jpg?v=1615367461" alt=""> </a>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </li>
+       </div>
+       <div class="container" style="display: none;">
+          <li class="story  level-top menu-dropdown megamenu-dropdow">
+             <a href="javascript:void(0)" class="story cstm_menu">
+             <span>story</span>
+             <i class="cs-font clever-icon-down"></i></a>
+             <div class="dropdown-subs ">
+                <div class="dropdown-menu-inner container">
+                   <div class=" nav-links row  sub-menu-lv2 ">
+                      <div class="widget-inner col-lg-4 ">
+                         <a href="/pages/about" class="menu-title">
+                         <span>About</span>
+                         </a>
+                         <a href="/pages/about">
+                         <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/Abuout-2s_2048x_89e06b58-e5c0-4d94-83e9-354c0ab1e2d6.jpg?v=1615442444" alt="">
+                         </a>
+                      </div>
+                      <div class="widget-inner col-lg-4 ">
+                         <a href="/pages/our-materials" class="menu-title">
+                         <span>Our Materials</span>
+                         </a>
+                         <a href="/pages/our-materials">
+                         <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/material.jpg?v=1615442495" alt="">
+                         </a>
+                      </div>
+                     
+                      <div class="widget-inner col-lg-4 ">
+                         <a href="/pages/press" class="menu-title">
+                         <span>Press</span>
+                         </a>
+                         <a href="/pages/press">
+                         <img class="" src="//cdn.shopify.com/s/files/1/0418/3723/2292/files/story-press_2048x.jpg?v=1598739722" alt="">
+                         </a>
+                      </div>
+                      <div class="widget-inner col-lg-4 ">
+                         <a href="/pages/lookbooks" class="menu-title">
+                         <span>Lookbooks</span>
+                         </a>
+                         <a href="/pages/lookbooks">
+                         <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/look.jpg?v=1615442550" alt="">
+                         </a>
+                      </div>
+                      <div class="widget-inner col-lg-4 ">
+                         <a href="/pages/events" class="menu-title">
+                         <span>Events</span>
+                         </a>
+                         <a href="/pages/events">
+                         <img class="" src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/event.jpg?v=1615442550" alt="">
+                         </a>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </li>
+       </div>
+       <div class="container" style="display: none;">
+          <li class="concierge  level-top menu-dropdown megamenu-dropdow">
+             <a href="javascript:void(0)" class="concierge cstm_menu">
+             <span>Bespoke</span>
+             <i class="cs-font clever-icon-down"></i></a>
+             <div class="dropdown-subs ">
+                <div class="dropdown-menu-inner container">
+                   <div class=" nav-links row  sub-menu-lv2 ">
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="/pages/appointment" class="menu-title">
+                         <span>Appointment</span>
+                         </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="/pages/engraving" class="menu-title">
+                         <span>Engraving</span>
+                         </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="/pages/restyling" class="menu-title">
+                         <span>Restyling</span>
+                         </a>
+                      </div>
+                      <div class="widget-inner col-lg-3 ">
+                         <a href="/pages/sizing-guide" class="menu-title">
+                         <span>Size Guide</span>
+                         </a>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </li>
+       </div>
+      <li>
+        <ul>
+           <div class="container1" style = "background-color:#EFEFEF;; height:180px; width:100%">
+              <div class="account--sse container">
+                 <div class="myaccount">
+                   <div class = "hear">
+                     <div class ="haad">
+                         <div class ="ran">
+                           {% comment %}<img src="//cdn.shopify.com/s/files/1/0418/3723/2292/files/heart-vector.png?v=1673035189">{% endcomment %}
+                           <img src="//cdn.shopify.com/s/files/1/0418/3723/2292/files/make-an-appointment-21-32.png?v=1700667230">
+                         </div>
+                         {% comment %}<div class ="uu" style="letter-spacing:0.1em;" >{% include 'iwish_v2' with 'iwishmoblink' %} </div>{% endcomment %}
+                         <div class ="uu" style="letter-spacing:0.1em;" ><a href="/pages/appointment">APPOINTMENT</a></div>
+                     </div> 
+                     
+                     <div class ="haad">
+                         <div class ="ran"><img src="//cdn.shopify.com/s/files/1/0418/3723/2292/files/location-vector.png?v=1673035189"></div>
+                         <div class ="uu" style="letter-spacing:0.1em;" ><a href="/pages/visit-us">VISIT US</a></div>
+                     </div>
+                   </div>
+  
+                 </div>
+             </div>
+           </div>
+        </ul>
+      </li>
+  </div>
+ 

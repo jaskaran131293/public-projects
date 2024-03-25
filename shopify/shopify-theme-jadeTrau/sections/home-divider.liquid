@@ -1,0 +1,107 @@
+<div class="divider" style="text-align:{{section.settings.horizontal_align }};margin: {{section.settings.margin }}px 0 ;">
+  {% unless section.settings.enable_block_home_icon_full %}<div class="container">{% endunless %}
+  <div style="height:1px;border-bottom: {{section.settings.weight }}px {{section.settings.style }} {{section.settings.color }}; width:{{section.settings.width}}%;{% if section.settings.horizontal_align =='center'%}margin:auto;{%endif %}{% if section.settings.horizontal_align =='right'%}margin-left: auto;margin-right:0;{%endif %}"></div>
+  {% unless section.settings.enable_block_home_icon_full %}</div>{% endunless %}
+</div>
+
+{% schema %}
+  {
+    "name": "Divider",
+    "settings": [	
+{
+      "type": "checkbox",
+      "id": "enable_block_home_icon_full",
+      "label": "Enable Full Width"
+    },
+		{
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "dashed",
+              "label": "Dashed"
+            },
+            {
+              "value": "dotted",
+              "label": "Dotted"
+            }
+          ]
+        },
+	{
+        "type": "range",
+        "id": "weight",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+            "unit": "px",
+        "label": "Weight",
+        "default": 1
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Color",
+        "default": "#fff"
+      },
+	{
+        "type": "range",
+        "id": "width",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+            "unit": "%",
+        "label": "Width",
+        "default": 1
+      },
+
+        {
+          "type": "select",
+          "id": "horizontal_align",
+          "label": "Alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+	{
+        "type": "range",
+        "id": "margin",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+            "unit": "px",
+        "label": "Gap",
+        "default": 1
+      }
+	],
+  "presets": [
+    {
+      "name": "Divider",
+       "category": "3) Builder"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,64 @@
+{%- if block.type == 'lookbook' and block.settings.for_item == slider_name -%} 
+<li class="lookbook-item slide main-slide-{{ i }} section"  id="section{{ i }}" style="color:{{block.settings.lookboo_color_1}};background-color:{{ block.settings.lookbookshowblock_color_1 }};position:relative;">
+  <h2>
+    {{ block.settings.lookbook_text_title_1 | split: '|' | first }}
+
+  </h2>
+  <div class="slide-item slide-item-{{ i }}" style="background-image:url({{ block.settings.lookbook-img-1 | img_url: '2048x' }});">
+
+    {% assign product_slide = block.settings.lookbook_block3_pr_1_1 %}
+    {% assign _product1 = all_products[product_slide] %}
+    {% assign product_slide = block.settings.lookbook_block3_pr_1_2 %}
+    {% assign _product2 = all_products[product_slide] %}
+    {% assign product_slide = block.settings.lookbook_block3_pr_1_3 %}
+    {% assign _product3 = all_products[product_slide] %}
+    {% assign product_slide = block.settings.lookbook_block3_pr_1_4 %}
+    {% assign _product4 = all_products[product_slide] %}
+
+    <div class="lookbook">
+      <div class="hint pro1" style="{{ block.settings.lookbook_block3_coord_pr_1_1  }}">
+        <span>1</span><span class="hint__dot"></span>
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_1 }}">
+          <a  href="{{ _product1.url | within: collection }}">
+            <span class="hint-title">{{ _product1.title }}</span>
+          </a>
+          <span class="hint-price">{{ _product1.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="lookbook">
+      <div class="hint pro2" style="{{ block.settings.lookbook_block3_coord_pr_1_2  }}">
+        <span>2</span><span class="hint__dot"></span>
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_2 }}">
+          <a  href="{{ _product2.url | within: collection }}">
+            <span class="hint-title">{{ _product2.title }}</span>
+          </a>
+          <span class="hint-price">{{ _product2.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="lookbook">
+      <div class="hint pro3" style="{{ block.settings.lookbook_block3_coord_pr_1_3  }}">
+        <span>3</span><span class="hint__dot"></span>
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_3 }}">
+          <a  href="{{ _product3.url | within: collection }}">
+            <span class="hint-title">{{ _product3.title }}</span>
+          </a>
+          <span class="hint-price">{{ _product3.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="lookbook">
+      <div class="hint pro4" style="{{ block.settings.lookbook_block3_coord_pr_1_4  }}">
+        <span>4</span><span class="hint__dot"></span>
+        <div class="link-product {{ block.settings.lookbook_block3_tool_pr1_4 }}">
+          <a  href="{{ _product4.url | within: collection }}">
+            <span class="hint-title">{{ _product4.title }}</span>
+          </a>
+          <span class="hint-price">{{ _product4.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+{% endif %}

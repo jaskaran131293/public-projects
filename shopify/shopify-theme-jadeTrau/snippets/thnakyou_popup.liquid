@@ -1,0 +1,75 @@
+<style>
+  .background_color {
+    height: 100vh;
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display:none;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+    .overlay1 {
+    background: rgba( 0, 0, 0, 0.6 );
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999999;
+}
+  .thankyou_popup {
+        z-index: 99999999999;
+    position: relative;
+    width:500px;
+    margin:0px auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .thanky_max {
+    margin: 0px auto;
+    width: 500px;
+    border: 2px solid #BBB2B2;
+    background-color: #fff;
+    border-radius: 2px;
+    height: 235px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+        text-align: center;
+  }
+  .img_right {
+    height: 45px;
+    width: 45px;
+    border: 2px solid #BBB2B2;
+    border-radius: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    text-align: center;
+  }
+  .thank_main p{
+    margin:0 0;
+    padding: 15px 0 0;
+    font-size:18px !important;
+    color:#000000;
+    line-height:25px;
+    font-family:'Sofia Pro' !important;
+    font-weight:300 !important;
+  }
+</style>
+<div class="background_color" id="thankyou">
+    <div class="overlay1" onclick="close_popup()">
+  
+  </div>
+  <section class="thankyou_popup">
+    <div class="thanky_max">
+      <div class="thank_main">
+      <div class="img_right"><img src="{{ 'Vector.png' | asset_url }}" alt="" title=""></div>
+      <p>{{ section.settings.tag_pop }}</p>
+    </div>
+</div>
+  </section>
+</div>

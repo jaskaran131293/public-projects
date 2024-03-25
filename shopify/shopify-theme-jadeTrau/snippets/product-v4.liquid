@@ -1,0 +1,2614 @@
+ <link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet">
+
+{% assign lable_sale = false %}
+{% if product.compare_at_price_min > product.price_min %}
+{% assign lable_sale = true %}
+{% endif %}
+
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+
+{% assign lable_out = true %}
+{% if product.available  %}
+{% assign lable_out = false %}
+{% endif %}
+{% assign number_of_related_products = section.settings.number_of_related_products %}
+{% assign related_products_title = section.settings.related_products_title %}
+
+{% if template contains 'product' %}
+ 
+    {% assign MagicToolboxUseMagicScroll = 'Yes' %}
+    {% assign MagicToolboxMagicScrollLicenseKey = '' %}
+    
+    {% if MagicToolboxUseMagicScroll == 'Yes' %}
+    {{ 'magicscroll.js' | asset_url | script_tag }}
+    {{ 'magicscroll.css' | asset_url | stylesheet_tag }}
+    {% endif %}   
+    <script type="text/javascript">
+    mzOptions = {
+		'zoomWidth':'auto',
+		'zoomHeight':'auto',
+		'zoomPosition':'right',
+		'zoomDistance':10,
+		'selectorTrigger':'click',
+		'transitionEffect':true,
+		'zoomMode':'zoom',
+		'zoomOn':'hover',
+		'zoomCaption':'off',
+		'upscale':true,
+		'variableZoom':true,
+		'smoothing':true,
+		'expand':'off',
+		'expandZoomMode':'zoom',
+		'expandZoomOn':'click',
+		'expandCaption':false,
+		'closeOnClickOutside':true,
+		'hint':'off',
+		'textHoverZoomHint':'Hover to zoom',
+		'textClickZoomHint':'Click to zoom',
+		'textExpandHint':'Click to expand',
+		'textBtnClose':'Close',
+		'textBtnNext':'Next',
+		'textBtnPrev':'Previous',
+		'lazyZoom':false,
+		'rightClick':false
+    }
+    mzMobileOptions = {
+		'zoomMode':'zoom',
+		'textHoverZoomHint':'',
+		'textClickZoomHint':'',
+		'textExpandHint':''
+    }
+    {% if MagicToolboxUseMagicScroll == 'Yes' %}
+    MagicScrollOptions = {
+		'width':'auto',
+		'height':'150',
+		'mode':'scroll',
+		'items':'4',
+		'speed':600,
+		'autoplay':0,
+		'loop':'infinite',
+		'step':'auto',
+		'arrows':'outside',
+		'pagination':false,
+		'easing':'cubic-bezier(.8, 0, .5, 1)',
+		'scrollOnWheel':'auto',
+		'lazy-load':false
+    }
+    {% endif %}
+    </script>
+  {% comment %}
+    {{ 'magiczoomplus.sirv.js' | asset_url | script_tag }}
+{% endcomment %}
+    {% endif %}
+
+{% assign MagicToolboxSirvID = '' %}
+{% assign MagicToolboxSirvSpinPosition = 'last' %}
+{% assign MagicToolboxSirvSpinsPath = 'products/{product-sku}/{product-sku}.spin' %}
+{% assign MagicToolboxSirvCombineVariants = 'Yes' %}
+{% assign MagicToolboxSirvSpinsPathTransform = '' %}
+{% assign MagicToolboxSirvIconURL = '//magictoolbox.sirv.com/shopify/icons/icon.spin.1.png' %}
+{% assign MagicToolboxThumbnailsLayout = 'bottom' %}
+{% assign MagicToolboxUseMagicScroll = 'Yes' %}
+{% assign MagicToolboxShowMessage = 'No' %}
+{% assign MagicToolboxMessage = 'Move your mouse over image or click to enlarge' %}
+{% assign MagicToolboxBigImageSize = 'master' %}
+{% assign MagicToolboxThumbnailImageSize = 'original' %}
+{% assign MagicToolboxSelectorImageSize = 'small' %}
+{% assign MagicToolboxUseCustomWidth = 'No' %}
+{% assign MagicToolboxThumbnailImageWidth = '480' %}
+
+{% assign MagicToolboxRetinaZoomImage = 'No' %}
+{% assign MagicToolboxRetinaMainImage = 'No' %}
+{% assign MagicToolboxRetinaThumbnailImage = 'Yes' %}
+
+{% if MagicToolboxUseCustomWidth == 'Yes' %}
+<style type="text/css">.MagicZoomPlus > figure > img { max-width: {{ MagicToolboxThumbnailImageWidth }}px !important; }</style>
+{% endif %}
+
+{% assign SirvMaxHeight = 0 %}
+{% case MagicToolboxThumbnailImageSize %}
+    {% when 'medium' %}
+      {% assign SirvMaxHeight = 240 %}
+    {% when 'large' %}
+      {% assign SirvMaxHeight = 480 %}
+    {% when 'grande' %}
+      {% assign SirvMaxHeight = 600 %}
+    {% when '1024x1024' %}
+      {% assign SirvMaxHeight = 1024 %}
+    {% when 'original' %}
+      {% assign SirvMaxHeight = 1024 %}
+    {% when '2048x2048' %}
+      {% assign SirvMaxHeight = 2048 %}
+{% endcase %}
+
+{% case MagicToolboxSelectorImageSize %}
+    {% when 'pico' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'icon' %}
+    {% when 'icon' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'thumb' %}
+    {% when 'thumb' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'small' %}
+    {% when 'small' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'compact' %}
+    {% when 'compact' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'medium' %}
+    {% when 'medium' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'large' %}
+    {% when 'large' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'grande' %}
+    {% when 'grande' %}
+      {% assign MagicToolboxSelectorImageSize2x = 'original' %}
+    {% when '1024x1024' %}
+      {% assign MagicToolboxSelectorImageSize2x = '2048x2048' %}
+    {% when 'original' %}
+      {% assign MagicToolboxSelectorImageSize2x = '2048x2048' %}
+    {% when '2048x2048' %}
+      {% assign MagicToolboxSelectorImageSize2x = '2048x2048' %}
+    {% else %}
+      {% assign MagicToolboxSelectorImageSize2x = MagicToolboxSelectorImageSize %}
+{% endcase %}  
+{% case MagicToolboxThumbnailImageSize %}
+    {% when 'pico' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'icon' %}
+    {% when 'icon' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'thumb' %}
+    {% when 'thumb' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'small' %}
+    {% when 'small' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'compact' %}
+    {% when 'compact' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'medium' %}
+    {% when 'medium' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'large' %}
+    {% when 'large' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'grande' %}
+    {% when 'grande' %}
+      {% assign MagicToolboxThumbnailImageSize2x = 'original' %}
+    {% when '1024x1024' %}
+      {% assign MagicToolboxThumbnailImageSize2x = '2048x2048' %}
+    {% when 'original' %}
+      {% assign MagicToolboxThumbnailImageSize2x = '2048x2048' %}
+    {% when '2048x2048' %}
+      {% assign MagicToolboxThumbnailImageSize2x = '2048x2048' %}
+    {% else %}
+      {% assign MagicToolboxThumbnailImageSize2x = MagicToolboxThumbnailImageSize %}
+{% endcase %}  
+
+
+
+
+
+<div class="product-bg product-template2 product-slide-image">
+  {% assign content = product.description | remove: "[disable-icon-new]" %}
+ <header class="product-title {% if collection.previous_product or collection.next_product and section.settings.display_prev_next_product and collection %}has-btn{% endif %}">
+    <div class="container"><h1>{{ product.title }}</h1></div>
+            </header>
+  <div class="container">
+    
+   
+    
+    <div class="image-product-layout-2 d-lg-block">
+     
+      <div class="product_flex_div">			
+        <div class="product_flex_div_inner">
+         <div class="MagicToolboxContainer layout-{{ MagicToolboxThumbnailsLayout }} thumbnail-size-{{ MagicToolboxSelectorImageSize }}{% if product.images.size < 2 %} no-thumbnails{% endif %}">
+
+    {% assign mt_current_variant = product.selected_variant | default: product.selected_or_first_available_variant %}
+    {% assign mt_featured_image = mt_current_variant.featured_media | default: product.featured_media %}
+    {% assign mt_featured_image_ = '' %}
+    {% assign first_image_is_video = false %}
+    {% assign addActiveClass = true %}
+
+    {% assign ScrollOrientation = 'vertical' %}
+    {% if MagicToolboxThumbnailsLayout == 'bottom' %}
+        {% assign ScrollOrientation = 'horizontal' %}
+    {% endif %}
+
+    {% capture MagicToolboxSelectors %}
+    <div class="MagicToolboxSelectorsContainer{% if MagicToolboxUseMagicScroll == 'No' %} no-magic-scroll{% endif %}" {% if product.media.size < 2 %}style="display:none"{% endif %}>
+      {% if MagicToolboxUseMagicScroll == 'Yes' %}
+      <div id="msc-selectors-container" class="MagicScroll" data-options="autostart: false; orientation: {{ ScrollOrientation }};" data-mobile-options="orientation: horizontal;">
+        {% endif %}
+        
+        {% for image in product.media %}
+	
+          {% if image.media_type == 'video' %}
+        
+            <a class="js-no-transition" data-processed="1" data-slide-id="video-{{ image.id }}" href="#">
+                  <img src="{{ image.preview_image | product_img_url: MagicToolboxSelectorImageSize }}" alt="{{ image.alt | escape }}" />
+            </a>
+        
+          {% elsif image.media_type == 'external_video' %}
+        
+            <a class="js-no-transition" data-processed="1" data-slide-id="video-{{ image.id }}" href="#">
+                  <img src="{{ image.preview_image | product_img_url: MagicToolboxSelectorImageSize }}" alt="{{ image.alt | escape }}" />
+            </a>
+
+          {% elsif image.alt contains 'youtube' or image.alt contains 'vimeo' or image.alt contains 'youtu.be' %}
+                {% if forloop.index0 == 0 and mt_featured_image == image %}
+                    {% assign first_image_is_video = true %}
+                {% endif %}
+                <a class="js-no-transition" data-slide-id="video-{{ image.id }}" href="{{ image.alt }}"><img src="{{ image | product_img_url: MagicToolboxSelectorImageSize }}" alt="{{ image.alt | escape }}" /></a>
+            {% else %}
+                {% assign product_variants = ',' %}            
+
+                {% for v in product.variants %}
+                  {% if image.id == v.featured_media.id %}
+                    {% assign product_variants = product_variants | append: ',' | append: v.id %}
+                  {% endif %}
+                {% endfor %}
+                
+
+                {% assign class = '' %}
+                {% if image.id == mt_current_variant.featured_media.id and addActiveClass %}
+                  {% assign class = 'active-magic-selector' %}
+                {% assign addActiveClass = false %}
+                {% endif %}        
+                {% if mt_current_variant.featured_media == blank and mt_featured_image_ == '' %}
+                  {% assign class = 'active-magic-selector' %}
+                  {% assign addActiveClass = false %}
+                  {% assign mt_featured_image = image %}
+                {% endif %}
+
+                <a data-variants="{{ product_variants }}"                
+                   class="js-no-transition {{ class }}"
+                   data-slide-id="zoom" 
+                   href="{{ image | product_img_url: MagicToolboxBigImageSize }}" 
+                   {% if MagicToolboxRetinaZoomImage == 'Yes' %}data-zoom-image-2x="{{ image | product_img_url: 'master' }}"{% endif %}
+                   data-zoom-id="zoom{{ product.id }}" 
+                   data-image="{{ image | product_img_url: MagicToolboxThumbnailImageSize }}" 
+              {% if MagicToolboxRetinaMainImage == 'Yes' %}data-image-2x="{{ image | product_img_url: MagicToolboxThumbnailImageSize2x }}" {% endif %}
+                   title="{{ image.alt | escape }}">
+                        <img 
+                             src="{{ image | product_img_url: MagicToolboxSelectorImageSize }}" 
+                             {% if MagicToolboxRetinaThumbnailImage == 'Yes' %}srcset="{{ image | product_img_url: MagicToolboxSelectorImageSize2x }} 2x" {% endif %}
+                             alt="{{ image.alt | escape }}" 
+                        />
+                </a>
+                {% if mt_featured_image_ == '' %}
+                    {% assign mt_featured_image_ = image %}
+                {% endif %}
+            {% endif %}
+        
+          
+        {% endfor %}
+        {% if MagicToolboxUseMagicScroll == 'Yes' %}
+      </div>
+      {% endif %}
+    </div>
+    {% endcapture %}
+  
+    {% if first_image_is_video %}
+        {% assign mt_featured_image = mt_featured_image_ %}       
+    {% endif %}
+  
+    {% if MagicToolboxThumbnailsLayout == 'left' or MagicToolboxThumbnailsLayout == 'right' %}
+        {{ MagicToolboxSelectors }}
+    {% endif %}
+
+    <div class="MagicToolboxSlides">
+        <a {% if product.images.size < 2 %}style="display:none"{% endif %} href="#" class="js-no-transition MagicToolboxSlides-arrow magic-prev"></a>
+        <a {% if product.images.size < 2 %}style="display:none"{% endif %} href="#" class="js-no-transition MagicToolboxSlides-arrow magic-next"></a>
+        <div data-slide-num="{{ forloop.index0 }}" data-slide-id="zoom" class="MagicToolboxSlide active-magic-slide">
+            <a 
+               href="{{ mt_featured_image | product_img_url: MagicToolboxBigImageSize }}"
+               {% if MagicToolboxRetinaZoomImage == 'Yes' %}data-zoom-image-2x="{{ mt_featured_image | product_img_url: 'master' }}"{% endif %}
+               class="js-no-transition MagicZoomPlus" id="zoom{{ product.id }}" 
+               title="{{ mt_featured_image.alt | escape }}"
+               data-image="{{ mt_featured_image | product_img_url: MagicToolboxThumbnailImageSize }}" 
+               {% if MagicToolboxRetinaMainImage == 'Yes' %}data-image-2x="{{ mt_featured_image | product_img_url: MagicToolboxThumbnailImageSize2x }}" {% endif %}
+               >
+                    <img 
+                         itemprop="image" 
+                         src="{{ mt_featured_image | product_img_url: MagicToolboxThumbnailImageSize }}" 
+                         {% if MagicToolboxRetinaMainImage == 'Yes' %}srcset="{{ mt_featured_image | product_img_url: MagicToolboxThumbnailImageSize2x }} 2x" {% endif %}
+                         alt="{{ mt_featured_image.alt | escape }}" id="imgid" />
+            </a>
+            
+            {% if MagicToolboxShowMessage == 'Yes' %}
+            <div class="MagicToolboxMessage">{{ MagicToolboxMessage }}</div>
+            {% endif %}
+        </div>
+        {% for image in product.media %}
+          {% if image.media_type == 'video' %}
+        
+            <div data-processed="1" data-slide-num="{{ forloop.index0 }}" class="MagicToolboxSlide" data-slide-id="video-{{ image.id }}">
+                    <div class="magic-video-container" style="padding-bottom:{{ 1 | divided_by: image.aspect_ratio | times: 100 }}%">
+                {{ image | video_tag: controls: true }}
+                    </div>
+            </div>
+          
+          {% elsif image.media_type == 'external_video' %}
+        
+            <div data-processed="1" data-slide-num="{{ forloop.index0 }}" class="MagicToolboxSlide" data-slide-id="video-{{ image.id }}">
+                    <div class="magic-video-container" style="padding-bottom:{{ 1 | divided_by: image.aspect_ratio | times: 100 }}%">
+                {{ image | external_video_tag }}
+                    </div>
+            </div>
+          
+          {% elsif image.alt contains 'youtube' or image.alt contains 'vimeo' or image.alt contains 'youtu.be' %}
+                <div data-slide-num="{{ forloop.index0 }}" class="MagicToolboxSlide" data-slide-id="video-{{ image.id }}" data-video-url="{{ image.alt }}"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if MagicToolboxThumbnailsLayout == 'bottom' %}
+        {{ MagicToolboxSelectors }}
+    {% endif %}
+
+</div>
+          
+               
+
+          
+          
+<!--   comment rohit         -->
+          
+          {% comment %}
+          {% if product.images.size > 0 %}    
+          <div id="zt_list_products" class="two thumbs">
+            {% for image in product.images %}
+            <div class="image-item">
+              <a href="{{ image.src | product_img_url: 'master' }}" data-rel="lightcase:collection" data-image="{{ image.src | product_img_url: 'master' }}" data-zoom-image="{{ image.src | product_img_url: 'master' }}">
+                <img src="{{ image.src | product_img_url: 'master' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+            {% endcomment %}
+
+        </div>
+
+        <div class="product_flex_div_inner">
+
+          <div class="pdp_right">
+            {% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
+            <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+              {% if template contains 'page' %}
+              <span>{{ page.title }}</span>
+              {% elsif template contains 'product' %}
+              {% if collection.url %}
+              <span aria-hidden="true"></span>
+              {{ collection.title | link_to: collection.url }}
+              {% endif %}
+
+              {% elsif template contains 'collection' and collection.handle %}
+              <span aria-hidden="true">&rsaquo;</span>
+              {% if current_tags %}
+              {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+              {{ collection.title | link_to: url }}
+              <span aria-hidden="true">&rsaquo;</span>
+              <span>{{ current_tags | join: " + " }}</span>
+              {% else %}
+              <span>{{ collection.title }}</span>
+              {% endif %}
+              {% elsif template == 'blog' %}
+              <span aria-hidden="true">&rsaquo;</span>
+              {% if current_tags %}
+              {{ blog.title | link_to: blog.url }}
+              <span aria-hidden="true">&rsaquo;</span>
+              <span>{{ current_tags | join: " + " }}</span>
+              {% else %}
+              <span>{{ blog.title }}</span>
+              {% endif %}
+              {% elsif template == 'article' %}
+              <span aria-hidden="true">&rsaquo;</span>
+              {{ blog.title | link_to: blog.url }}
+              <span aria-hidden="true">&rsaquo;</span>
+              <span>{{ article.title }}</span>
+              {% else %}
+              <span aria-hidden="true">&rsaquo;</span>
+              <span>{{ page_title }}</span>
+              {% endif %}
+            </nav>
+            {% endunless %}
+				{% comment %}
+            <header class="product-title {% if collection.previous_product or collection.next_product and section.settings.display_prev_next_product and collection %}has-btn{% endif %}">
+              <h1>{{ product.title }}</h1>
+            </header>
+            {% endcomment %}
+            <div class="prices-wr">
+              <div class="prices">
+               
+          {% if product.tags contains 'Setting Only' %}
+    <span style="text-decoration:lowercase; color: #3F3E40; font-size: 20px;font-family: 'Goldenbook';">starting from</span>
+  {% endif %}
+          
+                {% if product.compare_at_price > product.price %}                      
+                <span class="compare-price">{{ product.compare_at_price_max | money }}</span>
+                <span class="price on-sale" itemprop="price" style="display:none;">{{ product.price | money }}</span>
+                <span id="mprice" class="price"> {{ product.variants[0].price | money }} </span>
+                {% else %}
+               
+                <span class="price" itemprop="price">  
+            <span id="mprice"> {{ product.variants[0].price | money }} </span> </span>
+                {% endif %}
+              </div> 
+            </div>
+            
+            
+
+            <!--   comment rohit  -->
+          <div {% comment %}class="row pro-layout1 {% if section.settings.style_thumb_image == 'ticky'%} product-sticky{% endif %}" id="product" {% endcomment %}>
+            <div class="col-main ">
+              <div itemscope itemtype="http://schema.org/Product" class="product">
+                 <meta itemprop="name" content="{{ product.title | escape }}">  
+                <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+                   <meta itemprop="description" content="{{ product.description | strip_html }}">  
+                <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'master' }}"> 
+               {% comment %} <meta itemprop="shop-currency" content="{{ shop.currency }}">   {% endcomment %}
+                <div class="product-img-box">
+                  <div class="product-img-box product-img-blur d-none d-lg-none">
+                    {% if lable_sale or lable_out %}
+                    <div class="product-label">
+                      {% if lable_sale %}
+                      -{{ product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max |round: 0 }}%
+                      {% endif %}
+                      {% if lable_out %}
+                      <span>out of stock</span>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if section.settings.display_sale %}
+                    {% include 'cleversoft-label' %}
+                    {% endif %}
+                  </div>
+                  <div class=" product-shop">
+                    <div class="">
+                      <div class="">
+                        {% comment %}   <div itemprop="offers" itemtype="http://schema.org/Offer"></div> {%endcomment %}
+                        <div   class="shop-detail-content{% if section.settings.enable_payment_button %} buy-now{%endif%}">
+                          <div class="fixed-product-wr">
+                            <div class="product-label-wr">
+                              {% if section.settings.display_sale %}
+                              {% include 'cleversoft-label' %}
+                              {% endif %}
+
+                              {% if lable_sale  %}
+                              <div class="product-label">
+                                {% if lable_sale %}
+                                -{{ product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max |round: 0 }}%
+                                {% endif %}
+                              </div>
+                              {% endif %}
+
+                              {% if section.settings.display_availability or section.settings.display_product_type or section.settings.display_vendor %}
+                              <div class="availability">
+                                {% if section.settings.display_availability %}
+                                <p class="product-inventory"> <label>{{'product.detail.availability_label' | t}}</label>
+                                  <span>{% if product.selected_or_first_available_variant.inventory_management %}
+                                    {% assign first_inventory = product.selected_or_first_available_variant.inventory_quantity %}
+                                    {% if first_inventory > 0 %}{{'product.detail.instock_product' | t}} {% else %}{{'product.detail.outstock_product' | t}}{% endif %}
+                                    {% else %}{{'product.detail.manystock_product' | t}}{% endif %}
+                                  </span></p>
+                                {% endif %}
+                              </div>
+                              {% endif %}
+                            </div>
+                            <!--<header class="product-title {% if collection.previous_product or collection.next_product and section.settings.display_prev_next_product and collection %}has-btn{% endif %}">
+<h1 itemprop="name">{{ product.title }}</h1>
+</header> -->
+                            <div class="producttop-meta">
+                              {% if section.settings.display_product_reviews %} 
+                              <div class="product-reviews">
+                                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                              </div>
+                              {% endif %}
+                              {% if section.settings.product_flash_sold_enable %}
+                              <div class="total-sold-pr">
+                                <i class="cs-font clever-icon-fire"></i>
+                                <span class="number-solid"></span> sold in last <span class="add-hours-solid"></span> hours
+                              </div>
+                              {% endif %}
+                            </div>
+                            {% if section.settings.show_vendor %}
+                            <div class="prodcuct-vendor">Vendor: <span>{{ product.vendor }}</span></div>
+                            {% endif %}
+                            {% assign current_variant = product.selected_or_first_available_variant %}
+                            {% if section.settings.show_sku %}
+                            <div class="product-sku">SKU: <span class="variant-sku">{{ current_variant.sku }}</span></div>
+                            {% endif %}
+                          </div>
+
+                          {% assign instructions = product.metafields.meta %}
+                          {% if instructions.short-description %}
+                          <div class="short-description 2">
+                            {% include 'cleversoft-shortdecription' %}
+                          </div>
+                          {% else %}
+                          {%endif %}
+
+                          {% include 'cleversoft-countdown' %}
+
+                          {% assign instructions = product.metafields.meta %}
+                          {% assign key = 'progress-bar' %}
+                          {% if instructions.progress-bar %}
+
+                          <h3 class="progress-title">Hurry! Only <span>{{inventory_solid}}</span> left in Stock.</h3>
+                          <div class="progressbar"><div style="" class="less-than-ten"></div></div>
+                          <!--                   <div class="text-number">
+<div class="text-left">Sold: {{instructions.progress-bar}}</div>
+<div class="text-right">Available: {{inventory_solid}}</div>
+</div> -->
+
+                          {%endif %}
+ 
+                          <div class="form-wr">
+                            <form method="post">
+                                
+                              {% assign variantCount = product.variants | size %}
+                              {% assign variantCounts = product.options | size %}
+                             
+                                   
+
+                              <input type="hidden" name="properties[Engraving Style]" value="variant.id">
+                              <!--<input type="hidden" name="id" class="push_selecr_var test" value="{{ product.variants[0].id }}" />-->
+                              <div id="product-variants" class="variant-option option1-{{settings.designoption1}} {% if product.available %}lenght-option-{{variantCounts}} {% endif %}option2-{{settings.designoption2}} option3-{{settings.designoption3}}">
+								
+                                {% if product.available %} 
+                                {% if variantCount > 0 %}
+                             
+                                <select  id="product-selectors" name="id" style="display:none;">
+                                  {% for variant in product.variants %}
+                                 
+                                      {% if variant.inventory_quantity > 0 %}
+                                  <option  class="show_sel_val" data-policy="{{ variant.inventory_policy }}" data-attr="{{variant.inventory_quantity}}" {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}  t  </option>
+                                {% else %}
+                                     <option   class="show_sel_val" data-policy="{{ variant.inventory_policy }}"  data-attr="{{variant.inventory_quantity}}"  {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %}   value="{{ variant.id }}">{{ variant.title }}</option>
+                            
+                               
+                                 {%endif %}
+                                  {% endfor %}
+                                </select>
+
+                                {% for option in product.options[0] %}
+                                {% include 'swatch' with option %}
+                                {% endfor %}
+                                {% for option in product.options[1] %}
+                                {% include 'swatch-1' with option %}
+                                {% endfor %}
+                                {% for option in product.options[2] %}
+                                {% include 'swatch-2' with option %}
+                                {% endfor %}
+                              
+                                {% else %}
+                                <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+                                {% endif %}
+                                {% endif %}
+                              </div>
+                           {% if product.tags contains 'Personal_gift' %}
+
+                               <div class="test_custom_box">
+                              <p class="line-item-property__field">
+                                <label for="custom_input_data">Enter Text Here</label><br />
+                                {% if product.tags contains 'Laser Engraving' or product.tags  contains 'Both Engraving' or product.tags  contains 'Both Engraving 3' %}
+                                <input id="custom_input_data" type="text" class="custom_input_data"  name="properties[Custom Text]" maxlength = "3">
+                           {% else %}
+                             <input id="custom_input_data" type="text" class="custom_input_data"  name="properties[Custom Text]" maxlength = "3">
+                          
+                              {% endif %}
+                              </p>
+                              </div>
+                              <button id="myBtn" class="button_style engr">ENGRAVING GUIDE</button>
+                              <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <img src="https://cdn.shopify.com/s/files/1/0418/3723/2292/files/Engraving_Chart.png?v=1669472127">
+  </div>
+
+</div>
+                            {% endif %}
+                            
+                              <div class="input_label show_onc">
+                              <!--<label>Enter Text Here</label>
+                              <input type="text" class="custom_input_data" name="custom_input_data">-->
+                              <p class="line-item-property__field">
+                                <label for="custom_input_data">Enter Text Here</label>
+                                <input id="custom_input_data" type="text" class="custom_input_data"  name="properties[Custom Text]">
+                              </p>
+
+                              <span class="text_error" style="display:none;"></span>
+                              </div>
+                            
+<!--        comment rohit                        -->
+                              {% comment %}
+                              <div class="product-information">
+                                {% include 'cleversoft-sizechart' %}
+                                {% if section.settings.enable_delivery %}
+                                <div class="delivery-product-lable"><a >{{section.settings.delivery_lable }}</a></div>
+                                {% endif %}
+                                {% if section.settings.enable_ask_product %}
+                                <div class="ask-product-lable"><a >{{section.settings.contact_lable }}</a></div>
+                                {% endif %}
+                              </div>    
+                                {% endcomment %}
+{% comment %}
+                              <div class="custom-engraving">
+                                {% if product.tags contains 'both_engraving' or product.tags contains 'hand_engraving' or  product.tags contains 'laser_engraving' %}
+
+                                <div class="product-engraving--variant" data-types="laser-hand">
+                                  <input type="hidden" value="31681952383024" data-var-price="$250.00" data-var-name="Block Noodle 34 / Hand Engraving / $250" disabled="">
+                                </div>
+                                <h5 class="ce--title no-engraving">CUSTOM ENGRAVING  <span id="engraving-price"></span>  <span id="engraving-lettermax-phrase"></span></h5>
+                                <input type="hidden" value="4446320853040" id="engraving-product" disabled="">                        
+                                <div class="product-engraving--options">
+                                  <div class="pe--options-val options-type" id="pe-option-type">
+                                    <strong class="h5 pe--options-title">Choose Type</strong>
+                                    <div class="pe--options" data-opt-="type">
+
+                                      <select name="properties[Engraving Type]" required  id="engraving-type-selector">
+                                        <option>Select Engraving</option>
+                                        <option value="none">No Engraving</option>
+                                        {% if product.tags contains 'both_engraving' or  product.tags contains 'hand_engraving' %}
+                                        <option value="Hand Engraving">Hand Engraving</option>
+                                        {% endif %}
+                                        {% if product.tags contains 'both_engraving' or  product.tags contains 'laser_engraving' %}
+                                        <option value="Laser">Laser Engraving</option>
+                                        {% endif %}
+                                      </select>
+                                    </div>
+                                  </div>
+                                
+                                  <div class="pe--options-val options-style" data-option="Hand Engraving" id="pe-option-hand-style">
+                                    <strong class="h5 pe--options-title">Choose Hand Engraving Style</strong>
+                                    <div class="pe--options" data-opt-="style">
+                                      <label class="pe--option"><input type="radio" data-img="//cdn.shopify.com/s/files/1/2481/7858/products/block-noodle_97c0e03a-b83f-47a3-a7cf-81d7a9d2acb1.png?v=1581554236" class="radio_one" data-price="25000" data-varid="35137268023460" name="properties[Engraving Style]" value="Block Noodle 34">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/block-noodle_97c0e03a-b83f-47a3-a7cf-81d7a9d2acb1.png?v=1581554236);"></span>
+                                        </span>
+                                        <span class="lbl-val">Block Noodle 34</span>
+                                      </label>
+                                      <label class="pe--option"><input data-price="25000" type="radio" class="radio_one" data-img="//cdn.shopify.com/s/files/1/2481/7858/products/block-samton_5a029279-c0f2-480a-b195-036abf0fb78e.png?v=1581554236" data-varid="35137268088996" name="properties[Engraving Style]" value="Block Samton 45">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/block-samton_5a029279-c0f2-480a-b195-036abf0fb78e.png?v=1581554236);"></span>
+                                        </span>
+                                        <span class="lbl-val">Block Samton 45</span>
+                                      </label>
+                                      <label class="pe--option"><input data-price="25000" type="radio" class="radio_one" data-img="//cdn.shopify.com/s/files/1/2481/7858/products/block-emerald-isle_e1b74347-1e79-43c3-8dc0-d867671099df.png?v=1581554236" data-varid="35137268154532" name="properties[Engraving Style]" value="Block Emerald Isle 48">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/block-emerald-isle_e1b74347-1e79-43c3-8dc0-d867671099df.png?v=1581554236);"></span>
+                                        </span>
+                                        <span class="lbl-val">Block Emerald Isle 48</span>
+                                      </label>
+                                      <label class="pe--option"><input data-price="25000" type="radio" data-img="//cdn.shopify.com/s/files/1/2481/7858/products/old-english_473121e4-d48d-44d8-b058-c6a08560da12.png?v=1581554237" class="radio_one" data-varid="35137268220068" name="properties[Engraving Style]" value="Old English 31">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/old-english_473121e4-d48d-44d8-b058-c6a08560da12.png?v=1581554237);"></span>
+                                        </span>
+                                        <span class="lbl-val">Old English 31</span>
+                                      </label>
+                                      <label class="pe--option"><input data-price="25000" type="radio" data-img="//cdn.shopify.com/s/files/1/2481/7858/products/amazone-script_da4c871a-70a0-4156-b154-6a9ded1e1a91.png?v=1581554237" class="radio_one" data-varid="35137268285604" name="properties[Engraving Style]" value="Amazone Script 38">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/amazone-script_da4c871a-70a0-4156-b154-6a9ded1e1a91.png?v=1581554237);"></span>
+                                        </span>
+                                        <span class="lbl-val">Amazone Script 38</span>
+                                      </label>
+                                      <label class="pe--option"><input data-price="25000" type="radio" class="radio_one" data-varid="35137268383908" name="properties[Engraving Style]" value="Roman Wallington 17">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/roman-wallington_42907b76-3353-4f9c-a5f8-f5bb9ff0ea9f.png?v=1581554237);"></span>
+                                        </span>
+                                        <span class="lbl-val">Roman Wallington 17</span>
+                                      </label>
+                                      <label class="pe--option"><input data-price="25000" type="radio" data-img="//cdn.shopify.com/s/files/1/2481/7858/products/jade-trau-signature_f52f5ebc-a359-4b43-a046-729358ebc08f.png?v=1581554237" class="radio_one" data-varid="35137268449444" name="properties[Engraving Style]" value="Jade Trau Signature">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/jade-trau-signature_f52f5ebc-a359-4b43-a046-729358ebc08f.png?v=1581554237);"></span>
+                                        </span>
+                                        <span class="lbl-val">Jade Trau Signature</span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="pe--options-val options-style" data-option="Laser" id="pe-option-laser-style">
+                                    <strong class="h5 pe--options-title">Choose Laser Engraving Style</strong>
+                                    <div class="pe--options" data-opt-="style">
+                                      <label class="pe--option"><input data-img="//cdn.shopify.com/s/files/1/2481/7858/products/Copperplate.jpg?v=1582048575" data-price="25000" type="radio" class="radio_one" data-varid="35137268514980" name="properties[Engraving Style]" value="Copperplate">
+                                        <span class="pe--option-lbl">
+                                          <span class="pe--option-img" style="background-image: url(//cdn.shopify.com/s/files/1/2481/7858/products/Copperplate.jpg?v=1582048575);"></span>
+                                        </span>
+                                        <span class="lbl-val">Copperplate</span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <input type="hidden" name="properties[Engraving]" value="false" id="engraving-property" disabled="">
+                                <input type="hidden" value="" id="engraving-style" disabled="">
+                                <input type="hidden" value="" id="engraving-variant" disabled="">
+                                <div class="opt-engraving--text hide">
+                                  <label for="engraving-text" class="h5 pe--options-title">Enter Text</label>
+                                  <input type="text" name="properties[Engraving Text]" maxlength="4" id="engraving-text" class="product-engraving--text">
+                                  <p class="engraving-disclaimer" style="display: none" id="hand-disclaimer">All letters, numbers, spaces, and the following symbols are accepted: # + - = . &amp; ❤</p>
+                                  <p class="engraving-disclaimer" style="display: none" id="laser-disclaimer">All letters, numbers, spaces and the following symbols are accepted: # + - = . &amp;</p>
+                                </div>
+<!--                                 <button type="button" id="btn-engraving-product" class="btn btn-primary">Add Custom Engraving</button> -->
+                              {% endif %}
+                              </div>
+                              {% endcomment %}
+
+                     
+                    
+                              {% if product.tags contains 'letter_ring' %}
+                              <div class="selector-wrapper custom-engraving">                    
+                                <label class="">Letter  <span id="engraving-price"></span>  <span id="engraving-lettermax-phrase"></span></label>
+
+                                <select name="properties[Letter]" id="letter" class="letter_option">\
+                                  <option>None</option>
+                                  <option value="A">A</option>
+                                  <option value="B">B</option>
+                                  <option value="C">C</option>
+                                  <option value="D">D</option>
+                                  <option value="E">E</option>
+                                  <option value="F">F</option>
+                                  <option value="G">G</option>
+                                  <option value="H">H</option>
+                                  <option value="I">I</option>
+                                  <option value="J">J</option>
+                                  <option value="K">K</option>
+                                  <option value="L">L</option>
+                                  <option value="M">M</option>
+                                  <option value="N">N</option>
+                                  <option value="O">O</option>
+                                  <option value="P">P</option>
+                                  <option value="Q">Q</option>
+                                  <option value="R">R</option>
+                                  <option value="S">S</option>
+                                  <option value="T">T</option>
+                                  <option value="U">U</option>
+                                  <option value="V">V</option>
+                                  <option value="W">W</option>
+                                  <option value="X">X</option>
+                                  <option value="Y">Y</option>
+                                  <option value="Z">Z</option>                          
+                                </select>                          
+                              </div>
+                              {% endif %}
+                              
+                            
+
+                            
+							<div id="click" class="modal">   
+                              <div class="inquire-form">
+                                <h3>Inquire More</h3>
+                                <div class="contact-form-body">
+                                    {% form 'contact' %}
+                                  <form method="post"   accept-charset="UTF-8" class="product-inquire-form" onsubmit="">
+                                    <div id="contactFormWrapper">
+                                      <div class="recipient_div">
+                                        <h2 id="prd_title" style="display:none;">{{ product.title }}</h2>
+                                        <div class="row-sec">
+                                          <div class="col-n">
+                                          	<label for="ContactFormCountry-">First Name*</label>
+                                        	<input type="text" name="" id="contactFormName" placeholder="" class="firstname" required>
+                                          </div>
+                                          <div class="col-n">
+                                          	<label for="ContactFormCountry-">Last Name*</label>
+                                        	<input type="text" name="" id="contactFormName" placeholder="" class="lastname" required>
+                                          </div>
+                                        </div>
+                                        
+                                        <label for="ContactFormCountry-">Email*</label>
+                                        <input type="email" name="" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="" class="emailaddr" required>
+                                        
+                                        <label for="ContactFormCountry-">Phone*</label>
+                                        <input type="tel" name="" id="contactFormnumber" placeholder="" class="phonenum" required>
+                                        
+                                        <label for="ContactFormCountry-">Ring Style Name*</label>
+                                        <input type="text" name="" id="contactFormnumber" placeholder="" class="ringstylename" required>
+                           
+                                        
+                                        <label for="ContactFormCountry-">Project Type*</label>
+                                        <select id="ContactFormCountry-" name="id" class="sel_project_type" required>
+                                          	  <option value="-1">Select the option</option>	
+                                               <option value="source_a_diamond">Source A Diamond</option>
+                                               <option value="restyle_a_heirloo_piece">Restyle A Heirloom Piece</option>
+                                       </select>
+                                        
+                                       <label for="ContactFormCountry-">Budget*</label>
+                                        <select id="ContactFormCountry-" name="" class="budget" required>
+                                          <option value="-1">Select the option</option>
+                                          <option value="$10,000 - 12,000">$10,000 - 12,000 </option>
+                                          <option value="$12,000 - 15,000">$12,000 - 15,000 </option>
+                                          <option value="$15,000 - 20,000">$15,000 - 20,000 </option>
+                                          <option value="$20,000 - 50,000">$20,000 - 50,000 </option>
+                                          <option value="$50,000+">$50,000+ </option>
+                                       </select> 
+                                        
+                                       <label for="ContactFormCountry-">Diamond Preference</label> 
+                                       <textarea rows="4" name="" id="contactFormMessage" class="diamodpreference" placeholder="Include info about your desired diamond shape, size or cut/color..." class="diamond_pref"></textarea> 
+                                        
+                                       <label for="ContactFormCountry-">Notes</label>  
+                                       <textarea rows="4" name="" class="notes" id="contactFormMessage" placeholder=""></textarea>
+                                       <div class="notes-txt">*Required Fields</div> 
+                                        
+                                       <div class="checkbx">
+                                         <div class="col-one"><input style="" type="checkbox" id="agree" class="accept_terms" required/></div>
+                                         <div class="col-sec2"><label style="" for="agree">
+                                            I understand, that there will be a $500 non-refundable consultation fee that is applicable towards the final amount. The consultation will include a personal stylist that will work one-on-one with me from design to producing my bespoke engagement ring. 
+                                            </label></div>
+                                        </div> 
+                                        
+                                      </div>
+
+                               
+                                      <input type="submit" id="get_inquire_data" class="btn submit_btn left" value="Submit">
+                                      <p id="cf7response"></p>
+                                    </div>
+                                    
+                                  </form>
+                                   
+                                    {% endform %}
+                                  </div>
+                              </div>
+                            </div>
+                  
+                     
+{% for variant in product.variants %}
+<h2 style="display:none;" class='{{ variant.title | remove:"&" | remove:" " | remove:"+" | remove:"/" | remove:":" | remove:"(" | remove:")" | remove:":" | remove:"$" | remove:"%" | remove:"-" }}'>{{ variant.inventory_quantity }}</h2>
+                        
+     {% endfor %}
+
+
+{% if product.title == 'Letter Signet Ring' %}
+      <style>
+      .test_custom_box {
+    display: none !important;
+}
+        .engr{
+          display:none !important;
+        }
+
+      </style>
+      {% endif %}
+     
+        {% if current_variant.inventory_quantity == 0  %}
+
+        
+   <p class="custom_to_one">MADE TO ORDER, EST PRODUCTION TIME IS 4 WEEKS</p>
+                           
+
+                          {% else %}
+            <p class="custom_to_one">IN - STOCK, READY TO SHIP IN 2 - 3 BUSINESS DAYS</p>
+          {% endif %}
+                               
+                              <div class="flex_div">
+                                
+                                
+                                {% comment %}
+                                {% assign productCollections = product.collections | map: "handle" %}
+                                  {% if productCollections contains 'engagement-rings-setting-only' %} 
+                                       <a href="#click" rel="modal:open">
+                                              click
+                                       </a>
+                                  {% endif %}
+                                {% endcomment %}
+                                {% if product.available %} 
+                                {% if section.settings.show_quantity_selector %}
+                                <div class="wrap-qty">
+                                  <div class="custom-qty">
+                                    <div class="btn-plus">
+                                      <span class="down-qty"><i class="cs-font clever-icon-minus"></i></span>
+                                    </div>
+                                    <input type="text" id="quantity" name="quantity" value="1">
+                                    <div class="btn-plus">
+                                      <span class="up-qty"><i class="cs-font clever-icon-plus"></i></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                   
+                                {% endif %}
+
+                      
+                                {% assign instructions = product.metafields.meta %}
+                                {% if instructions.external-link %}
+                                <div class="external-link ">
+                                  {{instructions.external-link }}
+                                </div>
+                                
+                                {%else%}
+                                  
+                                
+                                    {% form 'product', product, id: "add-to-cart-form" %}
+                          
+
+								
+                                <button type="button" name="add" class="btn custom_ajax" id="product-add-to-cartt">
+                                      <span id="test">ADD TO BAG </span>{% comment %}{{'product.detail.add_cart' | t}}{% endcomment %}</span>
+                                  
+<!--    comment rohit     -->
+                                            {% comment %}
+                                  <div class="prices">
+                                  {% if product.compare_at_price > product.price %}                      
+                                  <span class="compare-price">{{ product.compare_at_price_max | money }}</span>
+                                  <span class="price on-sale" itemprop="price">{{ product.price | money }}</span>
+                                  {% else %}
+                                  <span class="price" itemprop="price" data-price="{{product.price}}">{{ product.price | money }}</span>
+                                  {% endif %}
+                                  </div> 
+                                            {% endcomment %}
+                                  
+                                </button>   
+                   
+                                    {%endform %}
+                                {% endif %}
+                                {% else %} 
+                                {% if instructions.external-link %}
+                                <div class="external-link ">
+                                  {{instructions.external-link }}
+                                </div>
+                                {%else%}
+                                
+                                <button type="submit" name="add" class="btn unavailable-button" id=" product-add-to-cartt">{{'product.detail.unavailable' | t}}</button>        
+                                {% endif %}
+                                {% endif %}
+                                
+                                {% if product.title == "Copy of Selma Solitaire Ring" %}
+                                  <style>
+                                    form#add-to-cart-form {
+                                      display: none;
+                                    }
+                                    @media (max-width: 767px){
+                                    .inquire-form select{width: 100% !important;}
+                                      div#click { margin-top: 100px;}
+                                      .recipient_div{
+                                          border-top:none !important;
+                                        }
+                                    }
+                                     
+                                  </style>
+                                  <a style="width:100% !important;" href="#click" class="btn n-btn" rel="modal:open">
+                                     Inquire More
+                                  </a>
+                                {% endif %}
+                                
+                                {% if product.tags contains 'Setting Only' %}
+                                  <style>
+                                 
+                                    form#add-to-cart-form {
+                                      display: none;
+                                    }
+                                    @media (max-width: 767px){
+                                    .inquire-form select{width: 100% !important;}
+                                      div#click { margin-top: 100px;}
+                                      .recipient_div{
+                                          border-top:none !important;
+                                        }
+                                    }
+                                     
+                                  </style>
+                                  <a style="width:100% !important;" href="#click" class="btn n-btn" rel="modal:open">
+                                     Inquire More
+                                  </a>
+                                {% endif %}
+                              
+                                
+                                
+                              </div>
+                              
+                              {% if section.settings.enable_payment_button %}
+                              <div class="thisbutton product-dynamic-checkout">
+                                {% if section.settings.product_conditions %}
+                                <div class="button-check">
+                                  <a>{{section.settings.product_conditions_title }}</a>
+                                </div>
+                                {% endif %}
+                                <div class="checkout-button disabled" >
+                                  {{ form | payment_button }}
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% include 'iwish_v2' with 'iwishproduct' %}
+                            </form>
+                            
+                           
+
+                            <div class="product_faq">
+                              <div class="drop_slide">
+                                <div class="faq_heading_product" onclick="showds(1)" id="q1">
+                                  <h3>Description   </h3>
+                                   <span id="my-disc" style="display:none;"> {{ product.description }}   </span>
+                                  <span><i class="fas fa-minus"></i></span>
+                                  <div class="clearfix"></div>
+                                </div>
+                                <div class="faq_content2" id="tab1" style="display: block;">   
+                                  <br/>
+                                  <span id="my-input">  </span>            
+                                </div>
+                              </div>
+                              <div class="drop_slide">
+                                <div class="faq_heading_product" onclick="showds(2)" id="q2">
+                                  <h3>Details</h3>
+                                  <span><i class="fas fa-plus"></i></span>
+                                  <div class="clearfix"></div>
+                                </div>
+                                <div class="faq_content2" id="tab2" style="display: none;">
+                               <br/>
+                                  
+                                   
+                                  <span id="my-output"> </span>   
+                                </div>
+                              </div>
+                              <div class="drop_slide drop_slide3">
+                                <div class="faq_heading_product" onclick="showds(3)" id="q3">
+                                  <h3>Shipping & Return</h3>
+                                  <span><i class="fas fa-plus"></i></span>
+                                  <div class="clearfix"></div>
+                                </div>
+                                <div class="faq_content2" id="tab3" style="display: none;">
+                                  <br/>
+                                 <ul style="font-family: 'Poppins'; font-size: 16px; box-sizing: border-box; margin-top: 0px; margin-bottom: 20px; padding: 0px; list-style-position: inside;">
+	<li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="Poppins" font-family="Poppins!important" font-size= "16px">Many of our styles are custom made and may take up to 21 - business days for production.&nbsp;</font></li>
+	<li style="margin-3F3E40: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="arial, sans-serif">Select styles are available in stock and ready to ship out within 1 to 3 business days. Contact us to inquire about our in stock collection.</font></li>
+	<li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="arial, sans-serif">Purchases are delivered in a branded black box tied with a ribbon and a certificate of authenticity.&nbsp;</font></li>
+	<li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40"><font face="arial, sans-serif">We offer complimentary shipping to domestic orders over $5000. All other&nbsp;</font>domestic orders are subject to a $40 shipping flat rate fee.</font></li>
+	<li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="arial, sans-serif">All orders are insured and shipped out with a trusted&nbsp;carrier within our network. An adult signature is required for all deliveries.</font></li>
+	<li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="arial, sans-serif">International orders may be subject to import taxes, custom duties and/or fees imposed by the destination country, collected when the shipment arrives.&nbsp;</font></li>
+	<li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="arial, sans-serif" size="2" style="box-sizing: border-box; outline: none;">  Pick up are available at any of our New York locations <a target="_blank" href ="https://jadetrau.com/pages/visit-us" style="color:#3F3E40; text-decoration:underline;">here. </a> </font>
+</li>
+                                   <li style="margin-left: 15px; box-sizing: border-box; margin-bottom: 0.25em; padding-left: 10px;">
+		<font color="#3F3E40" face="arial, sans-serif" size="2" style="box-sizing: border-box; outline: none;"> <a target="_blank" href ="https://jadetrau.com/pages/shipping" style="color:#3F3E40; text-decoration:underline;"> Visit our shipping and delivery page here </a> for more details on shipping, international taxes &amp; duties, and delivery time. </font>
+</li>
+</ul>
+   
+                                </div>
+                              </div>
+                            </div> 
+                              <div class="dropa" >
+                                  <a href="javascript:void(0)" onclick="show_drophint()" class="ask-product-lable" title="">Drop A Hint</a>
+                                <a href="#" title="" class="add_wish_div">ASK A STYLIST</a>
+                                
+                                </div>
+                            
+                             <script>
+
+function getStringAfterSubstring(parentString, substring) {
+    return parentString.substring(parentString.indexOf(substring) + substring.length)
+}
+
+function getStringBeforeSubstring(parentString, substring) {
+    return parentString.substring(0, parentString.indexOf(substring))
+}
+
+var input_string = document.getElementById('my-input');
+ var inputctn = document.getElementById('my-disc').innerHTML;
+var output_element = document.getElementById('my-output');
+
+                               
+                                  
+input_string.innerHTML = getStringBeforeSubstring(inputctn, 'MATERIALS &amp; MEASUREMENTS');
+output_element.innerHTML = getStringAfterSubstring(inputctn, 'MATERIALS &amp; MEASUREMENTS');
+
+
+</script> 
+
+                            {% comment %}
+                            {% if product.tags contains 'both_engraving' or product.tags contains 'hand_engraving' or  product.tags contains 'laser_engraving' %}
+                            ***********ABOVE FORM WAS HERE JIFFTECH 19-MAR-2021*********
+                            {% else %}
+                            {% form 'product', product, id: "add-to-cart-form" %}
+                          
+                           
+                              {% assign variantCount = product.variants | size %}
+                            {% assign variantCounts = product.options | size %}
+
+                            <div id="product-variants" class="variant-option option1-{{settings.designoption1}} {% if product.available %}lenght-option-{{variantCounts}} {% endif %}option2-{{settings.designoption2}} option3-{{settings.designoption3}}">
+
+                              {% if product.available %} 
+
+                              {% if variantCount > 0 %}	
+                              <select id="product-selectors" name="id" style="display:none">
+                                <label>Material</label>
+                              {% for variant in product.variants %}
+                                 
+                                      {% if variant.inventory_quantity > 0 %}
+                                <option data-policy="{{ variant.inventory_policy }}"  {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                                   {% else %}
+                                     <option data-policy="{{ variant.inventory_policy }}"  disabled="disabled"  value="{{ variant.id }}">{{ variant.title }}  - Out Of Stock  </option>
+                            
+                               
+                                 {%endif %}
+                                  {% endfor %}
+                                </select>                                  
+                             
+                                
+
+                             
+
+                              {% for option in product.options[0] %}
+                              {% include 'swatch' with option %}
+                              {% endfor %}
+                              {% for option in product.options[1] %}
+                              {% include 'swatch-1' with option %}
+                              {% endfor %}
+                              {% for option in product.options[2] %}
+                              {% include 'swatch-2' with option %}
+                              {% endfor %}
+
+                              {% else %}
+                              <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+                              {% endif %}
+                              {% endif %}
+                            </div>
+                            <div class="product-information">
+                              {% include 'cleversoft-sizechart' %}
+                              {% if section.settings.enable_delivery %}
+                              <div class="delivery-product-lable"><a >{{section.settings.delivery_lable }}</a></div>
+                              {% endif %}
+                              {% if section.settings.enable_ask_product %}
+                              <div class="ask-product-lable"><a >{{section.settings.contact_lable }}</a></div>
+                              {% endif %}
+                            </div>
+
+                            <div class="flex_div">
+                              {% if product.available %} 
+                              {% if section.settings.show_quantity_selector %}
+                              <div class="wrap-qty">
+                                <div class="custom-qty">
+                                  <div class="btn-plus">
+                                    <span class="down-qty"><i class="cs-font clever-icon-minus"></i></span>
+                                  </div>
+                                  <input type="text" id="quantity" name="quantity" value="1">
+                                  <div class="btn-plus">
+                                    <span class="up-qty"><i class="cs-font clever-icon-plus"></i></span>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endif %}
+
+                              {% assign instructions = product.metafields.meta %}
+                              {% if instructions.external-link %}
+                              <div class="external-link ">
+                                {{instructions.external-link }}
+                              </div>
+                              {%else%}
+                              <button type="submit" name="add" class="btn" id="product-add-to-cartt"><i class="cs-font clever-icon-cart-6"></i><span>{{'product.detail.add_cart' | t}}</span>
+                                <div class="prices">
+                                  {% if product.compare_at_price > product.price %}                      
+                                  <span class="compare-price">{{ product.compare_at_price_max | money }}</span>
+                                  <span class="price on-sale" itemprop="price">{{ product.price | money }}</span>
+                                  {% else %}
+                                  <span class="price" itemprop="price" data-price="{{product.price}}">{{ product.price | money }}</span>
+                                  {% endif %}
+                                </div> 
+                              </button>   
+
+                              {% endif %}
+                              {% else %} 
+                              {% if instructions.external-link %}
+                              <div class="external-link ">
+                                {{instructions.external-link }}
+                              </div>
+                              {%else%}
+                              <button type="submit" name="add" class="btn unavailable-button" id=" product-add-to-cart">{{'product.detail.unavailable' | t}}</button>        
+                              {% endif %}
+                              {% endif %}
+                            </div>
+
+                            {% if section.settings.enable_payment_button %}
+                            <div class="thisbutton product-dynamic-checkout">
+                              {% if section.settings.product_conditions %}
+                              <div class="button-check">
+                                <a>{{section.settings.product_conditions_title }}</a>
+                              </div>
+                              {% endif %}
+                              <div class="checkout-button disabled" >
+                                {{ form | payment_button }}
+                              </div>
+                            </div>
+                            {% endif %}                      
+                            {% endform %} 
+                            {% endif %}
+
+                            {% endcomment %}
+
+<!--        comment rohit                      -->
+                            {% comment %}
+                            <div class="description-product">
+                              {{ content }}
+                            </div>
+                            {% endcomment %}
+                            
+                            
+                            <div class="wishlist-detail">
+                              {% if section.settings.enable_wishlist %}
+                              {% if customer %}
+                              {% assign value = product.id %}
+                              {% capture productID %}{{ product.id }}{% endcapture %}
+                              {% for tag in customer.tags %}
+                              {% capture tagID %}{{ tag }}{% endcapture %}
+                              {% if tagID contains productID %}
+                              {% capture value %}x{{ tagID }}{% endcapture %}
+                              {% endif %}
+                              {% if value.size == 0 %}{% assign value = productID %}{% endif %}
+                              {% endfor %}
+
+                              {% unless value.size == 0 %}
+                              {% capture check %}{{ value.size | minus:productID.size | money_without_currency | times:100 | divided_by:2 }}{% endcapture %}
+                              {% assign check = check | split:'.' %}
+                              {% if check[1] contains "5" %}{% assign display = false %}{% else %}{% assign display = true %}{% endif %}
+                              {% endunless %}
+
+                              {% if display %}
+                              {% form 'customer' %}
+                              <input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+                              <input type="hidden" name="contact[tags]" value="{{ value }}" />
+                              <button class="wishlist harman_btn3" data-toggle="tooltip" data-placement="top"><i class="cs-font clever-icon-heart-4"></i> Add to wishlist</button>
+                              {% endform %}
+                              {% else %}
+                              <a class="wishlist harman_btn3" href="/pages/wishlist" data-toggle="tooltip" data-placement="top"><i class="cs-font clever-icon-heart-2"></i> Go to wishlist</a>
+                              {% endif %}
+                              {% else %}
+                              <a class="wishlist harman_btn3" href="/account/login" data-toggle="tooltip" data-placement="top"><i class="cs-font clever-icon-heart-4"></i> Add to wishlist</a>
+                              {% endif %}
+                              {% endif %}
+                            </div>
+                            {% if settings.enable_product_compare %}
+                            <div class="compare-detail">
+                              <a class="add-to-compare add-product-compare" data-handle-product="{{product.handle}}" href="javascript:void(0);" title="Compare">
+                                <i class="cs-font clever-icon-law-1"></i>Add to Compare</a>
+                            </div>
+                            {% endif %}  
+                          </div>
+                          {% if section.settings.show_text_countdown %}
+                          <div class="pr-view-countdown">
+                            <div class="text-countdowns auto-countdown" >
+                              {% capture countdown_counter_html %}<span class="text-countdown" countdown-counter></span>{% endcapture %}
+                              {% capture countdown_delivery_html %}<span class="text-underline" countdown-delivery></span>{% endcapture %}
+                              <i class="cs-font clever-icon-clock-2"></i> {{ 'products.product.text_countdown_html' | t: counter: countdown_counter_html, delivery: countdown_delivery_html  }}
+                            </div>
+                          </div>
+                          {% endif %}
+                          {% if section.settings.show_visitors %}
+                          <div class="product-visitors">
+                            <div class="visitors auto-visitors" >
+                              {%- assign visitors_random_diff = settings.product_visitors_max | minus: settings.product_visitors_min -%}
+                              {%- assign visitors_random = "now" | date: "%N" | modulo: visitors_random_diff | plus: settings.product_visitors_min -%}
+                              {% capture visitors_counter_html %}<span class="visitors-text" data-js-counter>{{ visitors_random }}</span>{% endcapture %}
+                              <i class="cs-font clever-icon-team"></i> {{ 'products.product.visitors_html' | t: counter: visitors_counter_html }}
+                            </div>
+                          </div>
+                          {% endif %}
+                          {% if section.settings.display_spend_shipping %}
+                          <div class="spend-shiping cart-congrats">
+                            <i class="cs-font clever-icon-truck"></i> Spend  <span class="moneys">${{settings.calculte_free_shipping_number }}</span> to get Free Shipping
+                          </div>
+                          {% endif %}
+                          {% if section.settings.product_bagde_image %}
+                          <div class="badge-image">
+                            {% if  settings.bagde_image != blank %}
+                            <img src="{{ settings.bagde_image | img_url: 'x2048' }}" alt />
+                            {% else %}
+                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%endif %}
+                          </div>
+                          {% endif %}
+                            {% comment %}
+                          {% if product.available %}
+                          <link itemprop="availability" href="http://schema.org/InStock">
+                          {% else %}
+                          <link itemprop="availability" href="http://schema.org/OutOfStock">
+                          {% endif %} 
+                             {% endcomment %}
+                           {% if product.variants.size > 1 %} 
+                           {%- for variant in product.variants -%} 
+                           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">  
+                               <meta itemprop="name" content="{{ variant.title | escape }}">   
+                           <meta itemprop="description" content="{{ variant.description | strip_html }}">  
+                             <meta itemprop="priceCurrency" content="{{ shop.currency }}">  
+                           <meta itemprop="price" content="{{ variant.price | money_without_currency }}">
+                          <meta itemprop="url" content="{{ variant.url }}">
+                         <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
+                            </div>
+                            {% endfor %}
+                            {% else %} 
+                               <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">  
+                             <meta itemprop="name" content="{{ variant.title | escape }}">   
+                           <meta itemprop="description" content="{{ variant.description | strip_html }}">  
+                            <meta itemprop="priceCurrency" content="{{ shop.currency }}">  
+                           <meta itemprop="price" content="{{ variant.price | money_without_currency }}">
+                       <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+                         <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
+                          {% endif %}
+                        </div>
+                        <div class="product_meta">
+                          {% if section.settings.show_type %}
+                          <p>Product Type: <a href="#">{{product.type }}</a></p>
+                          {% endif %}
+                          {% if section.settings.show_barcode %}
+                          {% assign current_variant = product.selected_or_first_available_variant %}
+                          <p>Barcode: <a href="#">{{current_variant.barcode }}</a></p>
+                          {% endif %}
+                          {% if section.settings.show_tag %}
+                          <p>Tags:
+                            {% for tag in product.tags %}
+                            {% capture url %}/collections/all/{{ tag | handle }}{% endcapture %}
+                            {{ tag | link_to: url }}<span>,</span>
+                            {% endfor %}
+                          </p>
+                          {% endif %}
+                        </div>
+                        <div class="product-share-links">
+                          {% if section.settings.enable_product_icon_isocal %}
+                          <div class="product_socials_wrapper">
+                            <div class="share-links">
+                              <div class="share-title">Share: </div>
+                              <div class="product_socials_wrapper_inner">
+                                {% capture share_url %}{{ shop.url }}{{ product.url }}{% endcapture %}
+                                {% if section.settings.icon_isocal_2 != blank %}
+                                <a href="//twitter.com/share?url={{ share_url }}&text={{ product.title }}" target="_blank" class="twitter" title="Twitter"><i class='cs-font clever-icon-twitter'></i></a>
+                                {% endif %}
+                                {% if section.settings.icon_isocal_1 != blank %}
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" class="facebook" title="Facebook"><i class='cs-font clever-icon-facebook'></i></a>
+                                {% endif %}
+                                {% if section.settings.icon_isocal_4 != blank %}
+                                <a href="//plus.google.com/share?url={{ share_url }}" target="_blank" class="google-plus" title="Google plus"><i class='cs-font clever-icon-googleplus'></i></a>
+                                {% endif %}
+                                {% if section.settings.icon_isocal_3 != blank %}
+                                <a href="//pinterest.com/pin/create/button/?url={{ share_url }}&description={{ product.title }}&media={{ featured_image.src | img_url: 'original' }}" target="_blank" class="pinterest" title="vimeo"><i class="cs-font clever-icon-pinterest"></i></a>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="col-lg-6  col-md-6 col-12">
+                        <div class="custom-text-product">
+                          {% assign instructions = product.metafields.global %}
+                          {% assign key = 'custom-content-text' %}
+                          {% if instructions.custom-content-text %}
+                          {{instructions.custom-content-text}}
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            
+            
+          </div>
+
+        </div>
+            
+      </div>
+         
+ 
+    </div>
+     {% if section.settings.display_product_detail_description %}
+    <div class="tab_pro_w">
+      <div class="container">
+        <div class="product-tabs ">
+          <ul class="nav nav-tabs" id="myTab">
+            {% if section.settings.display_product_detail_description %}
+            <li class="active"><a class="active" data-toggle="tab" href="#collapse-tab1">Description</a></li>
+            {% endif %}
+            {% if section.settings.display_product_reviews %}       
+            <li {% if active %}class="active" {% assign active = false %} {% endif %}>
+              <a href="#collapse-tab6" data-toggle="tab" class="text-uppercase">Reviews</a>
+            </li>
+            {% endif %}
+            {%- for block in section.blocks -%}
+            <li><a data-toggle="tab" href="#{{ block.settings.for_group | handle }}">
+              {{ block.settings.for_group }}
+              </a></li>
+            {% endfor %}
+
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-title-1' %}
+            {% if instructions.tabs-title-1 %}
+            <li {% if active %}class="active" {% assign active = false %} {% endif %}>
+              <a href="#collapse-tab11" data-toggle="tab" class="text-uppercase">
+                {{ instructions.tabs-title-1  }}
+              </a>
+            </li>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-title-2' %}
+            {% if instructions.tabs-title-2 %}
+            <li {% if active %}class="active" {% assign active = false %} {% endif %}>
+              <a href="#collapse-tab11" data-toggle="tab" class="text-uppercase">
+                {{ instructions.tabs-title-2  }}
+              </a>
+            </li>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-title-3' %}
+            {% if instructions.tabs-title-3 %}
+            <li {% if active %}class="active" {% assign active = false %} {% endif %}>
+              <a href="#collapse-tab11" data-toggle="tab" class="text-uppercase">
+                {{ instructions.tabs-title-3  }}
+              </a>
+            </li>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-title-4' %}
+            {% if instructions.tabs-title-4 %}
+            <li {% if active %}class="active" {% assign active = false %} {% endif %}>
+              <a href="#collapse-tab11" data-toggle="tab" class="text-uppercase">
+                {{ instructions.tabs-title-4  }}
+              </a>
+            </li>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-title-5' %}
+            {% if instructions.tabs-title-5 %}
+            <li {% if active %}class="active" {% assign active = false %} {% endif %}>
+              <a href="#collapse-tab11" data-toggle="tab" class="text-uppercase">
+                {{ instructions.tabs-title-5  }}
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+
+          <div id="myTabContent" class="tab-content">
+
+            {% if section.settings.display_product_detail_description %}
+            <div id="collapse-tab1" class="tab-pane in active">
+              {{ content }}
+            </div>
+            {% endif %}
+
+            {% if section.settings.display_product_reviews %}       
+            <div id="collapse-tab6" class="tab-pane">
+
+              <span id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</span>
+            </div>
+            {% endif %}
+            {%- for block in section.blocks -%}
+
+            <div id="{{ block.settings.for_group | handle }}" class="tab-pane">
+              {{ block.settings.tabs_content }}
+            </div>
+            {% endfor %}
+
+
+            {% if section.settings.product_customtabs_2 %}       
+            <div id="collapse-tab4" class="tab-pane">
+              {{ section.settings.product_customtabs_content_2 }}
+            </div>
+            {% endif %}
+
+            {% if section.settings.product_customtabs_3 %}       
+            <div id="collapse-tab5" class="tab-pane">
+              {{ section.settings.product_customtabs_content_3 }}
+            </div>
+            {% endif %}
+
+
+
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-content-1' %}
+            {% if instructions.tabs-content-1 %}
+            <div id="collapse-tab11" class="tab-pane">
+              {{instructions.tabs-content-1}}
+            </div>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-content-2' %}
+            {% if instructions.tabs-content-2 %}
+            <div id="collapse-tab12" class="tab-pane">
+              {{instructions.tabs-content-2}}
+            </div>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-content-3' %}
+            {% if instructions.tabs-content-3 %}
+            <div id="collapse-tab13" class="tab-pane">
+              {{instructions.tabs-content-3}}
+            </div>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-content-4' %}
+            {% if instructions.tabs-content-4 %}
+            <div id="collapse-tab14" class="tab-pane">
+              {{instructions.tabs-content-4}}
+            </div>
+            {% endif %}
+            {% assign instructions = product.metafields.meta %}
+            {% assign key = 'tabs-content-5' %}
+            {% if instructions.tabs-content-5 %}
+            <div id="collapse-tab15" class="tab-pane">
+              {{instructions.tabs-content-5}}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+  <div class="custom-text">
+  <div class="container">
+    <p>ALL OF OUR JEWELRY IS </bR>
+HANDCRAFTED IN OUR</bR>
+NEW YORK CITY WORKSHOP</p>
+  </div>
+</div>
+</div>
+
+<form id="formthis" style="display:none;">
+  <input type="hidden" name="title" class="engraving_type" value="">
+  <input type="hidden" name="img" class="engraving_imag" value=""> 
+  <input type="hidden" name="price" class="value_price" value="">  
+</form>
+
+<script>
+  jQuery(document).ready(function(){ 
+    jQuery('.product-tabs .panel-title').click(function(event){
+      jQuery( this ).toggleClass( "active" );
+      event.preventDefault();
+    });
+  });
+</script>
+
+{% if product.tags contains 'Setting Only' %}
+	<style>
+		.form-wr form {
+            display: none;
+        }
+      	.wrap-qty {
+            display: none;
+        }
+      	body#copy-of-selma-solitaire-ring #product-add-to-cartt 
+		{
+            display: none;
+        }
+      	.template-product .form-wr button#product-add-to-cartt.btn {
+            display: none;
+        }
+        .form-wr .n-btn {
+          width: 76% !important;
+      }
+	</style>                                 
+ {% endif %}
+
+<style>
+   .recipient_div .req_errors{
+	border:2px solid red !important;  
+  }
+  .recipient_div .checkbx .req_errors{
+	border:2px solid red !important;  
+    /* appearance:none !important; 
+    height: 20px !important; 
+    top:0px!important; 
+    margin-bottom :0px!important;*/
+     
+  }
+   .recipient_div input{
+     border:1px solid #E7E7E7 !important;
+   }
+   .drophint_mail_sent{
+   color:green !important;
+   font-weight:bold;
+    
+  }
+   .drophint_mail_error , .eml_err{
+   color:red !important;
+   font-weight:bold;
+    
+  } 
+  .custom-engraving {display:block}
+  
+  {% if section.settings.enable_product_image_zoom %}
+  body .zoomContainer{display:block!important;}
+  {% endif %}
+  .zoomContainer{display:none!important;}
+</style>
+
+{% if product.description contains "[video]" %}
+{{ 'jquery.magnific-popup.js' | asset_url | script_tag }}
+<script>
+  jQuery(document).ready(function(){
+    jQuery('.video-link').magnificPopup({
+      disableOn: 767,
+      type: 'iframe',
+      removalDelay: 160,
+      preloader: false,     
+      fixedContentPos: false
+    });
+  });
+</script>
+{% endif %}
+
+<script>
+  jQuery(window).load(function() { 
+    jQuery('#zt_list_product .owl-wrapper .owl-item').first().find('a').addClass('zoomGalleryActive');
+  });
+</script>
+
+{% comment %}
+{% endcomment %}
+<link rel="stylesheet" type="text/css" href="{{ 'lightcase.css' | asset_url }}">
+<script type="text/javascript" src="{{ 'lightcase.js' | asset_url }}"></script>
+
+<script>
+  jQuery(document).ready(function($) {
+    $('a[data-rel^=lightcase]').lightcase({
+      /*onFinish : {
+        custom: function() {
+          var caption = $(this).parent().find('.art_page_img_position p').html();
+          
+          //alert(caption.length)
+          if (caption.length) {
+            lightcase.get('caption').html(caption);
+            //$('#lightcase-caption').html();
+            $('#lightcase-caption').show();
+          } 
+          lightcase.resize();
+        }
+      }
+      */
+    });    
+  });
+</script>
+
+<!--   // update -->
+
+<!-- new product css  -->
+<style> 
+option {
+    color: #666 !important;
+    opacity: 0.5;
+}
+select {
+    color: #666;
+} 
+.modal {
+    border-radius: 0px !important;
+}  
+ 
+.n-btn {
+    height: 44px;
+    line-height: 44px;
+    background: #3F3E40;
+    color: #FFF !important;
+    text-transform: capitalize;
+    font-weight: 500!important;
+    font-family: 'sofia-pro'!important;
+    border: none !important;
+    position: relative;
+    margin-left: 0;
+    width: 220px;
+} 
+.checkbx input#agree {
+    position: relative;
+    top: -7px;
+}  
+.col-sec2 label {
+    font-size: 12px !important;
+}  
+.modal a.close-modal {
+    position: absolute;
+    top: 6.5px !important;
+    right: 8.5px !important; 
+}  
+.inquire-form .row-sec {
+    display: flex;
+    justify-content: space-between;
+}
+.inquire-form .row-sec .col-n {
+    width: 48%;
+}  
+.blocker {
+    z-index: 9999 !important;
+}
+.inquire-form h3 {
+    font-size: 18px !important;
+    margin: 0 0 30px;
+    line-height: 16px;
+    color: #424347;
+    font-weight: 500!important;
+    font-family: 'sofia-pro'!important;
+    border-bottom: 1px solid #BBB2B2;
+}
+.inquire-form h3 {
+    font-size: 18px !important;
+    margin: 0 0 30px;
+    line-height: 16px;
+    color: #424347;
+    font-weight: 500!important;
+    font-family: 'sofia-pro'!important;
+    border-bottom: 1px solid #BBB2B2;
+}
+.inquire-form label {
+    font-family: Sofia Pro !important;
+    font-style: normal !important;
+    font-weight: normal;
+    font-size: 16px !important;
+    line-height: 20px;
+    display: block;
+}
+.inquire-form input, .inquire-form select {
+    background-color: transparent !important;
+    //border: 1px solid #E7E7E7 !important;
+    width: 440px;
+    height: 44px;
+    margin-bottom: 15px;
+}
+.inquire-form textarea
+{
+    background-color: transparent !important;
+    border: 1px solid #E7E7E7 !important;
+    width: 440px;
+    height: 44px;
+    margin-bottom: 15px;
+}  
+.inquire-form .submit_btn {
+    background: #3F3E40 !important;
+    font-family: Sofia Pro !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px !important;
+    line-height: 16px;
+    color: #fff !important;
+    text-align: center;
+}  
+.checkbx {
+    display: flex;
+    margin-top: 50px;
+}
+.checkbx .col-one {
+    width: 20%;
+    margin-right: 13px;
+}  
+.notes-txt {
+    text-align: end;
+}  
+ .product-bg{    padding: 0px 0 0px 0;
+    background: #efefef;}
+ .product-slide-image .image-product-layout-2 {
+  display: inline-block !important;
+} 
+.product_flex_div{display:flex;margin:0 -15px;flex-wrap:wrap}
+.product_flex_div_inner{width:50%;padding:0 15px}
+.pdp_right{padding-left:100px}
+.pdp_right .breadcrumb a{font-size:16px;margin:0 0 8px;line-height:16px;color:rgba(255,255,255,0.8);font-weight:500!important;font-family:'sofia-pro'!important}
+.pdp_right .product-title h1{font-size:28px;margin:0 0 5px;line-height:35px;color:#FFF;font-family:'Goldenbook'!important;font-weight:300!important}
+.pdp_right .price{font-size:28px;margin:0 0 11px;line-height:35px;color:#FFF;font-family:'Goldenbook'!important;font-weight:300!important}
+.pdp_right p.affirm-as-low-as{font-size:16px;margin:0 0 37px;line-height:16px;color:rgba(255,255,255,0.8);font-weight:500!important;font-family:'sofia-pro'!important}
+.pdp_right p.affirm-as-low-as a{color:#fff}
+.pdp_right .form-wr .selector-wrapper{margin-top:0}
+.pdp_right .form-wr .option1-default .selector-wrapper:nth-child(1){display:block;justify-content:space-between}
+.pdp_right .form-wr .option2-default .selector-wrapper:nth-child(2){display:block;padding-top:15px}
+.pdp_right .form-wr .option2-default .selector-wrapper:nth-child(3){display:block;padding-top:15px}
+.pdp_right .form-wr .option2-default .selector-wrapper:nth-child(4){display:block;padding-top:15px}
+.pdp_right .form-wr .selector-wrapper label{text-transform:uppercase;color:#3f3e40;font-size:16px;margin:0 0 20px;line-height:16px;font-weight:500!important;font-family:'sofia-pro'!important}
+body .pdp_right .form-wr #product-variants .selector-wrapper select{position:relative;width:210px!important;height:44px!important;background:#FFF url(//cdn.shopify.com/s/files/1/0418/3723/2292/t/25/assets/black_arr.png?v=17038969019824528949)!important;font-weight:400!important;font-size:16px;line-height:16px!important;color:#3F3E40!important;font-family:'sofia-pro'!important;    background-repeat: no-repeat !important;
+    background-position: 96% 57% !important;}
+body .pdp_right .form-wr #product-variants .selector-wrapper select:before{position:absolute;content:'';background-image:url({{ 'black_arr.png' | asset_url }})!important}
+body .pdp_right .product-shop span.up-qty,body .pdp_right .product-shop span.down-qty{cursor:pointer;height:44px;line-height:4px;width:35px;background:#f7f8fa}
+.pdp_right .product-shop #quantity{text-align:center;height:44px;font-size:16px;margin-bottom:0;padding-right:0;width:110px}
+.pdp_right .product-shop span.up-qty i,.pdp_right .product-shop span.down-qty i{line-height:44px;font-size:11px;color:#3F3E40}
+.flex_div{display:flex;margin:50px 0 0;align-items:center}
+.pdp_right button#product-add-to-cartt.btn{margin-left:30px;height:44px;line-height:44px;background:#3F3E40;width:210px;font-size:16px;color:#FFF;text-transform:capitalize;font-weight:500!important;font-family:'sofia-pro'!important}
+.add_wish_div{font-size:16px;margin-left:20px;line-height:24px;font-weight:500!important;font-family:'sofia-pro'!important;color:#FFF}
+.add_wish_div:hover{color:#fff}
+.product_faq{margin:50px 0 0}
+.drop_slide{border-top:1px solid #3F3E40;padding:24px 15px 24px 0;cursor:pointer}
+.faq_heading_product{position:relative}
+.faq_heading_product h3{font-size:16px!important;margin:0;line-height:16px!important;font-weight:500!important;font-family:'sofia-pro'!important;color:#3F3E40;position:relative;text-align:left;padding:0 16px 0 0;text-transform:uppercase;cursor:pointer}
+.faq_heading_product span{position:absolute;top:0;right:0} 
+.faq_heading_product span i{font-size:15px;color:#3F3E40;}
+.drop_slide3{border-bottom:1px solid #3F3E40;}
+.faq_content2{font-size:16px;line-height:22px;font-weight:400;}
+.faq_content2 p{color:#3F3E40;font-size:16px;line-height:22px;margin:0;font-weight:400;padding:20px 0; font-family: 'Poppins';}
+.faq_content2 ul,.faq_content2 ol{margin:10px 0 15px;padding:0}
+.faq_content2 ul li{color:#3F3E40 !important;font-size:16px;font-family: 'Poppins';line-height:22px;margin:0;font-weight:400;}
+.faq_content2 ul li::marker{list-style:disc}
+.faq_content2 ol li{list-style:decimal;color:#3F3E40 !important;font-size:16px;line-height:22px;margin:0;font-weight:400;}
+.product-bg .slick-next{display:block!important}
+.product-bg .slick-prev{display:block!important}
+.prod_thumb{margin:0 10px;padding:11px;border:1px solid transparent}
+.prod_thumb.slick-current.slick-active{border:1px solid #fff}
+.product_thumb_slider{margin:40px 0 0}
+.product_thumb_slider .slick-prev{left:-10px;background-image:url({{ 'w_left.png' | asset_url }});background-repeat:no-repeat;background-size:10px;width:10px;height:16px;z-index:99}
+.product_thumb_slider .slick-next{right:-10px;background-image:url({{ 'w_right.png' | asset_url }});background-repeat:no-repeat;background-size:10px;width:10px;height:16px;}
+.product_thumb_slider .slick-prev:before,.product_thumb_slider .slick-next:before{content:"";}
+  
+  .drop_hint{margin-top:-30px;font-size: 16px;line-height: 16px;color:#fff !important;font-weight:500!important;font-family:'sofia-pro'!important;width: 50%;text-align: right;float: right;z-index: 999;position: relative;} 
+  .drop_hint a{color:#fff;}
+  .drop_hint a:hover{color:#fff;}
+  header.product-title {
+    background: #B3ADA7;
+    display: flex;
+    height: 200px;
+    float: left;
+    width: 100%;
+    align-items: center;
+        margin-bottom: 54px;
+}
+  header.product-title .container h1 {
+    color: #fff;
+}
+  .pdp_right > nav.breadcrumb {
+    display: none;
+}
+  .form-wr #product-variants .selector-wrapper {
+    float: left;
+    width: 100% !important;
+    margin: 0px !important;
+    position: relative;
+    display:flex;
+}
+  .pdp_right .form-wr #product-variants .selector-wrapper label {
+    margin: 0px !important;
+    float: left;
+    width: auto;
+    position: relative;
+    margin-right: 6px !important;
+        line-height: 44px;
+    color: #3F3E40;
+    display: flex;
+    align-items: center;
+}
+  body .pdp_right .form-wr #product-variants .selector-wrapper:nth-child(1) select {
+/*     width: calc(100% - 80px) !important; */
+    background: none !important;
+    border: 0px !important;
+    padding: 0px;
+    
+}
+  .form-wr #product-variants .selector-wrapper:nth-child(2),
+  .form-wr #product-variants .selector-wrapper:nth-child(1) {
+    border-bottom: 1px solid rgba(63, 62, 64, 0.25);
+    margin-bottom: 15px !important;
+}
+  .form-wr #product-variants {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+  
+  .form-wr #product-variants .selector-wrapper:nth-child(2) label {
+    margin: 0px !important;
+    float: left;
+    width: auto;
+    position: relative;
+    margin-right: 6px !important;
+        line-height: 44px;
+    color: #3F3E40;
+}
+  .pdp_right .form-wr #product-variants .selector-wrapper:nth-child(2) label:after,
+  .pdp_right .form-wr #product-variants .selector-wrapper:nth-child(1) label:after {
+    content: ' - ';
+        display: inline-block;
+    line-height: initial;
+    margin-left:5px;
+}
+   body .pdp_right .form-wr #product-variants .selector-wrapper:nth-child(2) select {
+/*     width: calc(100% - 92px) !important; */
+    background: none !important;
+    border: 0px !important;
+    padding: 0px;
+    
+}
+  .pdp_right .form-wr .wrap-qty{
+  	display:none;
+  }
+  .product .product-img-box .form-wr .shopify-product-form {
+  width: 100%;
+  }  
+  .template-product .form-wr button#product-add-to-cartt.btn {
+    width: 100%;
+    margin-left: 0% !important;
+    max-width: 100%;
+}
+  body.template-product .form-wr button#product-add-to-cartt.btn {
+    margin-left: 0% !important;
+    background: #B3ADA7;
+    font-family: 'Proxima Nova' !important;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 1.16667px;
+    color: #FFFFFF;
+}
+.dropa {
+display: flex !important;
+    margin-left: 0 !important;
+    position: relative !important;
+    top: inherit !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+  .dropa a{
+color: #3F3E40 !important;
+    font-weight: 400;
+    font-size: 12px !important;
+    line-height: 15px !important;
+    letter-spacing: 1px;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    width: auto;
+  }
+  .dropa a.ask-product-lable{
+  	color: #3F3E40 !important;
+  }
+  .dropa a:hover,
+  .dropa a.ask-product-lable:hover{
+  	text-decoration:none;
+  }
+  .pdp_right .prices-wr .affirm-as-low-as a,
+  .pdp_right .prices-wr .affirm-as-low-as{
+  	color: #3F3E40;
+  }
+  .custom-text {
+    background: #B3ADA7;
+    text-align: center;
+        padding: 76px 0px;
+    
+}
+  .custom-text p{
+  		font-style: normal;
+    font-weight: 400;
+    font-size: 40px !important;
+    line-height: 49px;
+    text-align: center;
+    letter-spacing: -0.833333px;
+    color: #FFFFFF;
+    font-family: goldenbook!important;
+        margin-bottom: 0;
+  }
+  .pdp_right .price span#mprice {
+    color: #3F3E40;
+}
+  .product-shop form .input_label label{
+      color: #3F3E40;
+    font-size: 14px;
+    display: block;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+.product-shop form .input_label input[type="text"]{
+background: transparent;
+    border: solid 1px #3F3E40;
+    padding: 10px;
+    height: auto;
+    color: #000;
+    width: 90%;
+    line-height: normal;
+}
+.product-shop form .input_label .text_error{
+    color: #ff0000;
+    display: inline-block;
+  margin-top:4px;
+}  
+ .faq_content2 .shogun-root {
+    color: #3F3E40;
+} 
+  
+  button#product-add-to-cartt.btn #test span.price {
+    margin-right: 8px;
+    font-weight: 600 !important;
+    font-size: 14px;
+    line-height: 17px;
+}
+  
+  .faq_content2 ul li font{
+    font-family: 'Poppins'!important;
+    font-size: 14px !important;
+  }
+  
+  
+@media only screen and (min-width:200px) and (max-width:767px) {
+.product-bg{padding:0px 0}
+.product_flex_div_inner{width:100%;padding:0 0 0 10px}
+.product-slide-image .image-product-layout-2{margin:0}
+.product_flex_div_inner:last-child{padding:0 15px}
+.pdp_right{padding-left:0}
+.pdp_right .product-title h1{font-size:28px}
+.pdp_right .price{font-size:28px}
+.pdp_right p.affirm-as-low-as{margin:0 0 10px}
+body .pdp_right .form-wr #product-variants .selector-wrapper select{width:100%!important}
+.wrap-qty{float:left}
+.pdp_right button#product-add-to-cartt.btn{margin-left:10px;float:left;width:55%;padding:0 15px}
+.flex_div{display:block;margin:30px 0 0}
+.add_wish_div{margin-left:0;margin-top:20px;float:none;display:inline-block}
+.product_thumb_slider{margin:40px 0 0;max-width:80%;margin:40px auto}
+}
+@media only screen and (min-width:500px) and (max-width:767px) {
+.flex_div{display:flex;margin:30px 0 0}
+.add_wish_div{margin-left:20px;margin-top:0}
+.pdp_right button#product-add-to-cartt.btn{margin-left:20px;float:left;width:36%}
+}
+@media only screen and (min-width:768px) and (max-width:991px) {
+.pdp_right{padding-left:0}
+.pdp_right button#product-add-to-cartt.btn{margin-left:12px;width:140px;padding:0 15px}
+}
+@media only screen and (min-width:992px) and (max-width:1199px) {
+.pdp_right{padding-left:50px}
+}
+@media only screen and (min-width:1200px) and (max-width:1367px) {
+.container{max-width:1170px}
+}
+  
+</style>
+
+
+<!-- new script -->
+
+
+
+<script type="text/javascript">
+  function showds(para) {
+  //  $('#tab'+para).slideToggle('1000');
+     // $('.faq_content2').css("display","none");
+    // $('.fas').addClass('fa-plus');
+     if($('#q'+para +' '+'i').hasClass('fa-minus')){
+      $('#q'+para +' '+'i').addClass("fa-plus");
+      $('#q'+para +' '+'i').removeClass("fa-minus");
+    } else {
+      $('#q'+para +' '+'i').addClass("fa-minus");
+      $('#q'+para +' '+'i').removeClass("fa-plus");
+    }
+    if('tab'+para == "tab1"){
+       $('#tab2').css("display","none");
+       $('#tab3').css("display","none");
+       $('#q2 i').addClass("fa-plus");
+       $('#q3 i').addClass("fa-plus");
+      $('#q2 i').removeClass("fa-minus");
+       $('#q3 i').removeClass("fa-minus");
+    }
+    else if('tab'+para == "tab2"){
+       $('#tab1').css("display","none");
+       $('#tab3').css("display","none");
+        $('#q1 i').addClass("fa-plus");
+       $('#q3 i').addClass("fa-plus");
+       $('#q1 i').removeClass("fa-minus");
+       $('#q3 i').removeClass("fa-minus");
+    }
+    else{
+       $('#tab1').css("display","none");
+       $('#tab2').css("display","none");
+        $('#q1 i').addClass("fa-plus");
+       $('#q2 i').addClass("fa-plus");
+       $('#q2 i').removeClass("fa-minus");
+       $('#q1 i').removeClass("fa-minus");
+     }
+  $('#tab'+para).toggle();
+   
+  }       
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('.product_slider').slick({
+      dots: false,
+      arrows:false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      asNavFor: '.product_thumb_slider',
+    });
+
+
+    $('.product_thumb_slider').slick({
+      dots: false,
+      arrows:true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      asNavFor: '.product_slider',
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+     arrows:true,
+        }
+      },{
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+               arrows:true,
+        }
+      },{
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+     arrows:true,
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+     arrows:true,
+        }
+      }]
+    });
+    
+  });
+</script>
+<script>
+  jQuery(document).ready(function() {
+    jQuery('.ask-product-lable').click(function(){
+      jQuery('body').addClass('open-ask-product');
+    })
+    jQuery('.ask-product-close').click(function(){
+      jQuery('body').removeClass('open-ask-product');
+    })
+  });  
+</script>
+
+<script>
+  function validateEmail($email) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test( $email );
+  } 
+  jQuery(document).ready(function(){
+   
+
+    
+    $elem2 = jQuery('select'); 
+    $elem2.attr("required","required");
+    $elem2.attr("type","select");
+     jQuery("#agree").val('0');
+    jQuery("#agree").change(function(){
+    	if(jQuery("#agree").prop('checked') == true){
+				jQuery(this).val('1');
+          
+        }else{
+          jQuery(this).val('0');
+        }
+    });
+    
+    jQuery(".phonenum").keyup(function(evt){
+      evt.preventDefault();
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+      if ((charCode < 48 || charCode > 57)){
+        return false;
+      }
+ 
+});
+
+    
+			 
+    jQuery("#get_inquire_data").click(function(e){
+      e.preventDefault();   
+      
+       var required = jQuery('input,textarea,select').filter('[required]:visible');
+        var prd_title = jQuery("#prd_title").text();
+         required.each(function(){
+            var currentval = jQuery(this).val();
+           	if(jQuery(this).attr("type") == 'email') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              }
+              else if( !validateEmail(currentval)) { 
+							jQuery(this).addClass('req_errors');  
+							 jQuery("#cf7response").addClass("drophint_mail_error"); 
+  						jQuery("#cf7response").removeClass("drophint_mail_sent");
+                   jQuery("#cf7response").addClass("eml_err");
+                     //jQuery("#cf7response").html("Please enter valid email address"); 
+					 
+			   }
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 jQuery(".eml_err").hide();
+               }
+            }
+            	if(jQuery(this).attr("type") == 'textarea') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+           if(jQuery(this).attr("type") == 'tel') {
+               if(currentval == '')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              }  
+             
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+            if(jQuery(this).attr("type") == 'checkbox') {
+             
+               if(currentval == '0')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'select') {
+              
+               if(currentval == '-1')
+              {  
+                  jQuery(this).addClass('req_errors');  
+              } 
+               else 
+               {
+					jQuery(this).removeClass('req_errors');
+					 
+               }
+            }
+             if(jQuery(this).attr("type") == 'text') {
+                if(currentval == '')
+                {  
+                    jQuery(this).addClass('req_errors');  
+                }
+                else
+                {
+                 jQuery(this).removeClass('req_errors'); 
+                   jQuery(".eml_err").hide();
+                }
+              }
+              }); 
+      
+              var page_url      = window.location.href;   
+              var firstname = jQuery(".firstname").val();
+              var lastname = jQuery(".lastname").val();
+              var emailaddr = jQuery(".emailaddr").val();
+              var phonenum = jQuery(".phonenum").val();
+              var message = jQuery(".message").val(); 
+      		  var phonenum = jQuery(".phonenum").val();
+              var ringstylename = jQuery(".ringstylename").val();
+              var projecttype = jQuery(".sel_project_type").val();
+    		  var budget = jQuery(".budget").val();
+              var diamodpreference = jQuery(".diamodpreference").val();
+              var notes = jQuery(".notes").val();
+              var URL="https://form.jadetrau.com/wp-json/contact-form-7/v1/contact-forms/10/feedback";
+              var data = {};
+              data['text-366'] = firstname;
+              data['text-215'] = lastname;
+              data['email-666'] = emailaddr;
+              data['tel-771'] = phonenum;
+              data['text-533'] = ringstylename; 
+      		  data['menu-921'] = projecttype;
+              data['menu-823'] = budget;
+              data['textarea-497'] = diamodpreference; 
+              data['textarea-897'] = notes; 
+              data['pageURL'] = page_url; 
+              data['prd_title'] = prd_title; 
+
+                jQuery.ajax({
+                  url: URL ,
+                  data: data,
+                  type: 'POST',
+                  success: function (resp) { 
+                    if(resp.status == 'validation_failed') {
+                       
+                         // jQuery("#response").addClass("eml_err"); 
+                        jQuery("#cf7response").removeClass("drophint_mail_sent");
+                       jQuery("#cf7response").addClass("drophint_mail_error");
+                       jQuery("#cf7response").html("Please fill all fields");
+                     
+                    } 
+                    else 
+                    {
+                        jQuery("#cf7response").removeClass("eml_err");
+                        jQuery("#cf7response").removeClass("drophint_mail_error");
+  						jQuery("#cf7response").addClass("drophint_mail_sent");
+                      jQuery(".drophint_mail_sent").show();
+                     jQuery("#cf7response").html("Mail sent successfully"); 
+                       var required = jQuery('input,textarea,select').filter('[required]:visible');
+                       required.each(function(){ 
+                         jQuery(this).val('');
+                          jQuery(this).removeClass('req_errors'); 
+                       });
+                    }
+                     setTimeout(function(){ jQuery(".drophint_mail_sent").fadeOut(); },3000);
+                  },
+                  error: function(e){
+                    jQuery("#drophint_mail_sent").hide();
+                    jQuery("#cf7response").val(e);
+                //  alert('Error: '+e);
+                  }
+                });
+     });
+   });
+
+  
+</script>
+<script>
+
+  
+  function selectedProdVariation() {
+    let selectedProdValue = [];
+    jQuery(".single-option-selector").each(function() { 
+      	selectedProdValue.push(jQuery(this).find('option:selected').val());
+    });
+    selectedProdValue = selectedProdValue.join(" / ");
+    console.log("sel val:", selectedProdValue);
+    return selectedProdValue;
+  }
+  /*
+  var show_sel_val =  jQuery(".show_sel_val").attr("selected").val(jQuery(this).find('option:selected').val());
+
+  jQuery(".push_selecr_var").val(show_sel_val);*/
+  
+  function handleInventoryChange() {
+    
+    setTimeout(function() {
+      let inventory = jQuery("#product-selectors").find("option:selected").attr('data-attr');
+      let qtyValue = jQuery("#quantity").attr('value');
+      let label = jQuery("#product-selectors").find("option:selected").html();
+      label = label.toLowerCase();
+     
+      let policy = jQuery("#product-selectors").find("option:selected").attr('data-policy');
+      console.log("policy", policy);
+      if( policy != "continue" ) {
+        // inventory - how much we have in stock
+        // qtyValue = how much required
+
+        if( qtyValue > inventory ) {
+          jQuery("#product-add-to-cartt").css("pointer-events","none");
+          jQuery("#product-add-to-cartt").attr("disabled",true);
+          jQuery(".product-inventory").find("span").addClass("outofstock").removeClass("instock").text("Out of Stock");
+        } else {
+       //   jQuery("#product-add-to-cartt").removeAttr("style");
+          jQuery("#product-add-to-cartt").removeAttr("disabled");
+          jQuery(".product-inventory").find("span").addClass("instock").removeClass("outofstock").text("In Stock");
+        }
+      } else {
+        //jQuery("#product-add-to-cartt").removeAttr("style");
+        jQuery("#product-add-to-cartt").removeAttr("disabled");
+        jQuery(".product-inventory").find("span").addClass("instock").removeClass("outofstock").text("In Stock");
+      }
+      
+        
+    }, 100);
+    
+    
+  }
+  
+  jQuery(document).ready(function() {
+     jQuery(".show_onc").hide();
+    jQuery(".text_error").hide();
+      jQuery("#product-add-to-cartt").removeAttr("disabled");
+    try {
+      setTimeout(function() {
+        jQuery(".single-option-selector").val(".single-option-selector option:first").trigger("change");
+         var selectcat = jQuery(".single-option-selector").find('option:eq(0)').val();
+         // if(selectcat != 'Select Limit'){
+          if(window.location.href.indexOf("nameplate-necklace?") > -1 ){
+            	let selectted_val =  jQuery(".single-option-selector").find('option:eq(0)').val();
+             jQuery(".custom_input_data").on("keyup change",function(){
+          console.log(parseInt(jQuery(this).val().length));
+          console.log(parseInt(selectted_val));
+        if(jQuery(this).val() != '' && parseInt(jQuery(this).val().length) > parseInt(selectted_val)){
+         jQuery(".text_error").show().html('Length must be' + " " +   selectted_val + " " +  'letters');
+             jQuery("#product-add-to-cartt").attr("disabled",true);
+           jQuery("#product-add-to-cartt").css("pointer-events","none");
+        }else{
+            jQuery(".text_error").hide();
+           jQuery("#product-add-to-cartt").css("pointer-events","all");
+            jQuery("#product-add-to-cartt").removeAttr("disabled");
+        }
+        });
+          
+            
+          }else{
+           new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+            var variantId = $(this).find(":selected").val();
+
+            jQuery(".single-option-selector").prop('selectedIndex', variantId).trigger('change');
+          }
+        // On page load
+        handleInventoryChange();
+	
+        // jQuery(".custom_input_data").attr('maxlength',selectted_val);
+      //  var product_name_string = 'nameplate-necklace?';
+       
+        //if(selectcat == 'Select Limit' ||  window.location.href.indexOf("nameplate-necklace?") > -1 ){
+          if(window.location.href.indexOf("nameplate-necklace?") > -1 ){
+           jQuery(".show_onc").show();
+          jQuery("option[value='Select Limit']").remove();
+          	let selectted_val =  jQuery(".single-option-selector").find('option:eq(0)').val();
+        jQuery(".custom_input_data").on("keyup change",function(){
+          console.log(parseInt(jQuery(this).val().length));
+          console.log(parseInt(selectted_val));
+        if(jQuery(this).val() != '' && parseInt(jQuery(this).val().length) > parseInt(selectted_val)){
+         jQuery(".text_error").show().html('Length must be' + " " +   selectted_val + " " +  'letters');
+             jQuery("#product-add-to-cartt").attr("disabled",true);
+           jQuery("#product-add-to-cartt").css("pointer-events","none");
+        }else{
+            jQuery(".text_error").hide();
+           jQuery("#product-add-to-cartt").css("pointer-events","all");
+            jQuery("#product-add-to-cartt").removeAttr("disabled");
+        }
+        });
+          
+         
+        
+         
+          jQuery("option[value='Default Val']").remove();
+       
+                                    
+          // jQuery(".show_onc").show();
+           jQuery("#custom_input_data").val('');
+           jQuery(".text_error").hide();
+          let selectted_values = jQuery(this).val();
+          
+            jQuery("#product-add-to-cartt").removeAttr("disabled");
+            jQuery(".custom_input_data").on("keyup change",function(){
+          console.log(parseInt(jQuery(this).val().length));
+          console.log(parseInt(selectted_values));
+        //   jQuery(".custom_input_data").attr('maxlength',selectted_val);
+       if(jQuery(this).val() != '' && parseInt(jQuery(this).val().length) > parseInt(selectted_values)){
+         jQuery(".text_error").show().html('Length must be' + " " +   selectted_values + " " +  'letters');
+          jQuery("#product-add-to-cartt").attr("disabled","disabled");
+         jQuery("#product-add-to-cartt").css("pointer-events","none");
+        }else{
+            jQuery(".text_error").hide();
+            jQuery("#product-add-to-cartt").removeAttr("disabled");
+           jQuery("#product-add-to-cartt").css("pointer-events","all");
+        }
+            handleInventoryChange();
+        });
+        
+        jQuery(".down-qty, .up-qty").on("click", function() {
+        	handleInventoryChange();
+        });
+         });
+           }else { 
+        jQuery(".input_label").hide();
+        }
+      }, 1000);
+        
+      } catch(e) {
+      console.warn('WARN:', e);
+     }
+    
+    });
+    
+    
+      //   var newarr = [];
+      // var options = jQuery('#product-selectors option');
+      // var newarr = jQuery("select#product-selectors option").map(function() {return jQuery(this).attr("data-attr");}); 
+      //      var texts = []; 
+
+      //     setTimeout(function(){
+
+      //       jQuery(".single-option-selector > option").each(function(index){
+
+      //       jQuery(this).attr("data-attr",newarr[index]);   
+
+      //     }); 
+
+
+
+      //       if(jQuery(".single-option-selector").find("option:selected").attr("data-attr") < 1){
+      //        jQuery("#product-add-to-cartt").css("pointer-events","none");
+      //             jQuery("#product-add-to-cartt").attr("disabled",true);
+      //         jQuery(".product-inventory").find("span").addClass("outofstock").removeClass("instock").text("Out of Stock");
+      //     } 
+      //       jQuery(".single-option-selector").change(function(){
+      //           if(jQuery(".single-option-selector").find("option:selected").attr("data-attr") < 1){
+      //        jQuery("#product-add-to-cartt").css("pointer-events","none");
+      //               jQuery("#product-add-to-cartt").attr("disabled",true);
+      //             jQuery(".product-inventory").find("span").addClass("outofstock").removeClass("instock").text("Out of Stock");
+      //          } else{
+      //             jQuery("#product-add-to-cartt").removeAttr("style");
+      //              jQuery("#product-add-to-cartt").removeAttr("disabled");
+      //            jQuery(".product-inventory").find("span").addClass("instock").removeClass("outofstock").text("In Stock");
+      //          }
+      //       });
+      //         },1000);
+ 
+
+    
+</script>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 48%;
+    margin-top: 1%;
+}
+/* The Modal (background) */
+.modal {
+      display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 25%;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+  .button_style {
+    text-align: left;
+    border-bottom: 1px solid black !important;
+    border: none;
+    padding: 0px;
+    margin: 10px 0px;
+}
+</style>
